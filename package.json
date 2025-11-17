@@ -1,0 +1,27 @@
+{
+  "name": "resumate",
+  "version": "0.1.0",
+  "description": "AI-powered resume optimization tool",
+  "main": "index.html",
+  "scripts": {
+    "start": "python3 -m http.server 8000",
+    "test": "echo \"Tests coming soon\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ry-ops/ResuMate.git"
+  },
+  "keywords": [
+    "resume",
+    "ats",
+    "job-search",
+    "ai",
+    "claude"
+  ],
+  "author": "ry-ops",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ry-ops/ResuMate/issues"
+  },
+  "homepage": "https://github.com/ry-ops/ResuMate#readme"
+}

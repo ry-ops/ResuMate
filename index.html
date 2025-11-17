@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResuMate - AI-Powered Resume Optimization</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 ResuMate</h1>
+            <p class="tagline">AI-powered resume optimization that gets you noticed</p>
+        </header>
+
+        <main>
+            <!-- Resume Input Section -->
+            <section class="card">
+                <h2>📄 Your Resume</h2>
+                <div class="input-group">
+                    <label for="resume-file" class="file-upload-label">
+                        <span class="upload-icon">📎</span>
+                        Upload Resume (PDF, DOC, DOCX, TXT)
+                        <input type="file" id="resume-file" accept=".pdf,.doc,.docx,.txt" onchange="handleResumeUpload(event)">
+                    </label>
+                    <div class="divider">OR</div>
+                    <textarea
+                        id="resume-text"
+                        placeholder="Paste your resume text here..."
+                        rows="10"
+                        oninput="handleResumeInput()"></textarea>
+                </div>
+            </section>
+
+            <!-- Job Description Input Section -->
+            <section class="card">
+                <h2>💼 Job Description</h2>
+                <div class="input-group">
+                    <label for="job-file" class="file-upload-label">
+                        <span class="upload-icon">📎</span>
+                        Upload Job Description
+                        <input type="file" id="job-file" accept=".pdf,.doc,.docx,.txt" onchange="handleJobUpload(event)">
+                    </label>
+                    <div class="divider">OR</div>
+                    <textarea
+                        id="job-text"
+                        placeholder="Paste the job description here..."
+                        rows="10"
+                        oninput="handleJobInput()"></textarea>
+                </div>
+            </section>
+
+            <!-- API Key Section -->
+            <section class="card">
+                <h2>🔑 Claude AI API Key</h2>
+                <div class="input-group">
+                    <input
+                        type="password"
+                        id="api-key"
+                        placeholder="Enter your Claude API key (sk-ant-...)"
+                        oninput="handleApiKeyInput()">
+                    <small class="help-text">
+                        Get your API key from <a href="https://console.anthropic.com/" target="_blank">Anthropic Console</a>.
+                        Your key is stored locally and never sent to our servers.
+                    </small>
+                </div>
+            </section>
+
+            <!-- Analyze Button -->
+            <div class="action-section">
+                <button id="analyze-btn" class="btn-primary" onclick="analyzeResume()" disabled>
+                    ✨ Analyze Resume
+                </button>
+            </div>
+
+            <!-- Results Section -->
+            <section id="results-section" class="card results-card" style="display: none;">
+                <h2>📊 Analysis Results</h2>
+                <div id="loading" class="loading" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Analyzing with Claude AI...</p>
+                </div>
+                <div id="results-content"></div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Built with ❤️ using Claude AI | <a href="https://github.com/ry-ops/ResuMate" target="_blank">GitHub</a></p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

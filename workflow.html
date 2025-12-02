@@ -715,15 +715,33 @@
             // Step 1: Resume upload
             const resumeFile = document.getElementById('resume-file');
             if (resumeFile) {
+                console.log('[Workflow] Attaching resume file upload listener');
                 resumeFile.addEventListener('change', async (e) => {
-                    if (e.target.files[0] && workflowIntegration) {
-                        try {
-                            await workflowIntegration.handleResumeUpload(e.target.files[0]);
-                        } catch (error) {
-                            console.error('[Workflow] Resume upload error:', error);
-                        }
+                    console.log('[Workflow] Resume file selected');
+                    console.log('[Workflow] File:', e.target.files[0]?.name);
+                    console.log('[Workflow] workflowIntegration exists:', !!workflowIntegration);
+
+                    if (!e.target.files[0]) {
+                        console.warn('[Workflow] No file selected');
+                        return;
+                    }
+
+                    if (!workflowIntegration) {
+                        console.error('[Workflow] workflowIntegration not initialized!');
+                        alert('System not initialized. Please reload the page.');
+                        return;
+                    }
+
+                    try {
+                        await workflowIntegration.handleResumeUpload(e.target.files[0]);
+                    } catch (error) {
+                        console.error('[Workflow] Resume upload error:', error);
+                        alert('Failed to upload resume: ' + error.message);
                     }
                 });
+                console.log('[Workflow] Resume file upload listener attached');
+            } else {
+                console.warn('[Workflow] Resume file input not found!');
             }
 
             const resumeText = document.getElementById('resume-text');
@@ -741,17 +759,35 @@
             const importJobBtn = document.getElementById('import-job-btn');
 
             if (importJobBtn && jobUrlInput) {
+                console.log('[Workflow] Attaching job import button listener');
                 importJobBtn.addEventListener('click', async () => {
+                    console.log('[Workflow] Import button clicked');
                     const url = jobUrlInput.value.trim();
-                    if (url && workflowIntegration) {
-                        try {
-                            await workflowIntegration.fetchJobFromURL(url);
-                            checkStep1Complete();
-                        } catch (error) {
-                            console.error('[Workflow] Job fetch error:', error);
-                        }
+                    console.log('[Workflow] URL:', url);
+                    console.log('[Workflow] workflowIntegration exists:', !!workflowIntegration);
+
+                    if (!url) {
+                        alert('Please enter a job URL');
+                        return;
+                    }
+
+                    if (!workflowIntegration) {
+                        console.error('[Workflow] workflowIntegration not initialized!');
+                        alert('System not initialized. Please reload the page.');
+                        return;
+                    }
+
+                    try {
+                        await workflowIntegration.fetchJobFromURL(url);
+                        checkStep1Complete();
+                    } catch (error) {
+                        console.error('[Workflow] Job fetch error:', error);
+                        alert('Failed to fetch job: ' + error.message);
                     }
                 });
+                console.log('[Workflow] Job import button listener attached');
+            } else {
+                console.warn('[Workflow] Import button or URL input not found!', { importJobBtn: !!importJobBtn, jobUrlInput: !!jobUrlInput });
             }
 
             const jobText = document.getElementById('job-text');

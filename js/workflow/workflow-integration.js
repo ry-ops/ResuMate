@@ -105,6 +105,12 @@ class WorkflowIntegration {
                 this.state.resumeText = result.text;
                 this.state.resumeParsed = result;
 
+                // Update resume text area so user can see the parsed content
+                const resumeTextArea = document.getElementById('resume-text');
+                if (resumeTextArea) {
+                    resumeTextArea.value = result.text;
+                }
+
                 // Save to DataBridge
                 if (this.dataBridge) {
                     this.dataBridge.saveResume(result.text, result);

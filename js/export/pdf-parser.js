@@ -1,7 +1,15 @@
 // PDF Parser Module
 // Uses pdf.js to extract text from PDF files
 
-const pdfjsLib = require('pdfjs-dist/legacy/build/pdf');
+// Use dynamic import for ESM module (pdfjs-dist v4+)
+let pdfjsLib = null;
+
+async function getPdfjsLib() {
+    if (!pdfjsLib) {
+        pdfjsLib = await import('pdfjs-dist/legacy/build/pdf.mjs');
+    }
+    return pdfjsLib;
+}
 
 /**
  * Extract text from PDF buffer
@@ -10,8 +18,10 @@ const pdfjsLib = require('pdfjs-dist/legacy/build/pdf');
  */
 async function parsePDF(pdfBuffer) {
     try {
+        const pdfjs = await getPdfjsLib();
+
         // Load the PDF document
-        const loadingTask = pdfjsLib.getDocument({
+        const loadingTask = pdfjs.getDocument({
             data: new Uint8Array(pdfBuffer)
         });
 

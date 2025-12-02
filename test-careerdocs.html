@@ -678,6 +678,12 @@
         <div class="header">
             <h1>Career Documents Generator</h1>
             <p>Create professional executive bios, status inquiry letters, and personal brand statements</p>
+            <div style="margin-top: 1rem;">
+                <button onclick="exportCompletePackage()" class="btn-primary" style="padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; border: none;">
+                    📦 Export Complete Package
+                </button>
+                <span id="package-status" style="margin-left: 1rem; font-size: 0.9rem; color: var(--text-muted);"></span>
+            </div>
         </div>
 
         <div class="tabs">
@@ -1107,6 +1113,11 @@
         </div>
     </div>
 
+    <!-- Core Data Management -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="js/core/data-bridge.js"></script>
+    <script src="js/core/package-manager.js"></script>
+
     <!-- Load Career Documents Scripts -->
     <script src="js/utils/tooltips.js"></script>
     <script src="js/utils/onboarding.js"></script>
@@ -1167,12 +1178,47 @@
 
         // Initialize on load
         document.addEventListener('DOMContentLoaded', () => {
-            // Load saved API key
-            const savedKey = localStorage.getItem('claude_api_key');
-            if (savedKey) {
-                document.getElementById('bio-api-key').value = savedKey;
-                document.getElementById('inquiry-api-key').value = savedKey;
-                document.getElementById('brand-api-key').value = savedKey;
+            // Load data from DataBridge if available
+            if (window.dataBridge) {
+                const userData = window.dataBridge.getUserData();
+
+                // Load API key from preferences
+                const apiKey = userData.preferences?.apiKey || localStorage.getItem('claude_api_key');
+                if (apiKey) {
+                    document.getElementById('bio-api-key').value = apiKey;
+                    document.getElementById('inquiry-api-key').value = apiKey;
+                    document.getElementById('brand-api-key').value = apiKey;
+                }
+
+                // Load user info
+                if (userData.user) {
+                    const bioNameInput = document.getElementById('bio-name');
+                    const bioTitleInput = document.getElementById('bio-title');
+
+                    if (bioNameInput && userData.user.name) {
+                        bioNameInput.value = userData.user.name;
+                    }
+                    // Can add more auto-fill logic here
+                }
+
+                // Load job data
+                if (userData.job?.title && userData.job?.company) {
+                    const inquiryJobInput = document.getElementById('inquiry-job-title');
+                    const inquiryCompanyInput = document.getElementById('inquiry-company-name');
+
+                    if (inquiryJobInput) inquiryJobInput.value = userData.job.title;
+                    if (inquiryCompanyInput) inquiryCompanyInput.value = userData.job.company;
+                }
+
+                console.log('[Career Docs] Loaded user data from DataBridge');
+            } else {
+                // Fallback to legacy localStorage
+                const savedKey = localStorage.getItem('claude_api_key');
+                if (savedKey) {
+                    document.getElementById('bio-api-key').value = savedKey;
+                    document.getElementById('inquiry-api-key').value = savedKey;
+                    document.getElementById('brand-api-key').value = savedKey;
+                }
             }
 
             // Setup tag inputs
@@ -1189,7 +1235,75 @@
 
             // Update API key status indicator
             updateApiKeyStatus();
+
+            // Update package status
+            updatePackageStatus();
         });
+
+        // Export complete package
+        async function exportCompletePackage() {
+            if (!window.packageManager) {
+                alert('Package manager not initialized. Please refresh the page.');
+                return;
+            }
+
+            const status = window.packageManager.getPackageStatus();
+
+            if (!status.readyForExport) {
+                alert('No documents generated yet. Please generate at least one document before exporting.');
+                return;
+            }
+
+            const statusButton = document.querySelector('button[onclick="exportCompletePackage()"]');
+            statusButton.disabled = true;
+            statusButton.textContent = '📦 Exporting...';
+
+            try {
+                const success = await window.packageManager.exportPackage('job-application-package');
+
+                if (success) {
+                    alert(`Package exported successfully!\n\nIncluded ${status.completionPercentage}% of documents.\n\nCheck your downloads folder.`);
+                    statusButton.textContent = '📦 Export Complete Package';
+                } else {
+                    alert('Export failed. Please try again.');
+                    statusButton.textContent = '📦 Export Complete Package';
+                }
+            } catch (error) {
+                console.error('[Career Docs] Export error:', error);
+                alert('Export failed: ' + error.message);
+                statusButton.textContent = '📦 Export Complete Package';
+            } finally {
+                statusButton.disabled = false;
+            }
+        }
+
+        // Update package status indicator
+        function updatePackageStatus() {
+            if (!window.packageManager) {
+                return;
+            }
+
+            const status = window.packageManager.getPackageStatus();
+            const statusEl = document.getElementById('package-status');
+
+            if (statusEl) {
+                const documentsReady = [
+                    status.resume ? 'Resume' : null,
+                    status.coverLetter ? 'Cover Letter' : null,
+                    status.executiveBio ? 'Executive Bio' : null,
+                    status.brandStatement ? 'Brand Statement' : null,
+                    status.statusInquiry ? 'Status Inquiry' : null
+                ].filter(Boolean);
+
+                if (documentsReady.length > 0) {
+                    statusEl.textContent = `${status.completionPercentage}% complete (${documentsReady.join(', ')})`;
+                    statusEl.style.color = 'var(--success)';
+                } else {
+                    statusEl.textContent = 'No documents yet';
+                    statusEl.style.color = 'var(--text-muted)';
+                }
+            }
+        }
 
         // Tab switching
         function switchTab(tabName) {
@@ -1301,6 +1415,18 @@
                     document.getElementById('bio-content').textContent = result.content;
                     document.getElementById('bio-wordcount').textContent = `Word count: ${result.metadata.wordCount}`;
                     document.getElementById('bio-output').classList.add('visible');
+
+                    // Save to PackageManager
+                    if (window.packageManager) {
+                        window.packageManager.addDocument('executiveBio', {
+                            content: result.content,
+                            format: 'text',
+                            metadata: result.metadata
+                        });
+                        console.log('[Career Docs] Saved executive bio to PackageManager');
+                        updatePackageStatus();
+                    }
+
                     showStatus('bio', 'Bio generated successfully!', 'success');
                 } else {
                     showStatus('bio', result.error || 'Generation failed', 'error');
@@ -1338,6 +1464,18 @@
                     document.getElementById('inquiry-content').textContent = result.content;
                     document.getElementById('inquiry-wordcount').textContent = `Word count: ${result.metadata.wordCount}`;
                     document.getElementById('inquiry-output').classList.add('visible');
+
+                    // Save to PackageManager
+                    if (window.packageManager) {
+                        window.packageManager.addDocument('statusInquiry', {
+                            content: result.content,
+                            format: 'text',
+                            metadata: result.metadata
+                        });
+                        console.log('[Career Docs] Saved status inquiry to PackageManager');
+                        updatePackageStatus();
+                    }
+
                     showStatus('inquiry', 'Letter generated successfully!', 'success');
                 } else {
                     showStatus('inquiry', result.error || 'Generation failed', 'error');
@@ -1377,6 +1515,18 @@
                     document.getElementById('brand-wordcount').textContent = `Word count: ${result.metadata.wordCount}`;
                     document.getElementById('brand-output').classList.add('visible');
                     document.getElementById('brand-all-output').classList.remove('visible');
+
+                    // Save to PackageManager
+                    if (window.packageManager) {
+                        window.packageManager.addDocument('brandStatement', {
+                            content: result.content,
+                            format: 'text',
+                            metadata: result.metadata
+                        });
+                        console.log('[Career Docs] Saved brand statement to PackageManager');
+                        updatePackageStatus();
+                    }
+
                     showStatus('brand', 'Statement generated successfully!', 'success');
                 } else {
                     showStatus('brand', result.error || 'Generation failed', 'error');

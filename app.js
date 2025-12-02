@@ -11,7 +11,36 @@ const state = {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', async () => {
-    // Load API key from localStorage
+    // Load data from DataBridge if available
+    if (window.dataBridge) {
+        const userData = window.dataBridge.getUserData();
+
+        // Load resume text
+        if (userData.resume?.text) {
+            state.resumeText = userData.resume.text;
+            document.getElementById('resume-text').value = userData.resume.text;
+            console.log('[ResuMate] Loaded resume from DataBridge');
+        }
+
+        // Load job description
+        if (userData.job?.description) {
+            state.jobText = userData.job.description;
+            document.getElementById('job-text').value = userData.job.description;
+            console.log('[ResuMate] Loaded job description from DataBridge');
+        }
+
+        // Load API key from preferences
+        if (userData.preferences?.apiKey) {
+            state.apiKey = userData.preferences.apiKey;
+        }
+    }
+
+    // Fallback to legacy localStorage for API key
+    if (!state.apiKey) {
+        state.apiKey = localStorage.getItem('claude_api_key') || '';
+    }
+
+    // Load API key into input
     if (state.apiKey) {
         document.getElementById('api-key').value = state.apiKey;
     }
@@ -67,6 +96,12 @@ async function handleResumeUpload(event) {
         state.resumeText = text;
         textarea.value = text;
         textarea.disabled = false;
+
+        // Save to DataBridge
+        if (window.dataBridge) {
+            window.dataBridge.saveResume(text);
+        }
+
         updateAnalyzeButton();
     } catch (error) {
         textarea.value = '';
@@ -102,6 +137,12 @@ async function handleJobUpload(event) {
         state.jobText = text;
         textarea.value = text;
         textarea.disabled = false;
+
+        // Save to DataBridge
+        if (window.dataBridge) {
+            window.dataBridge.saveJob(text);
+        }
+
         updateAnalyzeButton();
     } catch (error) {
         textarea.value = '';
@@ -113,19 +154,38 @@ async function handleJobUpload(event) {
 // Handle resume text input
 function handleResumeInput() {
     state.resumeText = document.getElementById('resume-text').value;
+
+    // Save to DataBridge
+    if (window.dataBridge) {
+        window.dataBridge.saveResume(state.resumeText);
+    }
+
     updateAnalyzeButton();
 }
 
 // Handle job description text input
 function handleJobInput() {
     state.jobText = document.getElementById('job-text').value;
+
+    // Save to DataBridge
+    if (window.dataBridge) {
+        window.dataBridge.saveJob(state.jobText);
+    }
+
     updateAnalyzeButton();
 }
 
 // Handle API key input
 function handleApiKeyInput() {
     state.apiKey = document.getElementById('api-key').value;
+
+    // Save to both legacy localStorage and DataBridge
     localStorage.setItem('claude_api_key', state.apiKey);
+
+    if (window.dataBridge) {
+        window.dataBridge.updateField('preferences.apiKey', state.apiKey);
+    }
+
     updateAnalyzeButton();
 }
 
@@ -196,6 +256,15 @@ async function analyzeResume() {
 
     try {
         const analysis = await callClaudeAPI();
+
+        // Save analysis to DataBridge
+        if (window.dataBridge) {
+            window.dataBridge.saveAnalysis({
+                analysisText: analysis,
+                timestamp: new Date().toISOString()
+            });
+        }
+
         displayResults(analysis);
     } catch (error) {
         displayError(error.message);
@@ -451,6 +520,12 @@ async function importJobFromURL() {
         // Populate the job description textarea
         jobTextarea.value = data.content;
         state.jobText = data.content;
+
+        // Save to DataBridge
+        if (window.dataBridge) {
+            window.dataBridge.saveJob(data.content, { url: url });
+        }
+
         updateAnalyzeButton();
 
         statusEl.textContent = '✅ Job imported successfully!';

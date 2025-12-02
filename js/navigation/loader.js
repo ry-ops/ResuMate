@@ -71,6 +71,7 @@
     initMobileMenu();
     initShortcutsMenu();
     initKeyboardNav();
+    initProgressIndicator();
   }
 
   /**
@@ -346,6 +347,100 @@
           break;
       }
     });
+  }
+
+  /**
+   * Initialize progress indicator in navigation
+   */
+  function initProgressIndicator() {
+    // Wait for progressTracker to be available
+    if (typeof window.progressTracker === 'undefined') {
+      console.log('[Navigation] ProgressTracker not yet available, will retry');
+      setTimeout(initProgressIndicator, 500);
+      return;
+    }
+
+    const tracker = window.progressTracker;
+    const navbar = document.querySelector('.resumate-navbar');
+
+    if (!navbar) {
+      console.warn('[Navigation] Navbar not found');
+      return;
+    }
+
+    // Create progress indicator container
+    const progressContainer = document.createElement('div');
+    progressContainer.className = 'nav-progress-indicator';
+    progressContainer.setAttribute('aria-live', 'polite');
+
+    // Insert before navbar-actions or at end of navbar-container
+    const navbarContainer = navbar.querySelector('.navbar-container');
+    const navbarActions = navbar.querySelector('.navbar-actions');
+
+    if (navbarActions) {
+      navbarActions.insertAdjacentElement('beforebegin', progressContainer);
+    } else if (navbarContainer) {
+      navbarContainer.appendChild(progressContainer);
+    }
+
+    // Function to update progress display
+    function updateProgressDisplay() {
+      const summary = tracker.getSummary();
+      const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+
+      // Show different displays based on page
+      if (currentPage === 'dashboard.html') {
+        // Don't show on dashboard page
+        progressContainer.style.display = 'none';
+        return;
+      }
+
+      progressContainer.style.display = 'flex';
+
+      // Build progress HTML
+      let html = '';
+
+      if (summary.progress === 100) {
+        // All complete
+        html = `
+          <div class="nav-progress-complete">
+            <span class="nav-progress-icon">🎉</span>
+            <span class="nav-progress-text">Complete!</span>
+          </div>
+        `;
+      } else if (summary.progress > 0) {
+        // In progress
+        const nextStep = summary.nextStep;
+        html = `
+          <div class="nav-progress-active">
+            <span class="nav-progress-label">Step ${summary.completed + 1} of ${summary.total}</span>
+            <div class="nav-progress-bar">
+              <div class="nav-progress-fill" style="width: ${summary.progress}%"></div>
+            </div>
+            ${nextStep ? `<span class="nav-progress-next">${nextStep.icon} ${nextStep.label}</span>` : ''}
+          </div>
+        `;
+      } else {
+        // Not started
+        html = `
+          <a href="index.html" class="nav-progress-start">
+            <span class="nav-progress-icon">🚀</span>
+            <span class="nav-progress-text">Get Started</span>
+          </a>
+        `;
+      }
+
+      progressContainer.innerHTML = html;
+    }
+
+    // Initial render
+    updateProgressDisplay();
+
+    // Listen for progress changes
+    tracker.on('stepCompleted', updateProgressDisplay);
+    tracker.on('progressReset', updateProgressDisplay);
+
+    console.log('[Navigation] Progress indicator initialized');
   }
 
   /**

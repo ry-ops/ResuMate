@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - ResuMate</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/navigation.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Dashboard-specific styles */
+    .dashboard-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--spacing-6);
+    }
+
+    .dashboard-header {
+      margin-bottom: var(--spacing-8);
+    }
+
+    .dashboard-title {
+      font-size: var(--font-size-3xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--spacing-2);
+    }
+
+    .dashboard-subtitle {
+      font-size: var(--font-size-lg);
+      color: var(--color-text-secondary);
+    }
+
+    /* Progress Overview Card */
+    .progress-overview-card {
+      background: var(--color-bg-primary);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-8);
+      margin-bottom: var(--spacing-6);
+      box-shadow: var(--shadow-card);
+    }
+
+    .progress-overview-title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--spacing-6);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-3);
+    }
+
+    /* Progress Tracker Styles */
+    .progress-tracker {
+      margin-bottom: var(--spacing-6);
+    }
+
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--spacing-3);
+    }
+
+    .progress-percentage {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+    }
+
+    .progress-steps {
+      font-size: var(--font-size-base);
+      color: var(--color-text-secondary);
+    }
+
+    .progress-bar-container {
+      height: 24px;
+      background: var(--color-gray-200);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
+      border-radius: var(--radius-full);
+      transition: width var(--transition-slow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    .progress-complete {
+      background: linear-gradient(90deg, var(--color-success), var(--color-success-light));
+    }
+
+    /* Step Checklist */
+    .step-checklist {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-4);
+    }
+
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--spacing-4);
+      padding: var(--spacing-5);
+      background: var(--color-bg-secondary);
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      transition: var(--transition-all);
+    }
+
+    .step-item:hover {
+      border-color: var(--color-primary-light);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .step-item--complete {
+      background: var(--color-success-bg);
+      border-color: var(--color-success);
+    }
+
+    .step-indicator {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: var(--font-weight-bold);
+      font-size: var(--font-size-lg);
+    }
+
+    .step-item--incomplete .step-indicator {
+      background: var(--color-gray-200);
+      color: var(--color-text-secondary);
+    }
+
+    .step-item--complete .step-indicator {
+      background: var(--color-success);
+      color: white;
+    }
+
+    .step-check {
+      font-size: var(--font-size-xl);
+    }
+
+    .step-content {
+      flex: 1;
+    }
+
+    .step-title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--spacing-2);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-2);
+    }
+
+    .step-icon {
+      font-size: var(--font-size-xl);
+    }
+
+    .step-description {
+      font-size: var(--font-size-base);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--spacing-3);
+    }
+
+    .step-timestamp {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-muted);
+      font-style: italic;
+    }
+
+    .step-action {
+      padding: var(--spacing-2) var(--spacing-5);
+      font-size: var(--font-size-sm);
+      margin-top: var(--spacing-3);
+    }
+
+    /* Grid Layout for Cards */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--spacing-6);
+      margin-bottom: var(--spacing-8);
+    }
+
+    .dashboard-card {
+      background: var(--color-bg-primary);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-6);
+      box-shadow: var(--shadow-card);
+      transition: var(--transition-all);
+    }
+
+    .dashboard-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .dashboard-card-header {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-3);
+      margin-bottom: var(--spacing-4);
+    }
+
+    .dashboard-card-icon {
+      font-size: var(--font-size-3xl);
+    }
+
+    .dashboard-card-title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+    }
+
+    .dashboard-card-body {
+      margin-bottom: var(--spacing-4);
+    }
+
+    .dashboard-card-stat {
+      font-size: var(--font-size-3xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+      margin-bottom: var(--spacing-2);
+    }
+
+    .dashboard-card-label {
+      font-size: var(--font-size-base);
+      color: var(--color-text-secondary);
+    }
+
+    /* Action Buttons */
+    .dashboard-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-4);
+      margin-top: var(--spacing-6);
+    }
+
+    .action-button {
+      flex: 1;
+      min-width: 200px;
+      padding: var(--spacing-5) var(--spacing-6);
+      background: var(--color-primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-lg);
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+      cursor: pointer;
+      transition: var(--transition-all);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--spacing-3);
+      text-decoration: none;
+    }
+
+    .action-button:hover {
+      background: var(--color-primary-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .action-button--secondary {
+      background: var(--color-gray-600);
+    }
+
+    .action-button--secondary:hover {
+      background: var(--color-gray-700);
+    }
+
+    .action-button--success {
+      background: var(--color-success);
+    }
+
+    .action-button--success:hover {
+      background: var(--color-success-dark);
+    }
+
+    /* Recent Activity */
+    .recent-activity {
+      background: var(--color-bg-primary);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-6);
+      box-shadow: var(--shadow-card);
+    }
+
+    .recent-activity-title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--spacing-4);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-2);
+    }
+
+    .activity-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .activity-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--spacing-3);
+      padding: var(--spacing-3) 0;
+      border-bottom: 1px solid var(--color-border-light);
+    }
+
+    .activity-item:last-child {
+      border-bottom: none;
+    }
+
+    .activity-icon {
+      font-size: var(--font-size-xl);
+      flex-shrink: 0;
+    }
+
+    .activity-content {
+      flex: 1;
+    }
+
+    .activity-title {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-primary);
+      margin-bottom: var(--spacing-1);
+    }
+
+    .activity-time {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-muted);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: var(--spacing-8);
+      color: var(--color-text-muted);
+    }
+
+    .empty-state-icon {
+      font-size: 64px;
+      margin-bottom: var(--spacing-4);
+    }
+
+    .empty-state-title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: var(--spacing-2);
+    }
+
+    .empty-state-description {
+      font-size: var(--font-size-base);
+      margin-bottom: var(--spacing-6);
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .dashboard-container {
+        padding: var(--spacing-4);
+      }
+
+      .dashboard-title {
+        font-size: var(--font-size-2xl);
+      }
+
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .dashboard-actions {
+        flex-direction: column;
+      }
+
+      .action-button {
+        min-width: 100%;
+      }
+
+      .progress-overview-card {
+        padding: var(--spacing-5);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="main-content" tabindex="-1">
+    <main class="dashboard-container">
+      <!-- Dashboard Header -->
+      <div class="dashboard-header">
+        <h1 class="dashboard-title">Your Resume Dashboard</h1>
+        <p class="dashboard-subtitle">Track your progress and manage your job application journey</p>
+      </div>
+
+      <!-- Progress Overview -->
+      <div class="progress-overview-card">
+        <h2 class="progress-overview-title">
+          <span>📊</span>
+          Your Progress
+        </h2>
+        <div id="progress-bar-container"></div>
+        <div id="step-checklist-container"></div>
+      </div>
+
+      <!-- Quick Stats -->
+      <div class="dashboard-grid">
+        <div class="dashboard-card">
+          <div class="dashboard-card-header">
+            <span class="dashboard-card-icon">✅</span>
+            <h3 class="dashboard-card-title">Completed Steps</h3>
+          </div>
+          <div class="dashboard-card-body">
+            <div class="dashboard-card-stat" id="completed-count">0</div>
+            <div class="dashboard-card-label">out of 5 steps</div>
+          </div>
+        </div>
+
+        <div class="dashboard-card">
+          <div class="dashboard-card-header">
+            <span class="dashboard-card-icon">📄</span>
+            <h3 class="dashboard-card-title">Resume Status</h3>
+          </div>
+          <div class="dashboard-card-body">
+            <div class="dashboard-card-stat" id="resume-status">Not Started</div>
+            <div class="dashboard-card-label" id="resume-name">Upload to begin</div>
+          </div>
+        </div>
+
+        <div class="dashboard-card">
+          <div class="dashboard-card-header">
+            <span class="dashboard-card-icon">💼</span>
+            <h3 class="dashboard-card-title">Job Target</h3>
+          </div>
+          <div class="dashboard-card-body">
+            <div class="dashboard-card-stat" id="job-status">No Job Added</div>
+            <div class="dashboard-card-label" id="job-details">Add job description</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="dashboard-actions" id="dashboard-actions">
+        <!-- Dynamic actions will be inserted here -->
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="recent-activity">
+        <h2 class="recent-activity-title">
+          <span>📝</span>
+          Recent Activity
+        </h2>
+        <ul class="activity-list" id="activity-list">
+          <li class="empty-state">
+            <div class="empty-state-icon">📭</div>
+            <div class="empty-state-title">No activity yet</div>
+            <div class="empty-state-description">Start by uploading your resume to track your progress</div>
+          </li>
+        </ul>
+      </div>
+    </main>
+
+    <footer>
+      <p>Built with ❤️ using Claude AI | <a href="https://github.com/ry-ops/ResuMate" target="_blank">GitHub</a></p>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/core/progress-tracker.js"></script>
+  <script src="js/core/smart-navigation.js"></script>
+  <script src="js/navigation/loader.js"></script>
+
+  <script>
+    // Initialize Dashboard
+    document.addEventListener('DOMContentLoaded', function() {
+      const tracker = window.progressTracker;
+      const nav = window.smartNavigation;
+
+      if (!tracker) {
+        console.error('[Dashboard] ProgressTracker not available');
+        return;
+      }
+
+      // Render progress bar
+      tracker.renderProgressBar('#progress-bar-container', {
+        showPercentage: true,
+        showSteps: true,
+        size: 'large',
+        style: 'default'
+      });
+
+      // Render step checklist
+      tracker.renderStepChecklist('#step-checklist-container', {
+        showTimestamps: true,
+        interactive: true,
+        compact: false
+      });
+
+      // Update quick stats
+      updateQuickStats();
+
+      // Render quick actions
+      renderQuickActions();
+
+      // Render recent activity
+      renderRecentActivity();
+
+      // Listen for progress changes
+      tracker.on('stepCompleted', function() {
+        updateQuickStats();
+        renderQuickActions();
+        renderRecentActivity();
+      });
+
+      function updateQuickStats() {
+        const summary = tracker.getSummary();
+
+        // Completed count
+        document.getElementById('completed-count').textContent = summary.completed;
+
+        // Resume status
+        const resumeUploaded = tracker.isComplete('resume_uploaded');
+        const resumeTailored = tracker.isComplete('resume_tailored');
+
+        const statusEl = document.getElementById('resume-status');
+        const nameEl = document.getElementById('resume-name');
+
+        if (resumeTailored) {
+          statusEl.textContent = 'Tailored ✨';
+          statusEl.style.color = 'var(--color-success)';
+        } else if (resumeUploaded) {
+          statusEl.textContent = 'Uploaded ✓';
+          statusEl.style.color = 'var(--color-info)';
+        } else {
+          statusEl.textContent = 'Not Started';
+          statusEl.style.color = 'var(--color-text-muted)';
+        }
+
+        nameEl.textContent = summary.metadata.resumeName || (resumeUploaded ? 'Resume ready' : 'Upload to begin');
+
+        // Job status
+        const jobAdded = tracker.isComplete('job_added');
+        const jobStatusEl = document.getElementById('job-status');
+        const jobDetailsEl = document.getElementById('job-details');
+
+        if (jobAdded) {
+          jobStatusEl.textContent = 'Added ✓';
+          jobStatusEl.style.color = 'var(--color-success)';
+          jobDetailsEl.textContent = summary.metadata.jobTitle || 'Job description added';
+        } else {
+          jobStatusEl.textContent = 'No Job Added';
+          jobStatusEl.style.color = 'var(--color-text-muted)';
+          jobDetailsEl.textContent = 'Add job description';
+        }
+      }
+
+      function renderQuickActions() {
+        const container = document.getElementById('dashboard-actions');
+        const summary = tracker.getSummary();
+
+        container.innerHTML = '';
+
+        if (summary.allComplete) {
+          // All complete - show download package button
+          const downloadBtn = document.createElement('a');
+          downloadBtn.href = 'test-export.html';
+          downloadBtn.className = 'action-button action-button--success';
+          downloadBtn.innerHTML = '📦 Download Application Package';
+          container.appendChild(downloadBtn);
+
+          // Add "Start New Application" button
+          const newBtn = document.createElement('button');
+          newBtn.className = 'action-button action-button--secondary';
+          newBtn.innerHTML = '🔄 Start New Application';
+          newBtn.onclick = function() {
+            if (confirm('This will reset your progress. Continue?')) {
+              tracker.reset();
+              location.reload();
+            }
+          };
+          container.appendChild(newBtn);
+        } else {
+          // Show next step action
+          const nextStep = summary.nextStep;
+          if (nextStep) {
+            const nextBtn = document.createElement('a');
+            nextBtn.href = nextStep.page;
+            nextBtn.className = 'action-button';
+            nextBtn.innerHTML = `${nextStep.icon} ${nextStep.label}`;
+            container.appendChild(nextBtn);
+          }
+
+          // Show "Go to Home" button
+          const homeBtn = document.createElement('a');
+          homeBtn.href = 'index.html';
+          homeBtn.className = 'action-button action-button--secondary';
+          homeBtn.innerHTML = '🏠 Go to Home';
+          container.appendChild(homeBtn);
+        }
+      }
+
+      function renderRecentActivity() {
+        const container = document.getElementById('activity-list');
+        const steps = tracker.getAllSteps();
+        const completedSteps = steps.filter(s => s.completed).reverse();
+
+        if (completedSteps.length === 0) {
+          container.innerHTML = `
+            <li class="empty-state">
+              <div class="empty-state-icon">📭</div>
+              <div class="empty-state-title">No activity yet</div>
+              <div class="empty-state-description">Start by uploading your resume to track your progress</div>
+            </li>
+          `;
+          return;
+        }
+
+        container.innerHTML = '';
+        completedSteps.slice(0, 5).forEach(step => {
+          const item = document.createElement('li');
+          item.className = 'activity-item';
+          item.innerHTML = `
+            <span class="activity-icon">${step.icon}</span>
+            <div class="activity-content">
+              <div class="activity-title">${step.label}</div>
+              <div class="activity-time">${tracker.formatTimestamp(step.timestamp)}</div>
+            </div>
+          `;
+          container.appendChild(item);
+        });
+      }
+    });
+  </script>
+</body>
+</html>

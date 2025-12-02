@@ -378,6 +378,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.8.2/docx.min.js"></script>
 
+    <!-- Core Data Management -->
+    <script src="js/core/data-bridge.js"></script>
+
     <!-- Export modules -->
     <script src="js/export/pdf-export.js"></script>
     <script src="js/export/docx-export.js"></script>
@@ -394,13 +397,49 @@
         // Global export manager instance
         let exportManager;
 
-        // Check for API key on load
+        // Check for API key and load data on page load
         window.addEventListener('DOMContentLoaded', async () => {
-            const apiKey = localStorage.getItem('claude_api_key');
-            const banner = document.getElementById('api-key-banner');
+            // Load data from DataBridge
+            if (window.dataBridge) {
+                const userData = window.dataBridge.getUserData();
 
-            if (!apiKey) {
-                banner.classList.add('show');
+                // Auto-fill job description if available
+                if (userData.job?.description) {
+                    document.getElementById('job-description').value = userData.job.description;
+                    console.log('[Cover Letter] Loaded job description from DataBridge');
+                }
+
+                // Auto-fill job title and company
+                if (userData.job?.title) {
+                    document.getElementById('job-title').value = userData.job.title;
+                }
+                if (userData.job?.company) {
+                    document.getElementById('company-name').value = userData.job.company;
+                }
+
+                // Auto-fill resume summary from resume text
+                if (userData.resume?.text) {
+                    // Use first 500 characters as summary
+                    const summary = userData.resume.text.substring(0, 500) + '...';
+                    document.getElementById('resume-summary').value = summary;
+                    console.log('[Cover Letter] Auto-filled resume summary from DataBridge');
+                }
+
+                // Check API key from DataBridge first
+                const apiKey = userData.preferences?.apiKey || localStorage.getItem('claude_api_key');
+                const banner = document.getElementById('api-key-banner');
+
+                if (!apiKey) {
+                    banner.classList.add('show');
+                }
+            } else {
+                // Fallback to legacy localStorage
+                const apiKey = localStorage.getItem('claude_api_key');
+                const banner = document.getElementById('api-key-banner');
+
+                if (!apiKey) {
+                    banner.classList.add('show');
+                }
             }
 
             // Initialize export manager

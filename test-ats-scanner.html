@@ -214,6 +214,9 @@
         </div>
     </div>
 
+    <!-- Core Data Management -->
+    <script src="js/core/data-bridge.js"></script>
+
     <!-- Load all modules -->
     <script src="js/analyzer/checks/formatting.js"></script>
     <script src="js/analyzer/checks/structure.js"></script>
@@ -391,32 +394,45 @@
             const sampleType = document.getElementById('sampleSelect').value;
             let resumeData;
 
-            // Load from localStorage if "My Resume" is selected
+            // Load from DataBridge if "My Resume" is selected
             if (sampleType === 'myresume') {
-                const lastAnalysisStr = localStorage.getItem('lastAnalysis');
-                if (!lastAnalysisStr) {
+                let resumeText = null;
+
+                // Try DataBridge first
+                if (window.dataBridge) {
+                    const userData = window.dataBridge.getUserData();
+                    resumeText = userData.resume?.text;
+                    console.log('[ATS Scanner] Loaded resume from DataBridge');
+                }
+
+                // Fallback to legacy localStorage
+                if (!resumeText) {
+                    const lastAnalysisStr = localStorage.getItem('lastAnalysis');
+                    if (lastAnalysisStr) {
+                        try {
+                            const lastAnalysis = JSON.parse(lastAnalysisStr);
+                            resumeText = lastAnalysis.resumeText;
+                            console.log('[ATS Scanner] Loaded resume from legacy localStorage');
+                        } catch (error) {
+                            console.error('[ATS Scanner] Error parsing localStorage:', error);
+                        }
+                    }
+                }
+
+                if (!resumeText) {
                     alert('No resume found. Please analyze your resume on the main page first.');
                     return;
                 }
-                try {
-                    const lastAnalysis = JSON.parse(lastAnalysisStr);
-                    if (!lastAnalysis.resumeText) {
-                        alert('No resume text found in saved data.');
-                        return;
-                    }
-                    // Convert text to resume data format expected by ATS scanner
-                    resumeData = {
-                        sections: [{
-                            id: 'text-1',
-                            type: 'summary',
-                            title: 'Resume',
-                            content: { text: lastAnalysis.resumeText }
-                        }]
-                    };
-                } catch (error) {
-                    alert('Error loading resume from localStorage: ' + error.message);
-                    return;
-                }
+
+                // Convert text to resume data format expected by ATS scanner
+                resumeData = {
+                    sections: [{
+                        id: 'text-1',
+                        type: 'summary',
+                        title: 'Resume',
+                        content: { text: resumeText }
+                    }]
+                };
             } else {
                 resumeData = sampleResumes[sampleType];
                 if (!resumeData) {
@@ -451,32 +467,45 @@
             const sampleType = document.getElementById('sampleSelect').value;
             let resumeData;
 
-            // Load from localStorage if "My Resume" is selected
+            // Load from DataBridge if "My Resume" is selected
             if (sampleType === 'myresume') {
-                const lastAnalysisStr = localStorage.getItem('lastAnalysis');
-                if (!lastAnalysisStr) {
+                let resumeText = null;
+
+                // Try DataBridge first
+                if (window.dataBridge) {
+                    const userData = window.dataBridge.getUserData();
+                    resumeText = userData.resume?.text;
+                    console.log('[ATS Scanner] Loaded resume from DataBridge');
+                }
+
+                // Fallback to legacy localStorage
+                if (!resumeText) {
+                    const lastAnalysisStr = localStorage.getItem('lastAnalysis');
+                    if (lastAnalysisStr) {
+                        try {
+                            const lastAnalysis = JSON.parse(lastAnalysisStr);
+                            resumeText = lastAnalysis.resumeText;
+                            console.log('[ATS Scanner] Loaded resume from legacy localStorage');
+                        } catch (error) {
+                            console.error('[ATS Scanner] Error parsing localStorage:', error);
+                        }
+                    }
+                }
+
+                if (!resumeText) {
                     alert('No resume found. Please analyze your resume on the main page first.');
                     return;
                 }
-                try {
-                    const lastAnalysis = JSON.parse(lastAnalysisStr);
-                    if (!lastAnalysis.resumeText) {
-                        alert('No resume text found in saved data.');
-                        return;
-                    }
-                    // Convert text to resume data format expected by ATS scanner
-                    resumeData = {
-                        sections: [{
-                            id: 'text-1',
-                            type: 'summary',
-                            title: 'Resume',
-                            content: { text: lastAnalysis.resumeText }
-                        }]
-                    };
-                } catch (error) {
-                    alert('Error loading resume from localStorage: ' + error.message);
-                    return;
-                }
+
+                // Convert text to resume data format expected by ATS scanner
+                resumeData = {
+                    sections: [{
+                        id: 'text-1',
+                        type: 'summary',
+                        title: 'Resume',
+                        content: { text: resumeText }
+                    }]
+                };
             } else {
                 resumeData = sampleResumes[sampleType];
                 if (!resumeData) {

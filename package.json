@@ -1,7 +1,7 @@
 {
   "name": "resumate",
-  "version": "0.1.0",
-  "description": "AI-powered resume optimization tool",
+  "version": "2.0.0",
+  "description": "AI-powered career document platform with resume optimization, job tailoring, and comprehensive document generation",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

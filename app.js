@@ -5,15 +5,38 @@ const state = {
     resumeText: '',
     jobText: '',
     apiKey: localStorage.getItem('claude_api_key') || '',
-    analyzing: false
+    analyzing: false,
+    serverHasApiKey: false
 };
 
 // Initialize
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     // Load API key from localStorage
     if (state.apiKey) {
         document.getElementById('api-key').value = state.apiKey;
     }
+
+    // Check if server has API key configured
+    try {
+        const response = await fetch('/api/config');
+        const config = await response.json();
+        state.serverHasApiKey = config.hasServerApiKey;
+
+        // Update API key section hint if server has key
+        if (state.serverHasApiKey) {
+            const helpText = document.querySelector('.help-text');
+            if (helpText) {
+                helpText.innerHTML = `
+                    <span style="color: var(--success-color);">✓ Server API key configured</span> -
+                    You can use the app without entering your own key, or
+                    <a href="https://console.anthropic.com/" target="_blank">get your own from Anthropic Console</a>.
+                `;
+            }
+        }
+    } catch (e) {
+        state.serverHasApiKey = false;
+    }
+
     updateAnalyzeButton();
 });
 
@@ -109,9 +132,10 @@ function handleApiKeyInput() {
 // Update analyze button state
 function updateAnalyzeButton() {
     const button = document.getElementById('analyze-btn');
+    const hasApiKey = state.apiKey.trim() || state.serverHasApiKey;
     const canAnalyze = state.resumeText.trim() &&
                        state.jobText.trim() &&
-                       state.apiKey.trim() &&
+                       hasApiKey &&
                        !state.analyzing;
     button.disabled = !canAnalyze;
 }
@@ -185,6 +209,7 @@ async function analyzeResume() {
 // Call Claude API via backend proxy
 async function callClaudeAPI() {
     // Use backend proxy to avoid CORS issues
+    // Server will use its own API key if none provided
     const response = await fetch('/api/analyze', {
         method: 'POST',
         headers: {
@@ -193,7 +218,7 @@ async function callClaudeAPI() {
         body: JSON.stringify({
             resumeText: state.resumeText,
             jobText: state.jobText,
-            apiKey: state.apiKey
+            apiKey: state.apiKey || null  // Server uses fallback if null
         })
     });
 
@@ -226,7 +251,53 @@ function displayResults(analysisText) {
         `;
     });
 
+    // Add Next Steps section
+    html += `
+        <div class="next-steps-section" style="margin-top: 2rem; padding: 1.5rem; background: linear-gradient(135deg, var(--primary-color) 0%, #4f46e5 100%); border-radius: 12px; color: white;">
+            <h3 style="margin: 0 0 1rem 0; font-size: 1.25rem;">🚀 What's Next?</h3>
+            <p style="margin: 0 0 1.5rem 0; opacity: 0.9;">Based on your analysis, here are recommended next steps:</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                <a href="/test-job-tailor.html" class="next-step-btn" style="display: flex; align-items: center; gap: 0.75rem; padding: 1rem; background: rgba(255,255,255,0.15); border-radius: 8px; color: white; text-decoration: none; transition: all 0.2s;">
+                    <span style="font-size: 1.5rem;">🎯</span>
+                    <div>
+                        <div style="font-weight: 600;">Tailor Resume</div>
+                        <div style="font-size: 0.85rem; opacity: 0.8;">Optimize for this job</div>
+                    </div>
+                </a>
+                <a href="/test-ats-scanner.html" class="next-step-btn" style="display: flex; align-items: center; gap: 0.75rem; padding: 1rem; background: rgba(255,255,255,0.15); border-radius: 8px; color: white; text-decoration: none; transition: all 0.2s;">
+                    <span style="font-size: 1.5rem;">🔍</span>
+                    <div>
+                        <div style="font-weight: 600;">ATS Check</div>
+                        <div style="font-size: 0.85rem; opacity: 0.8;">Scan for compatibility</div>
+                    </div>
+                </a>
+                <a href="/test-coverletter.html" class="next-step-btn" style="display: flex; align-items: center; gap: 0.75rem; padding: 1rem; background: rgba(255,255,255,0.15); border-radius: 8px; color: white; text-decoration: none; transition: all 0.2s;">
+                    <span style="font-size: 1.5rem;">📧</span>
+                    <div>
+                        <div style="font-weight: 600;">Cover Letter</div>
+                        <div style="font-size: 0.85rem; opacity: 0.8;">Generate matching letter</div>
+                    </div>
+                </a>
+                <a href="/test-export.html" class="next-step-btn" style="display: flex; align-items: center; gap: 0.75rem; padding: 1rem; background: rgba(255,255,255,0.15); border-radius: 8px; color: white; text-decoration: none; transition: all 0.2s;">
+                    <span style="font-size: 1.5rem;">💾</span>
+                    <div>
+                        <div style="font-weight: 600;">Export</div>
+                        <div style="font-size: 0.85rem; opacity: 0.8;">Download your resume</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    `;
+
     resultsContent.innerHTML = html;
+
+    // Store analysis data for other pages to use
+    localStorage.setItem('lastAnalysis', JSON.stringify({
+        resumeText: state.resumeText,
+        jobText: state.jobText,
+        analysisText: analysisText,
+        timestamp: new Date().toISOString()
+    }));
 }
 
 // Parse analysis text into structured sections
@@ -329,4 +400,71 @@ function displayError(message) {
             </div>
         </div>
     `;
+}
+
+// Import job from URL
+async function importJobFromURL() {
+    const urlInput = document.getElementById('job-url');
+    const importBtn = document.getElementById('import-job-btn');
+    const statusEl = document.getElementById('job-url-status');
+    const jobTextarea = document.getElementById('job-text');
+
+    const url = urlInput.value.trim();
+
+    if (!url) {
+        statusEl.textContent = '⚠️ Please enter a job URL';
+        statusEl.style.color = 'var(--warning-color)';
+        return;
+    }
+
+    // Validate URL format
+    try {
+        new URL(url);
+    } catch (e) {
+        statusEl.textContent = '⚠️ Please enter a valid URL';
+        statusEl.style.color = 'var(--warning-color)';
+        return;
+    }
+
+    // Show loading state
+    importBtn.disabled = true;
+    importBtn.textContent = 'Importing...';
+    statusEl.textContent = '🔄 Fetching job posting...';
+    statusEl.style.color = 'var(--text-muted)';
+
+    try {
+        // Fetch job content from server
+        const response = await fetch('/api/fetch-job', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ url })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+            throw new Error(data.error || 'Failed to fetch job posting');
+        }
+
+        // Populate the job description textarea
+        jobTextarea.value = data.content;
+        state.jobText = data.content;
+        updateAnalyzeButton();
+
+        statusEl.textContent = '✅ Job imported successfully!';
+        statusEl.style.color = 'var(--success-color)';
+
+        // Clear URL input
+        urlInput.value = '';
+
+    } catch (error) {
+        console.error('Job import error:', error);
+        statusEl.textContent = `❌ ${error.message}`;
+        statusEl.style.color = 'var(--danger-color)';
+    } finally {
+        importBtn.disabled = false;
+        importBtn.textContent = 'Import';
+    }
 }

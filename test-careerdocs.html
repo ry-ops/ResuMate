@@ -1130,13 +1130,27 @@
             'brand-diff': []
         };
 
-        // Update API key status indicator
-        function updateApiKeyStatus() {
-            const statusEl = document.getElementById('api-key-status');
-            const apiKey = localStorage.getItem('claude_api_key');
+        // Track if server has API key configured
+        let serverHasApiKey = false;
 
-            if (apiKey) {
-                statusEl.innerHTML = '✓ API Key configured - Ready to import jobs';
+        // Update API key status indicator (checks server first)
+        async function updateApiKeyStatus() {
+            const statusEl = document.getElementById('api-key-status');
+            const localApiKey = localStorage.getItem('claude_api_key');
+
+            // Check server config
+            try {
+                const response = await fetch('/api/config');
+                const config = await response.json();
+                serverHasApiKey = config.hasServerApiKey;
+            } catch (e) {
+                serverHasApiKey = false;
+            }
+
+            if (serverHasApiKey || localApiKey) {
+                statusEl.innerHTML = serverHasApiKey
+                    ? '✓ Server API Key configured - Ready to import jobs'
+                    : '✓ API Key configured - Ready to import jobs';
                 statusEl.style.background = 'rgba(39, 174, 96, 0.3)';
                 statusEl.style.border = '1px solid rgba(39, 174, 96, 0.5)';
             } else {
@@ -1144,6 +1158,11 @@
                 statusEl.style.background = 'rgba(243, 156, 18, 0.3)';
                 statusEl.style.border = '1px solid rgba(243, 156, 18, 0.5)';
             }
+        }
+
+        // Check if API key is available (server or local)
+        function hasApiKey() {
+            return serverHasApiKey || localStorage.getItem('claude_api_key');
         }
 
         // Initialize on load
@@ -1488,9 +1507,8 @@
                 return;
             }
 
-            // Check for API key FIRST - required for AI parsing
-            const apiKey = localStorage.getItem('claude_api_key');
-            if (!apiKey) {
+            // Check for API key FIRST - required for AI parsing (server or local)
+            if (!hasApiKey()) {
                 alert('Please set your Claude API key first!\n\nScroll down to any tab (Executive Bio, Status Inquiry, or Brand Statement) and enter your API key in the "API Configuration" section, then click "Save Key".');
                 return;
             }
@@ -1544,9 +1562,8 @@
                 return;
             }
 
-            // Check for API key FIRST - required for AI parsing
-            const apiKey = localStorage.getItem('claude_api_key');
-            if (!apiKey) {
+            // Check for API key FIRST - required for AI parsing (server or local)
+            if (!hasApiKey()) {
                 alert('Please set your Claude API key first!\n\nScroll down to any tab (Executive Bio, Status Inquiry, or Brand Statement) and enter your API key in the "API Configuration" section, then click "Save Key".');
                 return;
             }

@@ -12,11 +12,6 @@
 </head>
 <body>
     <div class="container" id="main-content" tabindex="-1">
-        <header>
-            <h1>🎯 ResuMate</h1>
-            <p class="tagline">AI-powered resume optimization that gets you noticed</p>
-        </header>
-
         <main>
             <!-- Preview Layout Container -->
             <div class="preview-layout split-view">
@@ -44,6 +39,28 @@
                     <section class="card">
                         <h2>💼 Job Description</h2>
                         <div class="input-group">
+                            <!-- Job URL Import -->
+                            <div class="job-url-import" style="margin-bottom: 1rem;">
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--text-muted);">
+                                    🔗 Import from URL (LinkedIn, Indeed, etc.)
+                                </label>
+                                <div style="display: flex; gap: 0.5rem;">
+                                    <input
+                                        type="url"
+                                        id="job-url"
+                                        placeholder="https://linkedin.com/jobs/view/..."
+                                        style="flex: 1; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; font-size: 0.9rem;">
+                                    <button
+                                        type="button"
+                                        id="import-job-btn"
+                                        onclick="importJobFromURL()"
+                                        style="padding: 0.75rem 1.25rem; background: var(--primary-color); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 500; white-space: nowrap;">
+                                        Import
+                                    </button>
+                                </div>
+                                <small id="job-url-status" style="display: block; margin-top: 0.5rem; color: var(--text-muted);"></small>
+                            </div>
+                            <div class="divider">OR</div>
                             <label for="job-file" class="file-upload-label">
                                 <span class="upload-icon">📎</span>
                                 Upload Job Description

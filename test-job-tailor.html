@@ -231,6 +231,11 @@
         .sample-data:hover {
             color: #5568d3;
         }
+
+        .next-step-btn:hover {
+            background: rgba(255,255,255,0.25) !important;
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body id="main-content" tabindex="-1">
@@ -424,6 +429,42 @@
                             <div class="label">Suggestions</div>
                             <div class="value">${session.suggestions.length}</div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Next Steps Section -->
+                <div class="next-steps-section" style="margin-top: 2rem; padding: 1.5rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; color: white;">
+                    <h3 style="margin: 0 0 1rem 0; font-size: 1.25rem;">What's Next?</h3>
+                    <p style="margin: 0 0 1.5rem 0; opacity: 0.9;">Your resume has been tailored! Here are recommended next steps:</p>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                        <a href="/test-ats-scanner.html" class="next-step-btn" style="display: flex; align-items: center; gap: 0.75rem; padding: 1rem; background: rgba(255,255,255,0.15); border-radius: 8px; color: white; text-decoration: none; transition: all 0.2s;">
+                            <span style="font-size: 1.5rem;">🔍</span>
+                            <div>
+                                <div style="font-weight: 600;">ATS Check</div>
+                                <div style="font-size: 0.85rem; opacity: 0.8;">Verify ATS compatibility</div>
+                            </div>
+                        </a>
+                        <a href="/test-coverletter.html" class="next-step-btn" style="display: flex; align-items: center; gap: 0.75rem; padding: 1rem; background: rgba(255,255,255,0.15); border-radius: 8px; color: white; text-decoration: none; transition: all 0.2s;">
+                            <span style="font-size: 1.5rem;">📧</span>
+                            <div>
+                                <div style="font-weight: 600;">Cover Letter</div>
+                                <div style="font-size: 0.85rem; opacity: 0.8;">Generate matching letter</div>
+                            </div>
+                        </a>
+                        <a href="/test-export.html" class="next-step-btn" style="display: flex; align-items: center; gap: 0.75rem; padding: 1rem; background: rgba(255,255,255,0.15); border-radius: 8px; color: white; text-decoration: none; transition: all 0.2s;">
+                            <span style="font-size: 1.5rem;">💾</span>
+                            <div>
+                                <div style="font-weight: 600;">Export</div>
+                                <div style="font-size: 0.85rem; opacity: 0.8;">Download your resume</div>
+                            </div>
+                        </a>
+                        <a href="/index.html" class="next-step-btn" style="display: flex; align-items: center; gap: 0.75rem; padding: 1rem; background: rgba(255,255,255,0.15); border-radius: 8px; color: white; text-decoration: none; transition: all 0.2s;">
+                            <span style="font-size: 1.5rem;">📊</span>
+                            <div>
+                                <div style="font-weight: 600;">Analyze Another</div>
+                                <div style="font-size: 0.85rem; opacity: 0.8;">Start new analysis</div>
+                            </div>
+                        </a>
                     </div>
                 </div>
             `;

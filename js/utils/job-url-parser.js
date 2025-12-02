@@ -113,16 +113,13 @@ class JobURLParser {
     }
 
     /**
-     * Get API key from localStorage
-     * @returns {string} - API key
+     * Get API key from localStorage (server has fallback if null)
+     * @returns {string|null} - API key or null (server will use its own)
      * @private
      */
     _getApiKey() {
-        const apiKey = localStorage.getItem('claude_api_key');
-        if (!apiKey) {
-            throw new Error('API key not found. Please set your Claude API key in settings.');
-        }
-        return apiKey;
+        // Return local key if available, otherwise null (server will use its fallback)
+        return localStorage.getItem('claude_api_key') || null;
     }
 
     /**

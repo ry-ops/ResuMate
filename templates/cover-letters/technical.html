@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Technical / Engineering Cover Letter</title>
+  <style>
+    body {
+      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+      font-size: 10.5pt;
+      line-height: 1.7;
+      color: #1a202c;
+      max-width: 8.5in;
+      margin: 0 auto;
+      padding: 1in;
+      background: #fff;
+    }
+    .header {
+      text-align: left;
+      margin-bottom: 2em;
+      padding: 1em;
+      background: #f7fafc;
+      border-left: 4px solid #38b2ac;
+      font-family: 'Monaco', 'Consolas', monospace;
+    }
+    .header .name {
+      font-size: 14pt;
+      font-weight: bold;
+      color: #2d3748;
+      margin-bottom: 0.5em;
+    }
+    .header .contact {
+      font-size: 9pt;
+      color: #4a5568;
+      line-height: 1.6;
+    }
+    .header .github {
+      margin-top: 0.5em;
+      color: #38b2ac;
+      font-weight: 600;
+    }
+    .date {
+      margin-bottom: 2em;
+      color: #718096;
+      font-size: 9pt;
+    }
+    .recipient {
+      margin-bottom: 2em;
+      line-height: 1.5;
+      color: #4a5568;
+    }
+    .salutation {
+      margin-bottom: 1.5em;
+      font-weight: 600;
+      color: #2d3748;
+    }
+    p {
+      margin-bottom: 1.2em;
+      font-family: 'Georgia', serif;
+      line-height: 1.7;
+    }
+    .tech-skills {
+      background: #edf2f7;
+      padding: 1.2em;
+      border-radius: 6px;
+      margin: 1.5em 0;
+      border-left: 4px solid #4299e1;
+      font-family: 'Consolas', monospace;
+    }
+    .tech-skills ul {
+      margin: 0.5em 0 0 0;
+      padding-left: 1.5em;
+      list-style-type: none;
+    }
+    .tech-skills li {
+      margin-bottom: 0.6em;
+      position: relative;
+      padding-left: 1em;
+    }
+    .tech-skills li:before {
+      content: ">";
+      position: absolute;
+      left: 0;
+      color: #4299e1;
+      font-weight: bold;
+    }
+    .achievement-block {
+      background: #f0fff4;
+      padding: 1em;
+      border-radius: 6px;
+      margin: 1.2em 0;
+      border-left: 4px solid #48bb78;
+    }
+    .closing {
+      margin-top: 2.5em;
+      font-family: 'Georgia', serif;
+    }
+    .signature {
+      margin-top: 3em;
+      font-family: 'Consolas', monospace;
+    }
+    .signature .name {
+      font-weight: bold;
+      font-size: 11pt;
+      color: #2d3748;
+      margin-bottom: 0.3em;
+    }
+    .signature .contact {
+      color: #718096;
+      font-size: 9pt;
+      line-height: 1.6;
+    }
+    .signature .github {
+      margin-top: 0.5em;
+      color: #38b2ac;
+      font-weight: 600;
+    }
+    .variable {
+      background-color: #bee3f8;
+      padding: 2px 5px;
+      border-radius: 3px;
+      font-weight: 600;
+      color: #2c5282;
+      border: 1px solid #4299e1;
+      font-family: 'Consolas', monospace;
+    }
+    code {
+      background: #2d3748;
+      color: #68d391;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 9pt;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="name"><span class="variable">{{your_name}}</span></div>
+    <div class="contact">
+      <div><span class="variable">{{your_phone}}</span></div>
+      <div><span class="variable">{{your_email}}</span></div>
+    </div>
+    <div class="github">
+      GitHub: <span class="variable">{{github_url}}</span>
+    </div>
+  </div>
+
+  <div class="date">
+    <span class="variable">{{current_date}}</span>
+  </div>
+
+  <div class="recipient">
+    <div class="variable">{{hiring_manager_name}}</div>
+    <div class="variable">{{company_name}}</div>
+  </div>
+
+  <div class="salutation">
+    Dear <span class="variable">{{hiring_manager_name}}</span>,
+  </div>
+
+  <p>
+    I am writing to apply for the <span class="variable">{{job_title}}</span> position at <span class="variable">{{company_name}}</span>. As a <span class="variable">{{professional_title}}</span> with <span class="variable">{{years_experience}}</span> years of experience in <span class="variable">{{technical_domain}}</span>, I am excited about the opportunity to contribute to <span class="variable">{{company_project_or_mission}}</span>.
+  </p>
+
+  <div class="tech-skills">
+    <strong>My technical expertise includes:</strong>
+    <ul>
+      <li><span class="variable">{{technical_skill_1}}</span></li>
+      <li><span class="variable">{{technical_skill_2}}</span></li>
+      <li><span class="variable">{{technical_skill_3}}</span></li>
+      <li><span class="variable">{{technical_skill_4}}</span></li>
+    </ul>
+    <p style="margin-top: 1em; margin-bottom: 0; font-family: 'Georgia', serif;">
+      I have successfully applied these skills to <span class="variable">{{technical_application}}</span>.
+    </p>
+  </div>
+
+  <div class="achievement-block">
+    <p style="margin-bottom: 0.5em;">
+      In my current role at <span class="variable">{{current_company}}</span>, I <span class="variable">{{technical_achievement_1}}</span>.
+    </p>
+    <p style="margin-bottom: 0.5em;">
+      <span class="variable">{{achievement_details}}</span>.
+    </p>
+    <p style="margin-bottom: 0;">
+      This resulted in <span class="variable">{{technical_impact}}</span>.
+    </p>
+  </div>
+
+  <p>
+    I am particularly interested in <span class="variable">{{company_name}}</span>'s work on <span class="variable">{{specific_technical_interest}}</span>. Having worked extensively with <span class="variable">{{relevant_technology}}</span>, I am confident I can contribute meaningfully to <span class="variable">{{how_you_will_contribute}}</span>. I am also eager to expand my expertise in <span class="variable">{{learning_interest}}</span>.
+  </p>
+
+  <p>
+    I would welcome the opportunity to discuss how my technical skills and problem-solving approach can benefit your team. My GitHub profile (<span class="variable">{{github_url}}</span>) showcases some of my recent projects.
+  </p>
+
+  <div class="closing">
+    <p>Thank you for your consideration.</p>
+    <p>Sincerely,</p>
+    <div class="signature">
+      <div class="name"><span class="variable">{{your_name}}</span></div>
+      <div class="contact">
+        <div><span class="variable">{{your_phone}}</span></div>
+        <div><span class="variable">{{your_email}}</span></div>
+      </div>
+      <div class="github">
+        GitHub: <span class="variable">{{github_url}}</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

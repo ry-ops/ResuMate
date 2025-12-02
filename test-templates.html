@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cover Letter Templates - ResuMate Test</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/coverletter-templates.css">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: #f8fafc;
+            min-height: 100vh;
+        }
+
+        .page-header {
+            background: white;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            margin: 0 0 0.5rem 0;
+            color: #2c3e50;
+            font-size: 2rem;
+        }
+
+        .page-header .subtitle {
+            color: #7f8c8d;
+            font-size: 0.95rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: #3498db;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem 2rem 2rem;
+        }
+
+        .template-step {
+            display: none;
+        }
+
+        .template-step.active {
+            display: block;
+        }
+
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .step-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            background: #f1f5f9;
+            color: #64748b;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .step-item.active {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .step-item.completed {
+            background: #10b981;
+            color: white;
+        }
+
+        .step-number {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 2px solid #e2e8f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-header">
+        <a href="test-coverletter.html" class="back-link">← Back to Cover Letter Generator</a>
+        <h1>Cover Letter Templates</h1>
+        <p class="subtitle">Choose a professional template and fill in your details</p>
+    </div>
+
+    <div class="container">
+        <!-- Step Indicator -->
+        <div class="step-indicator">
+            <div class="step-item active" data-step="1">
+                <span class="step-number">1</span>
+                <span>Choose Template</span>
+            </div>
+            <div class="step-item" data-step="2">
+                <span class="step-number">2</span>
+                <span>Fill Details</span>
+            </div>
+            <div class="step-item" data-step="3">
+                <span class="step-number">3</span>
+                <span>Preview & Export</span>
+            </div>
+        </div>
+
+        <!-- Step 1: Template Selection -->
+        <div id="step-1" class="template-step active">
+            <h2 style="text-align: center; margin-bottom: 2rem; color: #1e293b;">Select Your Template</h2>
+            <div id="template-selector" class="template-selector">
+                <!-- Templates will be loaded here by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Step 2: Fill Variables -->
+        <div id="step-2" class="template-step">
+            <div class="template-layout">
+                <div class="template-form-container">
+                    <div class="template-form-header">
+                        <h2 class="template-form-title" id="selected-template-name">Fill Your Details</h2>
+                        <button class="template-action-btn secondary" onclick="changeTemplate()">Change Template</button>
+                    </div>
+
+                    <div id="template-tips" class="template-form-tips">
+                        <div class="template-form-tips-title">Tips for This Template</div>
+                        <div class="template-form-tips-content" id="template-tips-content"></div>
+                    </div>
+
+                    <div class="template-progress">
+                        <div class="template-progress-bar">
+                            <div class="template-progress-fill" id="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <div class="template-progress-text" id="progress-text">0% complete (0 of 0 fields filled)</div>
+                    </div>
+
+                    <form id="template-form">
+                        <!-- Variable fields will be generated here -->
+                    </form>
+
+                    <div id="validation-message"></div>
+                </div>
+
+                <div class="template-preview-container" style="position: sticky; top: 2rem;">
+                    <div class="template-preview-header">
+                        <h3 class="template-preview-title">Live Preview</h3>
+                        <div class="template-autosave" id="autosave-indicator">
+                            <span class="template-autosave-icon">💾</span>
+                            <span id="autosave-text">Auto-saved</span>
+                        </div>
+                    </div>
+                    <div class="template-preview-content" id="template-preview">
+                        <p style="text-align: center; color: #94a3b8;">Fill in the fields to see your cover letter preview...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3: Final Preview & Export -->
+        <div id="step-3" class="template-step">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <h2 style="color: #1e293b; margin-bottom: 0.5rem;">Your Cover Letter is Ready!</h2>
+                <p style="color: #64748b;">Review your cover letter and export it in your preferred format.</p>
+            </div>
+
+            <div id="final-validation"></div>
+
+            <div class="template-preview-container">
+                <div class="template-preview-header">
+                    <h3 class="template-preview-title">Final Preview</h3>
+                    <div class="template-export-options">
+                        <button class="template-export-btn" onclick="exportLetter('txt')">
+                            📄 Export as TXT
+                        </button>
+                        <button class="template-export-btn" onclick="exportLetter('pdf')">
+                            📕 Export as PDF
+                        </button>
+                        <button class="template-export-btn" onclick="exportLetter('docx')">
+                            📘 Export as DOCX
+                        </button>
+                        <button class="template-export-btn" onclick="copyToClipboard()">
+                            📋 Copy to Clipboard
+                        </button>
+                    </div>
+                </div>
+                <div class="template-preview-content" id="final-preview">
+                    <!-- Final preview will be rendered here -->
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 2rem;">
+                <button class="template-action-btn secondary" onclick="editVariables()">
+                    ← Back to Edit
+                </button>
+                <button class="template-action-btn primary" onclick="startOver()">
+                    Start Over
+                </button>
+            </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="navigation-buttons">
+            <button id="prev-btn" class="template-action-btn secondary" onclick="previousStep()" style="display: none;">
+                ← Previous
+            </button>
+            <button id="next-btn" class="template-action-btn primary" onclick="nextStep()" style="display: none;">
+                Next →
+            </button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/coverletter/templates.js"></script>
+
+    <script>
+        // Global state
+        let templateEngine;
+        let currentStep = 1;
+        let selectedTemplateId = null;
+        let formData = {};
+        let autoSaveTimeout = null;
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            templateEngine = new CoverLetterTemplateEngine();
+            loadTemplateSelector();
+            updateNavigationButtons();
+        });
+
+        // Load template selector
+        function loadTemplateSelector() {
+            const container = document.getElementById('template-selector');
+            const templates = templateEngine.getAllTemplates();
+
+            container.innerHTML = templates.map(template => `
+                <div class="template-card" onclick="selectTemplate('${template.id}')">
+                    <div class="template-card-header">
+                        <h3 class="template-card-title">${template.name}</h3>
+                        <span class="template-category-badge ${template.category}">${template.category}</span>
+                    </div>
+                    <p class="template-card-description">${template.description}</p>
+                    <div class="template-tone-indicator">Tone: ${template.tone}</div>
+                    <div class="template-card-meta">
+                        ${template.industry.slice(0, 3).map(ind =>
+                            `<span class="template-meta-tag">${ind}</span>`
+                        ).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Select a template
+        function selectTemplate(templateId) {
+            selectedTemplateId = templateId;
+
+            // Highlight selected
+            document.querySelectorAll('.template-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+
+            // Show next button
+            document.getElementById('next-btn').style.display = 'inline-flex';
+        }
+
+        // Change template (go back to step 1)
+        function changeTemplate() {
+            currentStep = 1;
+            updateStep();
+            updateNavigationButtons();
+        }
+
+        // Next step
+        function nextStep() {
+            if (currentStep === 1 && !selectedTemplateId) {
+                alert('Please select a template first');
+                return;
+            }
+
+            if (currentStep === 2) {
+                const validation = validateForm();
+                if (!validation.valid) {
+                    showValidationMessage(validation);
+                    return;
+                }
+            }
+
+            currentStep++;
+            updateStep();
+            updateNavigationButtons();
+        }
+
+        // Previous step
+        function previousStep() {
+            currentStep--;
+            updateStep();
+            updateNavigationButtons();
+        }
+
+        // Update step display
+        function updateStep() {
+            // Hide all steps
+            document.querySelectorAll('.template-step').forEach(step => {
+                step.classList.remove('active');
+            });
+
+            // Show current step
+            document.getElementById(`step-${currentStep}`).classList.add('active');
+
+            // Update step indicators
+            document.querySelectorAll('.step-item').forEach(item => {
+                const stepNum = parseInt(item.dataset.step);
+                item.classList.remove('active', 'completed');
+
+                if (stepNum === currentStep) {
+                    item.classList.add('active');
+                } else if (stepNum < currentStep) {
+                    item.classList.add('completed');
+                }
+            });
+
+            // Load step content
+            if (currentStep === 2) {
+                loadFormForTemplate();
+            } else if (currentStep === 3) {
+                loadFinalPreview();
+            }
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Update navigation buttons
+        function updateNavigationButtons() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+
+            prevBtn.style.display = currentStep > 1 ? 'inline-flex' : 'none';
+
+            if (currentStep === 1) {
+                nextBtn.style.display = selectedTemplateId ? 'inline-flex' : 'none';
+            } else if (currentStep === 2) {
+                nextBtn.style.display = 'inline-flex';
+                nextBtn.textContent = 'Preview & Export →';
+            } else {
+                nextBtn.style.display = 'none';
+            }
+        }
+
+        // Load form for selected template
+        function loadFormForTemplate() {
+            const template = templateEngine.getTemplate(selectedTemplateId);
+
+            // Update template name
+            document.getElementById('selected-template-name').textContent = template.name;
+
+            // Update tips
+            document.getElementById('template-tips-content').textContent = template.tips;
+
+            // Generate form fields
+            const form = document.getElementById('template-form');
+
+            // Group variables by section
+            const contactVars = template.variables.filter(v =>
+                ['your_name', 'your_phone', 'your_email', 'linkedin_url', 'github_url', 'portfolio_url'].includes(v.name)
+            );
+            const jobVars = template.variables.filter(v =>
+                ['job_title', 'company_name', 'hiring_manager_name'].includes(v.name)
+            );
+            const contentVars = template.variables.filter(v =>
+                !contactVars.includes(v) && !jobVars.includes(v)
+            );
+
+            form.innerHTML = '';
+
+            // Add sections
+            if (contactVars.length > 0) {
+                form.innerHTML += generateSection('Contact Information', contactVars);
+            }
+            if (jobVars.length > 0) {
+                form.innerHTML += generateSection('Job Details', jobVars);
+            }
+            if (contentVars.length > 0) {
+                form.innerHTML += generateSection('Cover Letter Content', contentVars);
+            }
+
+            // Add current_date automatically
+            formData['current_date'] = new Date().toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            // Attach event listeners
+            form.querySelectorAll('input, textarea').forEach(input => {
+                input.addEventListener('input', (e) => {
+                    formData[e.target.name] = e.target.value;
+                    updatePreview();
+                    updateProgress();
+                    scheduleAutoSave();
+                });
+            });
+
+            updateProgress();
+            updatePreview();
+        }
+
+        // Generate form section
+        function generateSection(title, variables) {
+            return `
+                <div class="variable-section">
+                    <h3 class="variable-section-title">${title}</h3>
+                    ${variables.map(v => generateField(v)).join('')}
+                </div>
+            `;
+        }
+
+        // Generate form field
+        function generateField(variable) {
+            const value = formData[variable.name] || '';
+            const inputType = variable.type === 'textarea' ? 'textarea' : 'input';
+
+            let inputHtml;
+            if (inputType === 'textarea') {
+                inputHtml = `<textarea
+                    class="variable-field-input"
+                    id="${variable.name}"
+                    name="${variable.name}"
+                    placeholder="${variable.placeholder}"
+                    ${variable.required ? 'required' : ''}
+                >${value}</textarea>`;
+            } else {
+                inputHtml = `<input
+                    type="${variable.type}"
+                    class="variable-field-input"
+                    id="${variable.name}"
+                    name="${variable.name}"
+                    placeholder="${variable.placeholder}"
+                    value="${value}"
+                    ${variable.required ? 'required' : ''}
+                >`;
+            }
+
+            return `
+                <div class="variable-field-group">
+                    <label class="variable-field-label ${variable.required ? 'required' : ''}" for="${variable.name}">
+                        ${variable.label}
+                    </label>
+                    ${inputHtml}
+                </div>
+            `;
+        }
+
+        // Update preview
+        function updatePreview() {
+            const preview = document.getElementById('template-preview');
+            const filled = templateEngine.fillTemplate(selectedTemplateId, formData);
+
+            preview.innerHTML = `
+                <p style="white-space: pre-wrap;">${formatPreview(filled)}</p>
+            `;
+        }
+
+        // Format preview with highlighting for unfilled variables
+        function formatPreview(filled) {
+            const fullText = `${filled.opening}\n\n${filled.body1}\n\n${filled.body2}\n\n${filled.body3}\n\n${filled.closing}`;
+
+            // Highlight unfilled variables
+            return fullText.replace(/\[([^\]]+)\]/g, '<span class="preview-variable-placeholder">[$1]</span>');
+        }
+
+        // Update progress
+        function updateProgress() {
+            const template = templateEngine.getTemplate(selectedTemplateId);
+            const requiredFields = template.variables.filter(v => v.required);
+            const filledFields = requiredFields.filter(v => formData[v.name] && formData[v.name].trim() !== '');
+
+            const percentage = Math.round((filledFields.length / requiredFields.length) * 100);
+
+            document.getElementById('progress-fill').style.width = `${percentage}%`;
+            document.getElementById('progress-text').textContent =
+                `${percentage}% complete (${filledFields.length} of ${requiredFields.length} required fields filled)`;
+        }
+
+        // Schedule auto-save
+        function scheduleAutoSave() {
+            clearTimeout(autoSaveTimeout);
+
+            const indicator = document.getElementById('autosave-indicator');
+            indicator.classList.remove('saved');
+            indicator.classList.add('saving');
+            document.getElementById('autosave-text').textContent = 'Saving...';
+
+            autoSaveTimeout = setTimeout(() => {
+                // Save to localStorage
+                localStorage.setItem('coverLetterDraft', JSON.stringify({
+                    templateId: selectedTemplateId,
+                    formData: formData,
+                    timestamp: new Date().toISOString()
+                }));
+
+                indicator.classList.remove('saving');
+                indicator.classList.add('saved');
+                document.getElementById('autosave-text').textContent = 'Auto-saved';
+            }, 1000);
+        }
+
+        // Validate form
+        function validateForm() {
+            return templateEngine.validateVariables(selectedTemplateId, formData);
+        }
+
+        // Show validation message
+        function showValidationMessage(validation) {
+            const container = document.getElementById('validation-message');
+
+            if (validation.valid) {
+                container.innerHTML = `
+                    <div class="template-validation success">
+                        <div class="template-validation-title">✓ All required fields complete!</div>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = `
+                    <div class="template-validation">
+                        <div class="template-validation-title">⚠ Please complete the following required fields:</div>
+                        <ul class="template-validation-list">
+                            ${validation.missing.map(field => `<li>${field}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+
+            // Scroll to validation message
+            container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // Load final preview
+        function loadFinalPreview() {
+            const validation = validateForm();
+            const validationContainer = document.getElementById('final-validation');
+
+            if (validation.valid) {
+                validationContainer.innerHTML = `
+                    <div class="template-validation success" style="margin-bottom: 2rem;">
+                        <div class="template-validation-title">✓ Your cover letter is complete and ready to export!</div>
+                    </div>
+                `;
+            } else {
+                validationContainer.innerHTML = `
+                    <div class="template-validation" style="margin-bottom: 2rem;">
+                        <div class="template-validation-title">⚠ Some required fields are missing</div>
+                        <p style="margin-top: 0.5rem; font-size: 0.875rem;">
+                            Please go back and fill in all required fields for the best results.
+                        </p>
+                    </div>
+                `;
+            }
+
+            const preview = document.getElementById('final-preview');
+            const fullLetter = templateEngine.getFullCoverLetter(selectedTemplateId, formData);
+
+            preview.innerHTML = `<p style="white-space: pre-wrap;">${fullLetter.replace(/\[([^\]]+)\]/g, '<span class="preview-variable-placeholder">[$1]</span>')}</p>`;
+        }
+
+        // Edit variables (go back to step 2)
+        function editVariables() {
+            currentStep = 2;
+            updateStep();
+            updateNavigationButtons();
+        }
+
+        // Start over
+        function startOver() {
+            if (confirm('Are you sure you want to start over? All your data will be lost.')) {
+                selectedTemplateId = null;
+                formData = {};
+                currentStep = 1;
+                localStorage.removeItem('coverLetterDraft');
+                updateStep();
+                updateNavigationButtons();
+                loadTemplateSelector();
+            }
+        }
+
+        // Export letter
+        function exportLetter(format) {
+            const fullLetter = templateEngine.getFullCoverLetter(selectedTemplateId, formData);
+            const template = templateEngine.getTemplate(selectedTemplateId);
+
+            if (format === 'txt') {
+                const blob = new Blob([fullLetter], { type: 'text/plain' });
+                downloadFile(blob, `cover-letter-${template.id}.txt`);
+            } else if (format === 'pdf') {
+                alert('PDF export requires additional integration. For now, use "Copy to Clipboard" and paste into a word processor.');
+            } else if (format === 'docx') {
+                alert('DOCX export requires additional integration. For now, use "Copy to Clipboard" and paste into Microsoft Word.');
+            }
+        }
+
+        // Copy to clipboard
+        function copyToClipboard() {
+            const fullLetter = templateEngine.getFullCoverLetter(selectedTemplateId, formData);
+
+            navigator.clipboard.writeText(fullLetter).then(() => {
+                alert('✓ Cover letter copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+                alert('Failed to copy to clipboard. Please select and copy the text manually.');
+            });
+        }
+
+        // Download file
+        function downloadFile(blob, filename) {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>

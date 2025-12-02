@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Profile Optimization - ResuMate</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/preview.css">
+    <link rel="stylesheet" href="css/linkedin.css">
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f3f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .page-header {
+            background: white;
+            padding: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #111827;
+            margin: 0 0 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1rem;
+            color: #6b7280;
+            margin: 0;
+        }
+
+        .linkedin-logo {
+            color: #0a66c2;
+            font-size: 2.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-header">
+        <h1 class="page-title">
+            <i class="fab fa-linkedin linkedin-logo"></i>
+            LinkedIn Profile Optimization
+        </h1>
+        <p class="page-subtitle">Import, optimize, and score your LinkedIn profile for maximum impact</p>
+    </div>
+
+    <div class="linkedin-container">
+        <!-- Navigation Tabs -->
+        <div class="linkedin-tabs">
+            <button class="linkedin-tab active" data-tab="import">
+                <i class="fas fa-file-import"></i> Import Profile
+            </button>
+            <button class="linkedin-tab" data-tab="headline">
+                <i class="fas fa-heading"></i> Headline Generator
+            </button>
+            <button class="linkedin-tab" data-tab="summary">
+                <i class="fas fa-align-left"></i> Summary Optimizer
+            </button>
+            <button class="linkedin-tab" data-tab="score">
+                <i class="fas fa-chart-line"></i> Profile Score
+            </button>
+            <button class="linkedin-tab" data-tab="alignment">
+                <i class="fas fa-sync-alt"></i> Resume Alignment
+            </button>
+            <button class="linkedin-tab" data-tab="export">
+                <i class="fas fa-download"></i> Export
+            </button>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="linkedin-tab-content">
+            <!-- Import Profile Tab -->
+            <div class="linkedin-tab-pane active" id="tab-import">
+                <div class="linkedin-card">
+                    <div class="linkedin-card-header">
+                        <h2 class="linkedin-card-title">
+                            <i class="fas fa-upload"></i>
+                            Import LinkedIn Profile
+                        </h2>
+                    </div>
+
+                    <div class="linkedin-upload-zone" id="uploadZone">
+                        <div class="linkedin-upload-icon">
+                            <i class="fab fa-linkedin"></i>
+                        </div>
+                        <div class="linkedin-upload-text">Drop your LinkedIn PDF export here</div>
+                        <div class="linkedin-upload-hint">or click to browse files</div>
+                        <input type="file" id="linkedinFileInput" accept=".pdf" style="display: none;">
+                    </div>
+
+                    <div id="profileDisplay" class="linkedin-hidden">
+                        <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: #111827;">Imported Profile</h3>
+                        <div class="linkedin-profile-display" id="profileContent"></div>
+                    </div>
+                </div>
+
+                <div class="linkedin-card linkedin-hidden" id="importInstructions">
+                    <h3 style="margin-top: 0;">How to Export Your LinkedIn Profile as PDF</h3>
+                    <ol style="line-height: 1.8; color: #374151;">
+                        <li>Go to your LinkedIn profile page</li>
+                        <li>Click "More" in your profile header</li>
+                        <li>Select "Save to PDF"</li>
+                        <li>Your profile will download as a PDF file</li>
+                        <li>Upload that PDF file here to import your data</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Headline Generator Tab -->
+            <div class="linkedin-tab-pane" id="tab-headline">
+                <div class="linkedin-card">
+                    <div class="linkedin-card-header">
+                        <h2 class="linkedin-card-title">
+                            <i class="fas fa-heading"></i>
+                            LinkedIn Headline Generator
+                        </h2>
+                    </div>
+
+                    <div class="linkedin-headline-generator">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #374151;">
+                                    Current Role
+                                </label>
+                                <input type="text" id="headlineRole" class="linkedin-summary-textarea"
+                                       style="min-height: auto; height: 45px;"
+                                       placeholder="e.g., Senior Software Engineer">
+                            </div>
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #374151;">
+                                    Years of Experience
+                                </label>
+                                <input type="number" id="headlineYears" class="linkedin-summary-textarea"
+                                       style="min-height: auto; height: 45px;"
+                                       placeholder="e.g., 5">
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #374151;">
+                                Key Skills (comma-separated)
+                            </label>
+                            <input type="text" id="headlineSkills" class="linkedin-summary-textarea"
+                                   style="min-height: auto; height: 45px;"
+                                   placeholder="e.g., JavaScript, React, Node.js, Cloud Architecture">
+                        </div>
+
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #374151;">
+                                Target Industry
+                            </label>
+                            <input type="text" id="headlineIndustry" class="linkedin-summary-textarea"
+                                   style="min-height: auto; height: 45px;"
+                                   placeholder="e.g., Technology, Healthcare, Finance">
+                        </div>
+
+                        <button class="linkedin-btn linkedin-btn-primary" id="generateHeadlinesBtn">
+                            <i class="fas fa-magic linkedin-btn-icon"></i>
+                            Generate Headlines
+                        </button>
+
+                        <div id="headlineResults" class="linkedin-hidden">
+                            <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Generated Headlines</h3>
+                            <div class="linkedin-headline-options" id="headlineOptionsList"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Optimizer Tab -->
+            <div class="linkedin-tab-pane" id="tab-summary">
+                <div class="linkedin-card">
+                    <div class="linkedin-card-header">
+                        <h2 class="linkedin-card-title">
+                            <i class="fas fa-align-left"></i>
+                            LinkedIn Summary Optimizer
+                        </h2>
+                    </div>
+
+                    <div class="linkedin-summary-editor">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #374151;">
+                            Current Summary
+                        </label>
+                        <textarea id="currentSummary" class="linkedin-summary-textarea"
+                                  placeholder="Paste your current LinkedIn About section here..."></textarea>
+
+                        <div class="linkedin-summary-stats" id="currentSummaryStats">
+                            <div class="linkedin-summary-stat">
+                                <i class="fas fa-text-width"></i>
+                                <span id="currentCharCount">0</span> / 2000 characters
+                            </div>
+                            <div class="linkedin-summary-stat">
+                                <i class="fas fa-paragraph"></i>
+                                <span id="currentWordCount">0</span> words
+                            </div>
+                            <div class="linkedin-summary-stat">
+                                <i class="fas fa-align-justify"></i>
+                                <span id="currentParaCount">0</span> paragraphs
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 1.5rem; margin-bottom: 1rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #374151;">
+                                Keywords to Include (comma-separated)
+                            </label>
+                            <input type="text" id="summaryKeywords" class="linkedin-summary-textarea"
+                                   style="min-height: auto; height: 45px;"
+                                   placeholder="e.g., leadership, innovation, agile, cloud computing">
+                        </div>
+
+                        <button class="linkedin-btn linkedin-btn-primary" id="optimizeSummaryBtn">
+                            <i class="fas fa-magic linkedin-btn-icon"></i>
+                            Optimize Summary
+                        </button>
+
+                        <div id="optimizedSummaryResult" class="linkedin-hidden" style="margin-top: 2rem;">
+                            <h3 style="margin-bottom: 1rem;">Optimized Summary</h3>
+                            <div class="linkedin-section">
+                                <div class="linkedin-section-content" id="optimizedSummaryText"></div>
+                            </div>
+                            <div class="linkedin-summary-stats" style="margin-top: 1rem;" id="optimizedSummaryStats"></div>
+
+                            <button class="linkedin-btn linkedin-btn-secondary" id="copySummaryBtn" style="margin-top: 1rem;">
+                                <i class="fas fa-copy linkedin-btn-icon"></i>
+                                Copy to Clipboard
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Score Tab -->
+            <div class="linkedin-tab-pane" id="tab-score">
+                <div class="linkedin-card">
+                    <div class="linkedin-card-header">
+                        <h2 class="linkedin-card-title">
+                            <i class="fas fa-chart-line"></i>
+                            Profile Completeness Score
+                        </h2>
+                    </div>
+
+                    <div id="scoreDisplay" class="linkedin-hidden">
+                        <div class="linkedin-score-display">
+                            <div class="linkedin-score-circle">
+                                <svg width="200" height="200">
+                                    <circle cx="100" cy="100" r="90" fill="none" stroke="#e5e7eb" stroke-width="12"/>
+                                    <circle id="scoreCircle" cx="100" cy="100" r="90" fill="none"
+                                            stroke="#0a66c2" stroke-width="12"
+                                            stroke-dasharray="565" stroke-dashoffset="565"
+                                            transform="rotate(-90 100 100)" stroke-linecap="round"/>
+                                </svg>
+                                <div class="linkedin-score-value" id="scoreValue">0</div>
+                            </div>
+                            <div class="linkedin-score-grade" id="scoreGrade">-</div>
+                            <div class="linkedin-score-level" id="scoreLevel">-</div>
+                        </div>
+
+                        <div class="linkedin-score-breakdown" id="scoreBreakdown"></div>
+
+                        <div class="linkedin-recommendations" id="scoreRecommendations">
+                            <h3 style="margin-bottom: 1rem;">Recommendations</h3>
+                            <div id="recommendationsList"></div>
+                        </div>
+                    </div>
+
+                    <div id="scorePrompt" class="linkedin-text-center" style="padding: 3rem; color: #6b7280;">
+                        <i class="fas fa-chart-line" style="font-size: 3rem; margin-bottom: 1rem; color: #0a66c2;"></i>
+                        <p style="font-size: 1.125rem;">Import your LinkedIn profile to see your completeness score</p>
+                        <button class="linkedin-btn linkedin-btn-primary" onclick="switchTab('import')">
+                            <i class="fas fa-upload"></i>
+                            Import Profile
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Resume Alignment Tab -->
+            <div class="linkedin-tab-pane" id="tab-alignment">
+                <div class="linkedin-card">
+                    <div class="linkedin-card-header">
+                        <h2 class="linkedin-card-title">
+                            <i class="fas fa-sync-alt"></i>
+                            LinkedIn & Resume Alignment
+                        </h2>
+                    </div>
+
+                    <div class="linkedin-alert info">
+                        <i class="fas fa-info-circle linkedin-alert-icon"></i>
+                        <div class="linkedin-alert-content">
+                            <div class="linkedin-alert-title">Alignment Analysis</div>
+                            <div class="linkedin-alert-message">
+                                This feature analyzes the alignment between your LinkedIn profile and resume,
+                                identifying missing keywords, skills, and achievements.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 1.5rem;">
+                        <button class="linkedin-btn linkedin-btn-primary" id="analyzeAlignmentBtn">
+                            <i class="fas fa-sync-alt linkedin-btn-icon"></i>
+                            Analyze Alignment
+                        </button>
+                    </div>
+
+                    <div id="alignmentResults" class="linkedin-hidden" style="margin-top: 2rem;">
+                        <div class="linkedin-comparison">
+                            <div class="linkedin-comparison-column">
+                                <div class="linkedin-comparison-header">Missing from LinkedIn</div>
+                                <div class="linkedin-comparison-content" id="missingFromLinkedIn"></div>
+                            </div>
+                            <div class="linkedin-comparison-column">
+                                <div class="linkedin-comparison-header">Suggestions</div>
+                                <div class="linkedin-comparison-content" id="alignmentSuggestions"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Export Tab -->
+            <div class="linkedin-tab-pane" id="tab-export">
+                <div class="linkedin-card">
+                    <div class="linkedin-card-header">
+                        <h2 class="linkedin-card-title">
+                            <i class="fas fa-download"></i>
+                            Export Options
+                        </h2>
+                    </div>
+
+                    <div class="linkedin-export-options">
+                        <div class="linkedin-export-card" id="exportFullProfile">
+                            <div class="linkedin-export-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="linkedin-export-title">Full Profile (TXT)</div>
+                            <div class="linkedin-export-description">Download complete profile as text file</div>
+                        </div>
+
+                        <div class="linkedin-export-card" id="exportHeadline">
+                            <div class="linkedin-export-icon">
+                                <i class="fas fa-heading"></i>
+                            </div>
+                            <div class="linkedin-export-title">Copy Headline</div>
+                            <div class="linkedin-export-description">Copy optimized headline to clipboard</div>
+                        </div>
+
+                        <div class="linkedin-export-card" id="exportSummary">
+                            <div class="linkedin-export-icon">
+                                <i class="fas fa-align-left"></i>
+                            </div>
+                            <div class="linkedin-export-title">Copy Summary</div>
+                            <div class="linkedin-export-description">Copy optimized summary to clipboard</div>
+                        </div>
+
+                        <div class="linkedin-export-card" id="exportToResume">
+                            <div class="linkedin-export-icon">
+                                <i class="fas fa-file-invoice"></i>
+                            </div>
+                            <div class="linkedin-export-title">Export to Resume</div>
+                            <div class="linkedin-export-description">Convert profile to resume format</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="linkedin-hidden"
+         style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5);
+                display: flex; align-items: center; justify-content: center; z-index: 9999;">
+        <div class="linkedin-loading" style="background: white; padding: 3rem; border-radius: 8px;">
+            <div class="linkedin-spinner"></div>
+            <div id="loadingText">Processing...</div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="js/integrations/linkedin-parser.js"></script>
+    <script src="js/integrations/linkedin-optimizer.js"></script>
+    <script src="js/integrations/linkedin-scorer.js"></script>
+    <script src="js/integrations/linkedin-export.js"></script>
+    <script src="js/ai/prompts.js"></script>
+
+    <script>
+        // Global state
+        let currentProfile = null;
+        let currentResume = null;
+        let selectedHeadline = null;
+        let optimizedSummary = null;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeTabs();
+            initializeUpload();
+            initializeHeadlineGenerator();
+            initializeSummaryOptimizer();
+            initializeExport();
+        });
+
+        // Tab Management
+        function initializeTabs() {
+            const tabs = document.querySelectorAll('.linkedin-tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+                    switchTab(tabId);
+                });
+            });
+        }
+
+        function switchTab(tabId) {
+            // Update active tab
+            document.querySelectorAll('.linkedin-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+
+            // Update active content
+            document.querySelectorAll('.linkedin-tab-pane').forEach(pane => {
+                pane.classList.remove('active');
+                pane.style.display = 'none';
+            });
+            const activePane = document.getElementById(`tab-${tabId}`);
+            activePane.classList.add('active');
+            activePane.style.display = 'block';
+        }
+
+        // Upload Handling
+        function initializeUpload() {
+            const uploadZone = document.getElementById('uploadZone');
+            const fileInput = document.getElementById('linkedinFileInput');
+
+            uploadZone.addEventListener('click', () => fileInput.click());
+
+            uploadZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadZone.classList.add('dragover');
+            });
+
+            uploadZone.addEventListener('dragleave', () => {
+                uploadZone.classList.remove('dragover');
+            });
+
+            uploadZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadZone.classList.remove('dragover');
+                const file = e.dataTransfer.files[0];
+                if (file && file.type === 'application/pdf') {
+                    handlePDFUpload(file);
+                }
+            });
+
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    handlePDFUpload(file);
+                }
+            });
+        }
+
+        async function handlePDFUpload(file) {
+            showLoading('Parsing LinkedIn PDF...');
+
+            try {
+                const text = await extractTextFromPDF(file);
+                const result = linkedInParser.parseLinkedInPDF(text);
+
+                if (result.success) {
+                    currentProfile = result.profile;
+                    displayProfile(result.profile);
+                    calculateScore(result.profile);
+                    showAlert('success', 'Profile imported successfully!');
+                } else {
+                    showAlert('error', 'Failed to parse PDF: ' + result.error);
+                }
+            } catch (error) {
+                console.error('Upload error:', error);
+                showAlert('error', 'Error processing PDF: ' + error.message);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        async function extractTextFromPDF(file) {
+            const arrayBuffer = await file.arrayBuffer();
+            const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+            let fullText = '';
+
+            for (let i = 1; i <= pdf.numPages; i++) {
+                const page = await pdf.getPage(i);
+                const textContent = await page.getTextContent();
+                const pageText = textContent.items.map(item => item.str).join(' ');
+                fullText += pageText + '\n';
+            }
+
+            return fullText;
+        }
+
+        function displayProfile(profile) {
+            const container = document.getElementById('profileContent');
+            container.innerHTML = '';
+
+            // Headline
+            if (profile.headline) {
+                container.innerHTML += `
+                    <div class="linkedin-section">
+                        <div class="linkedin-section-title">Headline</div>
+                        <div class="linkedin-section-content">${profile.headline}</div>
+                    </div>
+                `;
+            }
+
+            // Summary
+            if (profile.summary) {
+                container.innerHTML += `
+                    <div class="linkedin-section">
+                        <div class="linkedin-section-title">Summary</div>
+                        <div class="linkedin-section-content">${profile.summary}</div>
+                    </div>
+                `;
+            }
+
+            // Skills
+            if (profile.skills && profile.skills.length > 0) {
+                container.innerHTML += `
+                    <div class="linkedin-section" style="grid-column: 1 / -1;">
+                        <div class="linkedin-section-title">Skills (${profile.skills.length})</div>
+                        <div class="linkedin-skills-grid">
+                            ${profile.skills.map(skill => `<div class="linkedin-skill-badge">${skill}</div>`).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            document.getElementById('profileDisplay').classList.remove('linkedin-hidden');
+        }
+
+        // Headline Generator
+        function initializeHeadlineGenerator() {
+            document.getElementById('generateHeadlinesBtn').addEventListener('click', generateHeadlines);
+        }
+
+        async function generateHeadlines() {
+            const role = document.getElementById('headlineRole').value;
+            const skills = document.getElementById('headlineSkills').value;
+            const industry = document.getElementById('headlineIndustry').value;
+            const years = document.getElementById('headlineYears').value;
+
+            if (!role || !skills) {
+                showAlert('warning', 'Please fill in at least role and skills');
+                return;
+            }
+
+            showLoading('Generating headlines...');
+
+            try {
+                const headlines = await linkedInOptimizer.generateHeadlines({
+                    currentRole: role,
+                    skills: skills.split(',').map(s => s.trim()),
+                    industry,
+                    yearsExp: parseInt(years) || 0
+                });
+
+                displayHeadlineOptions(headlines);
+                document.getElementById('headlineResults').classList.remove('linkedin-hidden');
+            } catch (error) {
+                console.error('Headline generation error:', error);
+                showAlert('error', 'Failed to generate headlines: ' + error.message);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        function displayHeadlineOptions(headlines) {
+            const container = document.getElementById('headlineOptionsList');
+            container.innerHTML = headlines.map((h, i) => `
+                <div class="linkedin-headline-option" data-index="${i}">
+                    <div class="linkedin-headline-text">${h.text}</div>
+                    <div class="linkedin-headline-length ${h.isValid ? 'valid' : 'invalid'}">
+                        ${h.length} chars
+                    </div>
+                </div>
+            `).join('');
+
+            // Add click handlers
+            container.querySelectorAll('.linkedin-headline-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    container.querySelectorAll('.linkedin-headline-option').forEach(o =>
+                        o.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedHeadline = headlines[this.getAttribute('data-index')];
+                });
+            });
+        }
+
+        // Summary Optimizer
+        function initializeSummaryOptimizer() {
+            const textarea = document.getElementById('currentSummary');
+            textarea.addEventListener('input', updateSummaryStats);
+
+            document.getElementById('optimizeSummaryBtn').addEventListener('click', optimizeSummary);
+            document.getElementById('copySummaryBtn').addEventListener('click', () => {
+                if (optimizedSummary) {
+                    navigator.clipboard.writeText(optimizedSummary);
+                    showAlert('success', 'Summary copied to clipboard!');
+                }
+            });
+        }
+
+        function updateSummaryStats() {
+            const text = document.getElementById('currentSummary').value;
+            const charCount = text.length;
+            const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
+            const paraCount = text.trim() ? text.split(/\n\s*\n/).filter(p => p.trim()).length : 0;
+
+            document.getElementById('currentCharCount').textContent = charCount;
+            document.getElementById('currentWordCount').textContent = wordCount;
+            document.getElementById('currentParaCount').textContent = paraCount;
+        }
+
+        async function optimizeSummary() {
+            const currentSummary = document.getElementById('currentSummary').value;
+            const keywords = document.getElementById('summaryKeywords').value;
+
+            if (!currentSummary) {
+                showAlert('warning', 'Please enter your current summary');
+                return;
+            }
+
+            showLoading('Optimizing summary...');
+
+            try {
+                const result = await linkedInOptimizer.optimizeSummary({
+                    currentSummary,
+                    keywords: keywords.split(',').map(k => k.trim())
+                });
+
+                optimizedSummary = result.summary;
+                document.getElementById('optimizedSummaryText').textContent = result.summary;
+
+                document.getElementById('optimizedSummaryStats').innerHTML = `
+                    <div class="linkedin-summary-stat ${result.isValid ? 'valid' : 'invalid'}">
+                        <i class="fas fa-text-width"></i>
+                        ${result.length} / ${result.maxLength} characters
+                    </div>
+                    <div class="linkedin-summary-stat">
+                        <i class="fas fa-paragraph"></i>
+                        ${result.wordCount} words
+                    </div>
+                    <div class="linkedin-summary-stat">
+                        <i class="fas fa-align-justify"></i>
+                        ${result.paragraphs} paragraphs
+                    </div>
+                    <div class="linkedin-summary-stat">
+                        <i class="fas fa-key"></i>
+                        ${result.keywordsIncluded} keywords included
+                    </div>
+                `;
+
+                document.getElementById('optimizedSummaryResult').classList.remove('linkedin-hidden');
+            } catch (error) {
+                console.error('Summary optimization error:', error);
+                showAlert('error', 'Failed to optimize summary: ' + error.message);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Profile Scoring
+        function calculateScore(profile) {
+            const result = linkedInScorer.calculateScore(profile);
+
+            // Update score display
+            document.getElementById('scoreValue').textContent = result.overallScore;
+            document.getElementById('scoreGrade').textContent = `Grade: ${result.grade}`;
+            document.getElementById('scoreLevel').textContent = result.completenessLevel;
+
+            // Animate score circle
+            const circumference = 565;
+            const offset = circumference - (result.overallScore / 100) * circumference;
+            document.getElementById('scoreCircle').style.strokeDashoffset = offset;
+
+            // Display breakdown
+            displayScoreBreakdown(result.sectionScores);
+            displayRecommendations(result.recommendations);
+
+            document.getElementById('scorePrompt').classList.add('linkedin-hidden');
+            document.getElementById('scoreDisplay').classList.remove('linkedin-hidden');
+        }
+
+        function displayScoreBreakdown(scores) {
+            const container = document.getElementById('scoreBreakdown');
+            container.innerHTML = Object.entries(scores).map(([section, data]) => {
+                const percentage = Math.round(data.score * 100);
+                let level = 'poor';
+                if (percentage >= 80) level = 'excellent';
+                else if (percentage >= 60) level = 'good';
+                else if (percentage >= 40) level = 'fair';
+
+                return `
+                    <div class="linkedin-score-item ${level}">
+                        <div class="linkedin-score-item-header">
+                            <div class="linkedin-score-item-name">${section}</div>
+                            <div class="linkedin-score-item-value">${percentage}%</div>
+                        </div>
+                        <div class="linkedin-score-item-feedback">${data.feedback}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function displayRecommendations(recommendations) {
+            const container = document.getElementById('recommendationsList');
+            if (recommendations.length === 0) {
+                container.innerHTML = '<p style="color: #10b981;">Your profile looks great! No major recommendations.</p>';
+                return;
+            }
+
+            container.innerHTML = recommendations.map(rec => `
+                <div class="linkedin-recommendation-item ${rec.priority}-priority">
+                    <i class="fas fa-lightbulb linkedin-recommendation-icon"></i>
+                    <div class="linkedin-recommendation-content">
+                        <div class="linkedin-recommendation-title">${rec.section} (${rec.currentScore}%)</div>
+                        <div class="linkedin-recommendation-text">${rec.recommendation}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Export Functions
+        function initializeExport() {
+            document.getElementById('exportFullProfile').addEventListener('click', () => {
+                if (currentProfile) {
+                    const linkedInData = linkedInExport.exportToLinkedInFormat({
+                        personalInfo: {},
+                        summary: currentProfile.summary,
+                        experience: currentProfile.experience,
+                        education: currentProfile.education,
+                        skills: { technical: currentProfile.skills },
+                        certifications: currentProfile.certifications,
+                        projects: currentProfile.projects,
+                        publications: currentProfile.publications,
+                        languages: currentProfile.languages
+                    });
+                    linkedInExport.exportAsTextFile(linkedInData);
+                } else {
+                    showAlert('warning', 'Please import a profile first');
+                }
+            });
+
+            document.getElementById('exportHeadline').addEventListener('click', () => {
+                if (selectedHeadline) {
+                    linkedInExport.copyToClipboard('headline', selectedHeadline.text);
+                    showAlert('success', 'Headline copied to clipboard!');
+                } else {
+                    showAlert('warning', 'Please generate and select a headline first');
+                }
+            });
+
+            document.getElementById('exportSummary').addEventListener('click', () => {
+                if (optimizedSummary) {
+                    linkedInExport.copyToClipboard('summary', optimizedSummary);
+                    showAlert('success', 'Summary copied to clipboard!');
+                } else {
+                    showAlert('warning', 'Please optimize a summary first');
+                }
+            });
+        }
+
+        // Utility Functions
+        function showLoading(text = 'Processing...') {
+            document.getElementById('loadingText').textContent = text;
+            document.getElementById('loadingOverlay').classList.remove('linkedin-hidden');
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingOverlay').classList.add('linkedin-hidden');
+        }
+
+        function showAlert(type, message) {
+            // Create alert element
+            const alert = document.createElement('div');
+            alert.className = `linkedin-alert ${type}`;
+            alert.innerHTML = `
+                <i class="fas ${type === 'success' ? 'fa-check-circle' :
+                               type === 'error' ? 'fa-exclamation-circle' :
+                               type === 'warning' ? 'fa-exclamation-triangle' :
+                               'fa-info-circle'} linkedin-alert-icon"></i>
+                <div class="linkedin-alert-content">
+                    <div class="linkedin-alert-message">${message}</div>
+                </div>
+            `;
+
+            // Insert at top of container
+            const container = document.querySelector('.linkedin-container');
+            container.insertBefore(alert, container.firstChild);
+
+            // Auto-remove after 5 seconds
+            setTimeout(() => alert.remove(), 5000);
+        }
+
+        // Make switchTab global for button onclick
+        window.switchTab = switchTab;
+    </script>
+</body>
+</html>

@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cover Letter Generator - ResuMate Test</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/coverletter.css">
+    <link rel="stylesheet" href="css/export.css">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .page-header {
+            background: white;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            margin: 0 0 0.5rem 0;
+            color: #2c3e50;
+            font-size: 2rem;
+        }
+
+        .page-header .subtitle {
+            color: #7f8c8d;
+            font-size: 0.95rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: #3498db;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .api-key-banner {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 2rem;
+            display: none;
+        }
+
+        .api-key-banner.show {
+            display: block;
+        }
+
+        .api-key-banner strong {
+            color: #856404;
+        }
+
+        .api-key-input-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }
+
+        .api-key-input-group input {
+            flex: 1;
+            padding: 0.5rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 4px;
+        }
+
+        .api-key-input-group button {
+            padding: 0.5rem 1rem;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .api-key-input-group button:hover {
+            background: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-header">
+        <a href="index.html" class="back-link">← Back to ResuMate</a>
+        <h1>Cover Letter Generator</h1>
+        <p class="subtitle">AI-powered cover letter creation with multiple modes and customization options</p>
+    </div>
+
+    <!-- API Key Banner -->
+    <div id="api-key-banner" class="api-key-banner">
+        <strong>API Key Required:</strong> Please enter your Claude API key to use the AI-powered features.
+        <div class="api-key-input-group">
+            <input type="password" id="api-key-input" placeholder="sk-ant-...">
+            <button onclick="saveApiKey()">Save Key</button>
+        </div>
+    </div>
+
+    <div class="coverletter-container">
+        <!-- Sidebar - Options & Controls -->
+        <div class="coverletter-sidebar">
+            <!-- Mode Selector -->
+            <div class="mode-selector">
+                <label for="mode-select">Generation Mode</label>
+                <select id="mode-select">
+                    <option value="from_scratch">From Scratch</option>
+                    <option value="rewrite">Rewrite Existing</option>
+                    <option value="tailor">Tailor for Job</option>
+                    <option value="template">Template-Based</option>
+                </select>
+            </div>
+
+            <!-- Job Details (Common) -->
+            <div class="input-section">
+                <label for="job-title">Job Title *</label>
+                <input type="text" id="job-title" placeholder="e.g., Senior Software Engineer">
+            </div>
+
+            <div class="input-section">
+                <label for="company-name">Company Name *</label>
+                <input type="text" id="company-name" placeholder="e.g., Acme Corp">
+            </div>
+
+            <div class="input-section">
+                <label for="job-description">Job Description *</label>
+                <textarea id="job-description" rows="6" placeholder="Paste the full job description here..."></textarea>
+                <span class="input-hint">Include key requirements and responsibilities</span>
+            </div>
+
+            <!-- FROM SCRATCH Mode -->
+            <div data-mode-section="from_scratch">
+                <div class="input-section">
+                    <label for="resume-summary">Resume Summary *</label>
+                    <textarea id="resume-summary" rows="6" placeholder="Summarize your key experience, skills, and achievements..."></textarea>
+                    <span class="input-hint">Brief overview of your background relevant to this role</span>
+                </div>
+
+                <div class="input-section">
+                    <label for="how-found">How You Found This Position (optional)</label>
+                    <input type="text" id="how-found" placeholder="e.g., LinkedIn, company website, referral from John Doe">
+                </div>
+
+                <div class="input-section">
+                    <label for="contact-name">Hiring Manager Name (optional)</label>
+                    <input type="text" id="contact-name" placeholder="e.g., Jane Smith">
+                </div>
+            </div>
+
+            <!-- REWRITE Mode -->
+            <div data-mode-section="rewrite" style="display: none;">
+                <div class="input-section">
+                    <label for="current-letter">Current Cover Letter *</label>
+                    <textarea id="current-letter" rows="10" placeholder="Paste your existing cover letter here..."></textarea>
+                </div>
+
+                <div class="input-section">
+                    <label for="improvements">Specific Improvements (optional)</label>
+                    <textarea id="improvements" rows="4" placeholder="One improvement per line, e.g.:&#10;Make the opening more compelling&#10;Add more metrics and achievements&#10;Strengthen the closing"></textarea>
+                    <span class="input-hint">List specific areas you want to improve</span>
+                </div>
+            </div>
+
+            <!-- TAILOR Mode -->
+            <div data-mode-section="tailor" style="display: none;">
+                <div class="input-section">
+                    <label for="original-letter">Original Cover Letter *</label>
+                    <textarea id="original-letter" rows="10" placeholder="Paste the cover letter you want to tailor..."></textarea>
+                </div>
+
+                <div class="input-section">
+                    <label for="old-job-title">Original Job Title (optional)</label>
+                    <input type="text" id="old-job-title" placeholder="e.g., Software Developer">
+                </div>
+
+                <div class="input-section">
+                    <label for="old-company-name">Original Company (optional)</label>
+                    <input type="text" id="old-company-name" placeholder="e.g., Previous Company">
+                </div>
+            </div>
+
+            <!-- TEMPLATE Mode -->
+            <div data-mode-section="template" style="display: none;">
+                <div class="input-section">
+                    <label for="template-type">Template Type</label>
+                    <select id="template-type">
+                        <option value="traditional">Traditional Professional</option>
+                        <option value="modern">Modern Conversational</option>
+                        <option value="career-changer">Career Changer</option>
+                    </select>
+                </div>
+
+                <p class="text-muted" style="font-size: 0.85rem; margin-top: 1rem;">
+                    Template mode uses predefined structures with placeholders.
+                    Fill in the job details above and click Generate.
+                </p>
+            </div>
+
+            <!-- Customization Options -->
+            <div class="customization-section">
+                <h3>Customization</h3>
+
+                <div class="option-grid">
+                    <div class="option-group">
+                        <label for="tone-select">Tone</label>
+                        <select id="tone-select">
+                            <option value="professional">Professional</option>
+                            <option value="conversational">Conversational</option>
+                            <option value="enthusiastic">Enthusiastic</option>
+                        </select>
+                    </div>
+
+                    <div class="option-group">
+                        <label for="length-select">Length</label>
+                        <select id="length-select">
+                            <option value="150">Brief (150 words)</option>
+                            <option value="250" selected>Standard (250 words)</option>
+                            <option value="400">Detailed (400 words)</option>
+                        </select>
+                    </div>
+
+                    <div class="option-group">
+                        <label for="focus-select">Focus</label>
+                        <select id="focus-select">
+                            <option value="skills">Skills</option>
+                            <option value="experience" selected>Experience</option>
+                            <option value="culture-fit">Culture Fit</option>
+                            <option value="story">Personal Story</option>
+                        </select>
+                    </div>
+
+                    <div class="option-group">
+                        <label for="opening-style-select">Opening Style</label>
+                        <select id="opening-style-select">
+                            <option value="traditional" selected>Traditional</option>
+                            <option value="hook">Compelling Hook</option>
+                            <option value="achievement">Achievement Lead</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="button-group">
+                <button id="generate-btn" class="btn btn-primary">
+                    Generate Cover Letter
+                </button>
+                <button id="rewrite-btn" class="btn btn-primary" style="display: none;">
+                    Rewrite Letter
+                </button>
+                <button id="tailor-btn" class="btn btn-primary" style="display: none;">
+                    Tailor Letter
+                </button>
+                <button id="analyze-btn" class="btn btn-secondary">
+                    Analyze Letter
+                </button>
+                <button id="clear-btn" class="btn btn-outline">
+                    Clear All
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content - Editor & Preview -->
+        <div class="coverletter-main">
+            <!-- Status Message -->
+            <div id="status-message" class="status-message"></div>
+
+            <!-- Editor Section -->
+            <div class="editor-section">
+                <div class="editor-header">
+                    <h2>Cover Letter Editor</h2>
+                    <span id="word-count" class="word-count">0 words</span>
+                </div>
+                <textarea id="letter-editor" class="letter-editor" placeholder="Your generated cover letter will appear here. You can edit it directly..."></textarea>
+            </div>
+
+            <!-- Preview Section -->
+            <div class="preview-section">
+                <div class="preview-header">
+                    <h2>Preview</h2>
+                    <div class="preview-tabs">
+                        <div class="preview-tab active" data-tab="formatted">Formatted</div>
+                        <div class="preview-tab" data-tab="structured">Structured</div>
+                    </div>
+                </div>
+
+                <div class="preview-pane">
+                    <!-- Formatted Preview -->
+                    <div id="letter-preview" class="letter-preview">
+                        <p class="text-muted text-center">Your cover letter preview will appear here...</p>
+                    </div>
+
+                    <!-- Structured Preview -->
+                    <div id="structured-view" class="structured-view" style="display: none;">
+                        <p class="text-muted text-center">Structured view will show letter sections...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analysis Results -->
+            <div id="analysis-results" class="analysis-results"></div>
+
+            <!-- Export Section -->
+            <div class="export-section">
+                <h3>Export Cover Letter</h3>
+                <div class="button-group">
+                    <button id="export-txt-btn" class="btn btn-outline">
+                        Export as TXT
+                    </button>
+                    <button id="export-pdf-btn" class="btn btn-outline">
+                        Export as PDF
+                    </button>
+                    <button id="export-docx-btn" class="btn btn-outline">
+                        Export as DOCX
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <!-- Export dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.8.2/docx.min.js"></script>
+
+    <!-- Export modules -->
+    <script src="js/export/pdf-export.js"></script>
+    <script src="js/export/docx-export.js"></script>
+    <script src="js/export/formats.js"></script>
+    <script src="js/export/export-manager.js"></script>
+
+    <!-- Cover letter modules -->
+    <script src="js/coverletter/prompts.js"></script>
+    <script src="js/coverletter/structure.js"></script>
+    <script src="js/coverletter/generator.js"></script>
+    <script src="js/coverletter/editor.js"></script>
+
+    <script>
+        // Global export manager instance
+        let exportManager;
+
+        // Check for API key on load
+        window.addEventListener('DOMContentLoaded', async () => {
+            const apiKey = localStorage.getItem('claude_api_key');
+            const banner = document.getElementById('api-key-banner');
+
+            if (!apiKey) {
+                banner.classList.add('show');
+            }
+
+            // Initialize export manager
+            try {
+                exportManager = new ExportManager();
+                await exportManager.initialize();
+                console.log('[Test Page] Export manager initialized');
+            } catch (error) {
+                console.error('[Test Page] Failed to initialize export manager:', error);
+            }
+
+            // Initialize editor
+            initializeCoverLetterEditor();
+        });
+
+        // Save API key
+        function saveApiKey() {
+            const input = document.getElementById('api-key-input');
+            const apiKey = input.value.trim();
+
+            if (apiKey) {
+                localStorage.setItem('claude_api_key', apiKey);
+                document.getElementById('api-key-banner').classList.remove('show');
+                alert('API key saved successfully!');
+                input.value = '';
+            } else {
+                alert('Please enter a valid API key');
+            }
+        }
+
+        // Initialize cover letter editor
+        function initializeCoverLetterEditor() {
+            // Initialize the editor with element IDs
+            coverLetterEditor.initialize({
+                modeSelector: 'mode-select',
+                jobTitle: 'job-title',
+                companyName: 'company-name',
+                jobDescription: 'job-description',
+                resumeSummary: 'resume-summary',
+                toneSelect: 'tone-select',
+                lengthSelect: 'length-select',
+                focusSelect: 'focus-select',
+                openingStyleSelect: 'opening-style-select',
+                howFound: 'how-found',
+                contactName: 'contact-name',
+                currentLetter: 'current-letter',
+                improvements: 'improvements',
+                originalLetter: 'original-letter',
+                oldJobTitle: 'old-job-title',
+                oldCompanyName: 'old-company-name',
+                templateType: 'template-type',
+                editor: 'letter-editor',
+                preview: 'letter-preview',
+                structuredView: 'structured-view',
+                generateBtn: 'generate-btn',
+                rewriteBtn: 'rewrite-btn',
+                tailorBtn: 'tailor-btn',
+                analyzeBtn: 'analyze-btn',
+                clearBtn: 'clear-btn',
+                exportTxtBtn: 'export-txt-btn',
+                exportPdfBtn: 'export-pdf-btn',
+                exportDocxBtn: 'export-docx-btn',
+                statusMessage: 'status-message',
+                wordCount: 'word-count',
+                analysisResults: 'analysis-results'
+            });
+
+            // Setup preview tabs
+            setupPreviewTabs();
+
+            // Setup mode selector to show/hide sections
+            const modeSelect = document.getElementById('mode-select');
+            modeSelect.addEventListener('change', updateModeDisplay);
+
+            // Initial mode display
+            updateModeDisplay();
+
+            // Add sample data button for testing
+            addTestDataButton();
+        }
+
+        // Update mode display
+        function updateModeDisplay() {
+            const mode = document.getElementById('mode-select').value;
+
+            // Hide all mode sections
+            document.querySelectorAll('[data-mode-section]').forEach(section => {
+                section.style.display = 'none';
+            });
+
+            // Show current mode section
+            const currentSection = document.querySelector(`[data-mode-section="${mode}"]`);
+            if (currentSection) {
+                currentSection.style.display = 'block';
+            }
+
+            // Update button visibility
+            document.getElementById('generate-btn').style.display =
+                (mode === 'from_scratch' || mode === 'template') ? 'inline-flex' : 'none';
+            document.getElementById('rewrite-btn').style.display =
+                mode === 'rewrite' ? 'inline-flex' : 'none';
+            document.getElementById('tailor-btn').style.display =
+                mode === 'tailor' ? 'inline-flex' : 'none';
+        }
+
+        // Setup preview tabs
+        function setupPreviewTabs() {
+            const tabs = document.querySelectorAll('.preview-tab');
+            const formattedPreview = document.getElementById('letter-preview');
+            const structuredPreview = document.getElementById('structured-view');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Update active tab
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+
+                    // Show corresponding preview
+                    const tabType = tab.dataset.tab;
+                    if (tabType === 'formatted') {
+                        formattedPreview.style.display = 'block';
+                        structuredPreview.style.display = 'none';
+                    } else {
+                        formattedPreview.style.display = 'none';
+                        structuredPreview.style.display = 'block';
+                    }
+                });
+            });
+        }
+
+        // Add test data for quick testing
+        function addTestDataButton() {
+            const sidebar = document.querySelector('.coverletter-sidebar');
+            const testBtn = document.createElement('button');
+            testBtn.className = 'btn btn-outline';
+            testBtn.textContent = 'Load Sample Data';
+            testBtn.style.marginTop = '1rem';
+            testBtn.style.width = '100%';
+
+            testBtn.addEventListener('click', loadSampleData);
+
+            // Insert after customization section
+            const customSection = document.querySelector('.customization-section');
+            customSection.parentNode.insertBefore(testBtn, customSection.nextSibling);
+        }
+
+        // Load sample data for testing
+        function loadSampleData() {
+            const mode = document.getElementById('mode-select').value;
+
+            // Common data
+            document.getElementById('job-title').value = 'Senior Software Engineer';
+            document.getElementById('company-name').value = 'Tech Innovations Inc';
+            document.getElementById('job-description').value =
+                'We are seeking a Senior Software Engineer with 5+ years of experience in full-stack development. ' +
+                'Strong skills in JavaScript, React, Node.js, and cloud technologies required. ' +
+                'You will lead technical initiatives, mentor junior developers, and contribute to architectural decisions. ' +
+                'Experience with microservices, CI/CD, and agile methodologies preferred.';
+
+            if (mode === 'from_scratch') {
+                document.getElementById('resume-summary').value =
+                    'Software engineer with 7 years of experience building scalable web applications. ' +
+                    'Expert in JavaScript, React, and Node.js. Led development of e-commerce platform serving 1M+ users. ' +
+                    'Strong track record of mentoring teams and improving development processes. ' +
+                    'Passionate about clean code, testing, and continuous improvement.';
+                document.getElementById('how-found').value = 'LinkedIn';
+                document.getElementById('contact-name').value = 'Sarah Johnson';
+            } else if (mode === 'rewrite') {
+                document.getElementById('current-letter').value =
+                    'Dear Hiring Manager,\n\n' +
+                    'I am writing to apply for the Software Engineer position at your company. ' +
+                    'I have experience in software development and I am a hard worker. ' +
+                    'I am passionate about technology and would be a great team player.\n\n' +
+                    'In my current role, I work on various projects and collaborate with my team. ' +
+                    'I have skills in programming and problem solving.\n\n' +
+                    'I am excited about this opportunity and look forward to hearing from you.\n\n' +
+                    'Sincerely,\nJohn Doe';
+            } else if (mode === 'tailor') {
+                document.getElementById('original-letter').value =
+                    'Dear Hiring Manager,\n\n' +
+                    'I am excited to apply for the Full Stack Developer position at StartupXYZ. ' +
+                    'With 7 years of experience building web applications, I have developed expertise in ' +
+                    'JavaScript frameworks and cloud infrastructure.\n\n' +
+                    'At my current company, I led the development of a customer portal that increased user ' +
+                    'engagement by 40%. This experience strengthened my skills in React, Node.js, and AWS.\n\n' +
+                    'StartupXYZ\'s mission to democratize education through technology aligns with my values. ' +
+                    'I am passionate about using technology to solve real-world problems.\n\n' +
+                    'Thank you for your consideration. I look forward to discussing this opportunity.\n\n' +
+                    'Sincerely,\nJohn Doe';
+                document.getElementById('old-job-title').value = 'Full Stack Developer';
+                document.getElementById('old-company-name').value = 'StartupXYZ';
+            }
+
+            alert('Sample data loaded! You can now test generation.');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+{
+  "description": "Content Security Policy configuration for ResuMate",
+  "policy": {
+    "default-src": ["'self'"],
+    "script-src": [
+      "'self'",
+      "'unsafe-inline'"
+    ],
+    "style-src": [
+      "'self'",
+      "'unsafe-inline'"
+    ],
+    "img-src": [
+      "'self'",
+      "data:",
+      "https:"
+    ],
+    "font-src": [
+      "'self'",
+      "data:"
+    ],
+    "connect-src": [
+      "'self'",
+      "https://api.anthropic.com"
+    ],
+    "frame-src": ["'none'"],
+    "object-src": ["'none'"],
+    "base-uri": ["'self'"],
+    "form-action": ["'self'"],
+    "frame-ancestors": ["'none'"],
+    "block-all-mixed-content": [],
+    "upgrade-insecure-requests": []
+  },
+  "reportOnly": false,
+  "reportUri": null,
+  "notes": {
+    "unsafe-inline": "Required for inline scripts/styles. Consider moving to external files and using nonces for production.",
+    "data-images": "Allowed for base64-encoded images in templates",
+    "anthropic-api": "Required for Claude AI API calls",
+    "future-improvements": [
+      "Implement nonce-based CSP for inline scripts",
+      "Move all inline styles to external CSS files",
+      "Add CSP violation reporting endpoint",
+      "Remove 'unsafe-inline' after refactoring"
+    ]
+  },
+  "stricterPolicy": {
+    "description": "Stricter CSP for production (requires code refactoring)",
+    "script-src": [
+      "'self'",
+      "'nonce-{RANDOM}'"
+    ],
+    "style-src": [
+      "'self'",
+      "'nonce-{RANDOM}'"
+    ]
+  }
+}

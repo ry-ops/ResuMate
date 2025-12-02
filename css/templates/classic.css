@@ -1,0 +1,435 @@
+/**
+ * Classic Professional Template
+ * Traditional single-column layout with conservative styling
+ * Maximum ATS compatibility - no graphics, simple structure
+ */
+
+/* Template Variables */
+.resume-preview.template-classic {
+    --template-primary-color: #000000;
+    --template-secondary-color: #333333;
+    --template-accent-color: #666666;
+    --template-text-color: #000000;
+    --template-background-color: #ffffff;
+    --template-border-color: #cccccc;
+
+    --template-heading-font: Georgia, serif;
+    --template-body-font: 'Times New Roman', serif;
+    --template-base-font-size: 11pt;
+
+    --template-section-spacing: 16pt;
+    --template-item-spacing: 8pt;
+    --template-margins: 25mm;
+}
+
+/* Page Container */
+.resume-preview.template-classic .resume-page {
+    font-family: var(--template-body-font);
+    font-size: var(--template-base-font-size);
+    line-height: 1.4;
+    color: var(--template-text-color);
+    background: var(--template-background-color);
+    padding: var(--template-margins);
+    max-width: 8.5in;
+    min-height: 11in;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* A4 Support */
+@media print {
+    .resume-preview.template-classic .resume-page.page-a4 {
+        width: 210mm;
+        min-height: 297mm;
+    }
+
+    .resume-preview.template-classic .resume-page.page-letter {
+        width: 8.5in;
+        min-height: 11in;
+    }
+}
+
+/* Header Section */
+.resume-preview.template-classic .resume-header {
+    text-align: center;
+    border-bottom: 2pt solid var(--template-border-color);
+    padding-bottom: 12pt;
+    margin-bottom: var(--template-section-spacing);
+}
+
+.resume-preview.template-classic .resume-name {
+    font-family: var(--template-heading-font);
+    font-size: 18pt;
+    font-weight: bold;
+    color: var(--template-primary-color);
+    margin: 0 0 6pt 0;
+    text-transform: uppercase;
+    letter-spacing: 1pt;
+}
+
+.resume-preview.template-classic .resume-title {
+    font-size: 12pt;
+    color: var(--template-secondary-color);
+    margin: 0 0 8pt 0;
+    font-weight: normal;
+}
+
+.resume-preview.template-classic .resume-contact {
+    font-size: 10pt;
+    color: var(--template-secondary-color);
+    margin: 0;
+}
+
+.resume-preview.template-classic .resume-contact-item {
+    display: inline-block;
+    margin: 0 8pt;
+}
+
+.resume-preview.template-classic .resume-contact-item:first-child {
+    margin-left: 0;
+}
+
+.resume-preview.template-classic .resume-contact-separator {
+    color: var(--template-accent-color);
+}
+
+/* Section Styling */
+.resume-preview.template-classic .resume-section {
+    margin-bottom: var(--template-section-spacing);
+    page-break-inside: avoid;
+}
+
+.resume-preview.template-classic .resume-section:last-child {
+    margin-bottom: 0;
+}
+
+.resume-preview.template-classic .section-title {
+    font-family: var(--template-heading-font);
+    font-size: 14pt;
+    font-weight: bold;
+    color: var(--template-primary-color);
+    text-transform: uppercase;
+    letter-spacing: 0.5pt;
+    border-bottom: 1pt solid var(--template-border-color);
+    padding-bottom: 4pt;
+    margin: 0 0 10pt 0;
+}
+
+/* Summary Section */
+.resume-preview.template-classic .resume-summary {
+    margin-bottom: var(--template-section-spacing);
+}
+
+.resume-preview.template-classic .summary-text {
+    text-align: justify;
+    margin: 0;
+}
+
+/* Experience Section */
+.resume-preview.template-classic .experience-item {
+    margin-bottom: var(--template-item-spacing);
+    page-break-inside: avoid;
+}
+
+.resume-preview.template-classic .experience-item:last-child {
+    margin-bottom: 0;
+}
+
+.resume-preview.template-classic .experience-header {
+    margin-bottom: 4pt;
+}
+
+.resume-preview.template-classic .job-title {
+    font-family: var(--template-heading-font);
+    font-size: 12pt;
+    font-weight: bold;
+    color: var(--template-primary-color);
+    margin: 0;
+}
+
+.resume-preview.template-classic .company-name {
+    font-size: 11pt;
+    color: var(--template-secondary-color);
+    font-weight: normal;
+    margin: 0;
+}
+
+.resume-preview.template-classic .job-location,
+.resume-preview.template-classic .job-dates {
+    font-size: 10pt;
+    color: var(--template-accent-color);
+    font-style: italic;
+}
+
+.resume-preview.template-classic .job-description {
+    margin: 6pt 0 0 0;
+}
+
+.resume-preview.template-classic .job-description ul {
+    margin: 0;
+    padding-left: 18pt;
+    list-style-type: disc;
+}
+
+.resume-preview.template-classic .job-description li {
+    margin-bottom: 3pt;
+    text-align: justify;
+}
+
+.resume-preview.template-classic .job-description li:last-child {
+    margin-bottom: 0;
+}
+
+/* Education Section */
+.resume-preview.template-classic .education-item {
+    margin-bottom: var(--template-item-spacing);
+    page-break-inside: avoid;
+}
+
+.resume-preview.template-classic .education-item:last-child {
+    margin-bottom: 0;
+}
+
+.resume-preview.template-classic .degree {
+    font-family: var(--template-heading-font);
+    font-size: 12pt;
+    font-weight: bold;
+    color: var(--template-primary-color);
+    margin: 0;
+}
+
+.resume-preview.template-classic .institution {
+    font-size: 11pt;
+    color: var(--template-secondary-color);
+    margin: 0;
+}
+
+.resume-preview.template-classic .education-dates,
+.resume-preview.template-classic .education-location {
+    font-size: 10pt;
+    color: var(--template-accent-color);
+    font-style: italic;
+}
+
+.resume-preview.template-classic .education-gpa {
+    font-size: 10pt;
+    color: var(--template-secondary-color);
+    margin-top: 3pt;
+}
+
+.resume-preview.template-classic .education-honors {
+    font-size: 10pt;
+    margin-top: 3pt;
+    font-style: italic;
+}
+
+/* Skills Section */
+.resume-preview.template-classic .skills-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.resume-preview.template-classic .skill-category {
+    margin-bottom: 6pt;
+}
+
+.resume-preview.template-classic .skill-category:last-child {
+    margin-bottom: 0;
+}
+
+.resume-preview.template-classic .skill-category-name {
+    font-weight: bold;
+    color: var(--template-primary-color);
+    display: inline;
+    margin-right: 6pt;
+}
+
+.resume-preview.template-classic .skill-items {
+    display: inline;
+    color: var(--template-secondary-color);
+}
+
+/* Certifications Section */
+.resume-preview.template-classic .certification-item {
+    margin-bottom: 4pt;
+}
+
+.resume-preview.template-classic .certification-item:last-child {
+    margin-bottom: 0;
+}
+
+.resume-preview.template-classic .certification-name {
+    font-weight: bold;
+    color: var(--template-primary-color);
+}
+
+.resume-preview.template-classic .certification-issuer {
+    color: var(--template-secondary-color);
+}
+
+.resume-preview.template-classic .certification-date {
+    color: var(--template-accent-color);
+    font-style: italic;
+}
+
+/* Projects Section */
+.resume-preview.template-classic .project-item {
+    margin-bottom: var(--template-item-spacing);
+    page-break-inside: avoid;
+}
+
+.resume-preview.template-classic .project-item:last-child {
+    margin-bottom: 0;
+}
+
+.resume-preview.template-classic .project-name {
+    font-family: var(--template-heading-font);
+    font-size: 12pt;
+    font-weight: bold;
+    color: var(--template-primary-color);
+    margin: 0 0 3pt 0;
+}
+
+.resume-preview.template-classic .project-description {
+    margin: 0;
+    text-align: justify;
+}
+
+.resume-preview.template-classic .project-technologies {
+    font-size: 10pt;
+    color: var(--template-accent-color);
+    margin-top: 3pt;
+}
+
+/* Awards & Achievements */
+.resume-preview.template-classic .achievement-item {
+    margin-bottom: 4pt;
+}
+
+.resume-preview.template-classic .achievement-item:last-child {
+    margin-bottom: 0;
+}
+
+.resume-preview.template-classic .achievement-title {
+    font-weight: bold;
+    color: var(--template-primary-color);
+}
+
+.resume-preview.template-classic .achievement-date {
+    color: var(--template-accent-color);
+    font-style: italic;
+}
+
+/* Languages Section */
+.resume-preview.template-classic .language-item {
+    margin-bottom: 3pt;
+}
+
+.resume-preview.template-classic .language-item:last-child {
+    margin-bottom: 0;
+}
+
+.resume-preview.template-classic .language-name {
+    font-weight: bold;
+    color: var(--template-primary-color);
+    display: inline;
+    margin-right: 6pt;
+}
+
+.resume-preview.template-classic .language-proficiency {
+    display: inline;
+    color: var(--template-secondary-color);
+}
+
+/* Publications Section */
+.resume-preview.template-classic .publication-item {
+    margin-bottom: var(--template-item-spacing);
+}
+
+.resume-preview.template-classic .publication-item:last-child {
+    margin-bottom: 0;
+}
+
+.resume-preview.template-classic .publication-title {
+    font-style: italic;
+    color: var(--template-primary-color);
+}
+
+.resume-preview.template-classic .publication-venue {
+    color: var(--template-secondary-color);
+}
+
+.resume-preview.template-classic .publication-date {
+    color: var(--template-accent-color);
+}
+
+/* References Section */
+.resume-preview.template-classic .reference-item {
+    margin-bottom: 6pt;
+}
+
+.resume-preview.template-classic .reference-item:last-child {
+    margin-bottom: 0;
+}
+
+.resume-preview.template-classic .reference-name {
+    font-weight: bold;
+    color: var(--template-primary-color);
+}
+
+.resume-preview.template-classic .reference-title {
+    color: var(--template-secondary-color);
+}
+
+.resume-preview.template-classic .reference-contact {
+    font-size: 10pt;
+    color: var(--template-accent-color);
+}
+
+/* Print Optimization */
+@media print {
+    .resume-preview.template-classic .resume-page {
+        padding: 0.5in;
+        page-break-after: always;
+    }
+
+    .resume-preview.template-classic .resume-section {
+        page-break-inside: avoid;
+    }
+
+    .resume-preview.template-classic .experience-item,
+    .resume-preview.template-classic .education-item,
+    .resume-preview.template-classic .project-item {
+        page-break-inside: avoid;
+    }
+}
+
+/* ATS Optimization - Ensure all text is selectable and parseable */
+.resume-preview.template-classic * {
+    background: transparent !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+/* Accessibility */
+.resume-preview.template-classic a {
+    color: var(--template-primary-color);
+    text-decoration: underline;
+}
+
+.resume-preview.template-classic a:hover {
+    color: var(--template-secondary-color);
+}
+
+/* Link styling for email and URLs */
+.resume-preview.template-classic .resume-contact a,
+.resume-preview.template-classic .reference-contact a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.resume-preview.template-classic .resume-contact a:hover,
+.resume-preview.template-classic .reference-contact a:hover {
+    text-decoration: underline;
+}

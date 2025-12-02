@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entry Level / New Graduate Cover Letter</title>
+  <style>
+    body {
+      font-family: 'Calibri', 'Arial', sans-serif;
+      font-size: 11pt;
+      line-height: 1.6;
+      color: #2c3e50;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 40px 25px;
+      background: #fff;
+    }
+    .header {
+      margin-bottom: 2em;
+    }
+    .name {
+      font-size: 18pt;
+      font-weight: 700;
+      color: #2980b9;
+      margin-bottom: 0.3em;
+    }
+    .contact {
+      font-size: 10pt;
+      color: #7f8c8d;
+    }
+    .date {
+      margin: 1.5em 0;
+      color: #95a5a6;
+      font-size: 10pt;
+    }
+    .greeting {
+      margin-bottom: 1.5em;
+      font-size: 12pt;
+    }
+    p {
+      margin-bottom: 1.2em;
+    }
+    .enthusiasm-box {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 15px 20px;
+      border-radius: 8px;
+      margin: 1.5em 0;
+      font-weight: 500;
+    }
+    .achievement-list {
+      background-color: #f8f9fa;
+      padding: 15px 20px;
+      border-radius: 6px;
+      margin: 1.2em 0;
+    }
+    .achievement-item {
+      margin: 0.8em 0;
+      padding-left: 1.5em;
+      position: relative;
+    }
+    .achievement-item:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #27ae60;
+      font-weight: bold;
+    }
+    .closing {
+      margin-top: 2em;
+    }
+    .signature {
+      margin-top: 1.5em;
+    }
+    .variable {
+      background-color: #e1f5fe;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-weight: 600;
+      color: #0277bd;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="name"><span class="variable">{{your_name}}</span></div>
+    <div class="contact">
+      <span class="variable">{{your_phone}}</span> |
+      <span class="variable">{{your_email}}</span>
+    </div>
+  </div>
+
+  <div class="date">
+    <span class="variable">{{current_date}}</span>
+  </div>
+
+  <div class="greeting">
+    Dear <span class="variable">{{hiring_manager_name}}</span>,
+  </div>
+
+  <p>
+    As a recent graduate from <span class="variable">{{university}}</span> with a degree in <span class="variable">{{degree}}</span>, I am excited to apply for the <span class="variable">{{job_title}}</span> position at <span class="variable">{{company_name}}</span>. I am eager to launch my career in <span class="variable">{{industry}}</span> and believe this role is the perfect opportunity to apply my skills and continue learning.
+  </p>
+
+  <div class="enthusiasm-box">
+    I'm passionate about starting my professional journey with a company that values growth, innovation, and making a real impact!
+  </div>
+
+  <p>
+    During my time at <span class="variable">{{university}}</span>, I <span class="variable">{{academic_achievement}}</span>. My coursework in <span class="variable">{{relevant_coursework}}</span> provided me with a strong foundation in <span class="variable">{{key_skill_1}}</span> and <span class="variable">{{key_skill_2}}</span>.
+  </p>
+
+  <div class="achievement-list">
+    <div style="font-weight: 600; margin-bottom: 0.8em; color: #2c3e50;">Key Experiences:</div>
+    <div class="achievement-item">
+      <strong>Practical Experience:</strong> <span class="variable">{{experience_type}}</span> at <span class="variable">{{organization}}</span>, where I <span class="variable">{{practical_achievement}}</span>
+    </div>
+    <div class="achievement-item">
+      <strong>Leadership & Initiative:</strong> I <span class="variable">{{project_or_activity}}</span>, which taught me <span class="variable">{{lesson_learned}}</span>
+    </div>
+  </div>
+
+  <p>
+    I am particularly drawn to <span class="variable">{{company_name}}</span> because <span class="variable">{{why_this_company}}</span>. I am confident that my <span class="variable">{{personal_qualities}}</span>, combined with my technical skills and enthusiasm, would make me a valuable addition to your team.
+  </p>
+
+  <p>
+    While I may be early in my career, I bring fresh perspectives, up-to-date knowledge of current industry trends, and an unwavering commitment to excellence. I'm a quick learner who thrives in collaborative environments and I'm ready to contribute meaningfully from day one.
+  </p>
+
+  <div class="closing">
+    <p>
+      I am eager to contribute my energy, fresh perspective, and strong work ethic to <span class="variable">{{company_name}}</span>. Thank you for considering my application. I look forward to the opportunity to discuss how I can grow with your organization and contribute to your team's success.
+    </p>
+
+    <div class="signature">
+      <p>Sincerely,</p>
+      <div style="margin-top: 1em; font-weight: 600;">
+        <span class="variable">{{your_name}}</span>
+      </div>
+      <div style="font-size: 10pt; color: #7f8c8d; margin-top: 0.3em;">
+        <span class="variable">{{your_phone}}</span><br>
+        <span class="variable">{{your_email}}</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

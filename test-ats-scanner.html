@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATS Scanner v2 - Test Suite</title>
+    <link rel="stylesheet" href="css/scoring.css">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f8fafc;
+        }
+
+        .test-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .test-header {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .test-header h1 {
+            margin: 0 0 10px 0;
+            color: #1e293b;
+        }
+
+        .test-controls {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        button.primary {
+            background: #3b82f6;
+            color: white;
+        }
+
+        button.primary:hover {
+            background: #2563eb;
+        }
+
+        button.secondary {
+            background: #e2e8f0;
+            color: #1e293b;
+        }
+
+        button.secondary:hover {
+            background: #cbd5e1;
+        }
+
+        .sample-selector {
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            min-width: 200px;
+        }
+
+        .results-container {
+            display: none;
+        }
+
+        .results-container.active {
+            display: block;
+        }
+
+        .test-info {
+            background: #eff6ff;
+            border: 2px solid #3b82f6;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .test-info h3 {
+            margin: 0 0 8px 0;
+            color: #1e40af;
+        }
+
+        .checks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .check-card {
+            background: white;
+            padding: 16px;
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+
+        .check-card.passed {
+            border-color: #10b981;
+        }
+
+        .check-card.failed {
+            border-color: #ef4444;
+        }
+
+        .check-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 8px;
+        }
+
+        .check-name {
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .check-status {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .check-status.passed {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .check-status.failed {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .check-message {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        .check-score {
+            font-size: 18px;
+            font-weight: 700;
+            color: #3b82f6;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-header">
+            <h1>🔍 ATS Scanner v2 - Test Suite</h1>
+            <p>Test the enhanced ATS scanner with 30+ comprehensive checks</p>
+
+            <div class="test-controls">
+                <select class="sample-selector" id="sampleSelect">
+                    <option value="good">Sample: Good Resume (Score ~85)</option>
+                    <option value="average">Sample: Average Resume (Score ~65)</option>
+                    <option value="poor">Sample: Poor Resume (Score ~40)</option>
+                    <option value="custom">Custom Resume Data</option>
+                </select>
+
+                <button class="primary" onclick="runFullScan()">🚀 Run Full Scan</button>
+                <button class="secondary" onclick="runQuickScan()">⚡ Quick Scan</button>
+                <button class="secondary" onclick="clearResults()">🗑️ Clear Results</button>
+                <button class="secondary" onclick="exportResults()">📥 Export Results</button>
+            </div>
+        </div>
+
+        <div class="results-container" id="resultsContainer">
+            <!-- Overall Score Card -->
+            <div id="scoreCard"></div>
+
+            <!-- Test Info -->
+            <div class="test-info">
+                <h3>Scan Information</h3>
+                <div id="scanInfo"></div>
+            </div>
+
+            <!-- Category Breakdown -->
+            <div id="categoryBreakdown"></div>
+
+            <!-- Strengths & Weaknesses -->
+            <div id="analysis"></div>
+
+            <!-- Recommendations -->
+            <div id="recommendations"></div>
+
+            <!-- All Check Results -->
+            <div class="analysis-section">
+                <h3>📋 All Check Results</h3>
+                <div class="checks-grid" id="checksGrid"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load all modules -->
+    <script src="js/analyzer/checks/formatting.js"></script>
+    <script src="js/analyzer/checks/structure.js"></script>
+    <script src="js/analyzer/checks/content.js"></script>
+    <script src="js/analyzer/scorer.js"></script>
+    <script src="js/analyzer/recommendations.js"></script>
+    <script src="js/analyzer/ats-scanner.js"></script>
+
+    <script>
+        // Sample resume data
+        const sampleResumes = {
+            good: {
+                sections: [
+                    {
+                        type: 'contact',
+                        title: 'Contact Information',
+                        content: {
+                            name: 'John Smith',
+                            email: 'john.smith@email.com',
+                            phone: '(555) 123-4567',
+                            location: 'San Francisco, CA'
+                        }
+                    },
+                    {
+                        type: 'summary',
+                        title: 'Professional Summary',
+                        content: {
+                            text: 'Senior Software Engineer with 8+ years of experience building scalable web applications. Increased system performance by 40% and reduced costs by $200K annually through infrastructure optimization.'
+                        }
+                    },
+                    {
+                        type: 'experience',
+                        title: 'Professional Experience',
+                        content: {
+                            items: [
+                                {
+                                    title: 'Senior Software Engineer',
+                                    company: 'Tech Corp',
+                                    startDate: 'January 2020',
+                                    endDate: 'Present',
+                                    description: 'Led development of microservices architecture',
+                                    bullets: [
+                                        'Developed REST APIs serving 1M+ requests daily using Node.js and Express',
+                                        'Reduced API response time by 45% through caching optimization',
+                                        'Managed team of 5 junior engineers, improving code quality by 30%'
+                                    ]
+                                },
+                                {
+                                    title: 'Software Engineer',
+                                    company: 'Startup Inc',
+                                    startDate: 'June 2016',
+                                    endDate: 'December 2019',
+                                    description: 'Built full-stack web applications',
+                                    bullets: [
+                                        'Implemented React frontend for customer dashboard, increasing engagement by 60%',
+                                        'Designed PostgreSQL database schema supporting 100K+ users',
+                                        'Automated deployment pipeline, reducing release time from 2 hours to 15 minutes'
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        type: 'skills',
+                        title: 'Technical Skills',
+                        content: {
+                            items: [
+                                'JavaScript', 'TypeScript', 'React', 'Node.js', 'Python',
+                                'PostgreSQL', 'MongoDB', 'AWS', 'Docker', 'Kubernetes',
+                                'Git', 'CI/CD', 'REST APIs', 'Microservices'
+                            ]
+                        }
+                    },
+                    {
+                        type: 'education',
+                        title: 'Education',
+                        content: {
+                            items: [
+                                {
+                                    degree: 'B.S. Computer Science',
+                                    school: 'University of California',
+                                    year: '2016',
+                                    gpa: '3.8/4.0'
+                                }
+                            ]
+                        }
+                    }
+                ],
+                customization: {
+                    headingFont: 'Arial',
+                    bodyFont: 'Arial'
+                }
+            },
+            average: {
+                sections: [
+                    {
+                        type: 'header',
+                        title: 'About Me',
+                        content: {
+                            name: 'Jane Developer',
+                            email: 'jane@email.com'
+                        }
+                    },
+                    {
+                        type: 'experience',
+                        title: 'Work History',
+                        content: {
+                            items: [
+                                {
+                                    title: 'Developer',
+                                    company: 'Company XYZ',
+                                    startDate: '2018',
+                                    endDate: '2023',
+                                    bullets: [
+                                        'I worked on various projects',
+                                        'Responsible for debugging code',
+                                        'Helped improve the website'
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        type: 'education',
+                        title: 'Education',
+                        content: {
+                            items: [
+                                {
+                                    degree: 'Computer Science',
+                                    school: 'State University',
+                                    year: '2018'
+                                }
+                            ]
+                        }
+                    }
+                ],
+                customization: {
+                    headingFont: 'Comic Sans',
+                    bodyFont: 'Comic Sans'
+                }
+            },
+            poor: {
+                sections: [
+                    {
+                        type: 'personal',
+                        title: 'My Info',
+                        content: {
+                            name: 'Bob'
+                        }
+                    },
+                    {
+                        type: 'jobs',
+                        title: 'Where I Worked',
+                        content: {
+                            items: [
+                                {
+                                    title: 'Code Ninja',
+                                    company: 'Startup',
+                                    startDate: '2019',
+                                    bullets: [
+                                        'Did lots of coding',
+                                        'Fixed bugs'
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        };
+
+        let currentResults = null;
+
+        async function runFullScan() {
+            const sampleType = document.getElementById('sampleSelect').value;
+            const resumeData = sampleResumes[sampleType];
+
+            if (!resumeData) {
+                alert('Please select a valid sample resume');
+                return;
+            }
+
+            console.log('Starting full ATS scan...');
+
+            // Show loading
+            const container = document.getElementById('resultsContainer');
+            container.classList.add('active');
+            container.innerHTML = '<div class="score-loading"><div class="score-spinner"></div><div class="score-loading-text">Running 30+ ATS checks...</div></div>';
+
+            // Run scan
+            try {
+                const results = await atsScanner.scan(resumeData, {
+                    fileFormat: 'pdf',
+                    industry: 'software'
+                });
+
+                currentResults = results;
+                displayResults(results);
+            } catch (error) {
+                console.error('Scan error:', error);
+                container.innerHTML = `<div class="test-info"><h3>Error</h3><p>${error.message}</p></div>`;
+            }
+        }
+
+        async function runQuickScan() {
+            const sampleType = document.getElementById('sampleSelect').value;
+            const resumeData = sampleResumes[sampleType];
+
+            if (!resumeData) {
+                alert('Please select a valid sample resume');
+                return;
+            }
+
+            console.log('Starting quick scan...');
+
+            const container = document.getElementById('resultsContainer');
+            container.classList.add('active');
+            container.innerHTML = '<div class="score-loading"><div class="score-spinner"></div><div class="score-loading-text">Running quick scan...</div></div>';
+
+            try {
+                const results = await atsScanner.quickScan(resumeData);
+                displayQuickResults(results);
+            } catch (error) {
+                console.error('Quick scan error:', error);
+                container.innerHTML = `<div class="test-info"><h3>Error</h3><p>${error.message}</p></div>`;
+            }
+        }
+
+        function displayResults(results) {
+            // Display score card
+            const scoreCard = document.getElementById('scoreCard');
+            const gradeClass = results.score.grade.toLowerCase().replace(/[^a-z]/g, '-');
+            scoreCard.innerHTML = `
+                <div class="score-card grade-${gradeClass}">
+                    <div class="score-display">
+                        <div class="score-number">${results.score.overallScore}</div>
+                        <div class="score-divider">/</div>
+                        <div class="score-total">100</div>
+                    </div>
+                    <div class="score-grade">${results.score.grade}</div>
+                    <div class="score-description">${results.score.gradeDescription}</div>
+                    <div class="score-percentile">Top ${results.score.percentile}% of resumes</div>
+                </div>
+            `;
+
+            // Display scan info
+            const scanInfo = document.getElementById('scanInfo');
+            scanInfo.innerHTML = `
+                <p><strong>Version:</strong> ${results.version}</p>
+                <p><strong>Checks Run:</strong> ${results.checks.total}</p>
+                <p><strong>Passed:</strong> ${results.checks.passed} | <strong>Failed:</strong> ${results.checks.failed}</p>
+                <p><strong>Execution Time:</strong> ${results.executionTime}ms</p>
+                <p><strong>Timestamp:</strong> ${new Date(results.timestamp).toLocaleString()}</p>
+            `;
+
+            // Display category breakdown
+            const categoryBreakdown = document.getElementById('categoryBreakdown');
+            categoryBreakdown.innerHTML = `
+                <div class="category-breakdown">
+                    ${results.score.breakdown.categories.map(cat => `
+                        <div class="category-card">
+                            <div class="category-header">
+                                <div class="category-name">${cat.displayName}</div>
+                                <div class="category-score">${cat.score}</div>
+                            </div>
+                            <div class="category-weight">Weight: ${cat.weight}%</div>
+                            <div class="category-description">${cat.description}</div>
+                            <div class="category-progress">
+                                <div class="category-progress-bar ${cat.status}" style="width: ${cat.score}%"></div>
+                            </div>
+                            <div class="category-status ${cat.status}">${cat.status}</div>
+                            <div class="category-checks">
+                                <span>Passed: ${cat.passedCount}</span>
+                                <span>Failed: ${cat.failedCount}</span>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+
+            // Display analysis
+            const analysis = document.getElementById('analysis');
+            analysis.innerHTML = `
+                <div class="analysis-section">
+                    <h3>💪 Strengths</h3>
+                    <div class="analysis-grid">
+                        ${results.score.strengths.length > 0 ? results.score.strengths.map(s => `
+                            <div class="analysis-item strength">
+                                <div class="analysis-item-title">${s.category}</div>
+                                <div class="analysis-item-message">${s.message}</div>
+                            </div>
+                        `).join('') : '<p>No strengths identified yet. Keep improving!</p>'}
+                    </div>
+                </div>
+                <div class="analysis-section">
+                    <h3>⚠️ Areas for Improvement</h3>
+                    <div class="analysis-grid">
+                        ${results.score.weaknesses.length > 0 ? results.score.weaknesses.map(w => `
+                            <div class="analysis-item weakness">
+                                <div class="analysis-item-title">${w.category}</div>
+                                <div class="analysis-item-message">${w.message}</div>
+                            </div>
+                        `).join('') : '<p>Great job! No major weaknesses found.</p>'}
+                    </div>
+                </div>
+            `;
+
+            // Display recommendations
+            const recommendations = document.getElementById('recommendations');
+            recommendations.innerHTML = `
+                <div class="recommendations-section">
+                    <h3>🎯 Quick Wins (Start Here!)</h3>
+                    <div class="quick-wins-grid">
+                        ${results.recommendations.quickWins.slice(0, 5).map(rec => `
+                            <div class="recommendation-card">
+                                <div class="recommendation-header">
+                                    <div class="recommendation-rank">${rec.rank}</div>
+                                    <div class="recommendation-priority ${rec.priorityLabel.toLowerCase().replace(/\s/g, '-')}">${rec.priorityLabel}</div>
+                                </div>
+                                <div class="recommendation-issue">${rec.issue}</div>
+                                <div class="recommendation-action">${rec.recommendation}</div>
+                                <div class="recommendation-meta">
+                                    <div class="recommendation-impact">Impact: <strong>${rec.impact}</strong></div>
+                                    <div class="recommendation-effort">Effort: <strong>${rec.effort}</strong></div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            // Display all checks
+            const checksGrid = document.getElementById('checksGrid');
+            checksGrid.innerHTML = results.checks.results.map(check => `
+                <div class="check-card ${check.passed ? 'passed' : 'failed'}">
+                    <div class="check-header">
+                        <div class="check-name">${check.checkName}</div>
+                        <div class="check-status ${check.passed ? 'passed' : 'failed'}">
+                            ${check.passed ? '✓ PASS' : '✗ FAIL'}
+                        </div>
+                    </div>
+                    <div class="check-message">${check.message}</div>
+                    <div class="check-score">Score: ${check.score}/100</div>
+                </div>
+            `).join('');
+        }
+
+        function displayQuickResults(results) {
+            const container = document.getElementById('resultsContainer');
+            container.innerHTML = `
+                <div class="score-card">
+                    <div class="score-display">
+                        <div class="score-number">${results.score}</div>
+                        <div class="score-divider">/</div>
+                        <div class="score-total">100</div>
+                    </div>
+                    <div class="score-grade">${results.grade}</div>
+                    <div class="score-description">Quick Scan (Critical Checks Only)</div>
+                </div>
+                <div class="test-info">
+                    <h3>Quick Scan Results</h3>
+                    <p><strong>Checks Run:</strong> ${results.checksRun}</p>
+                    <p><strong>Passed:</strong> ${results.passed} | <strong>Failed:</strong> ${results.failed}</p>
+                </div>
+                <div class="analysis-section">
+                    <h3>Check Results</h3>
+                    <div class="checks-grid">
+                        ${results.results.map(check => `
+                            <div class="check-card ${check.passed ? 'passed' : 'failed'}">
+                                <div class="check-header">
+                                    <div class="check-name">${check.checkName}</div>
+                                    <div class="check-status ${check.passed ? 'passed' : 'failed'}">
+                                        ${check.passed ? '✓ PASS' : '✗ FAIL'}
+                                    </div>
+                                </div>
+                                <div class="check-message">${check.message}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function clearResults() {
+            const container = document.getElementById('resultsContainer');
+            container.classList.remove('active');
+            container.innerHTML = '';
+            currentResults = null;
+        }
+
+        function exportResults() {
+            if (!currentResults) {
+                alert('No results to export. Run a scan first.');
+                return;
+            }
+
+            const summary = atsScanner.exportResults(currentResults, 'summary');
+            const blob = new Blob([summary], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `ats-scan-${Date.now()}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Log initialization
+        console.log('ATS Scanner Test Suite loaded');
+        console.log('Scanner info:', atsScanner.getInfo());
+    </script>
+</body>
+</html>

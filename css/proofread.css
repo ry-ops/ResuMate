@@ -1,0 +1,651 @@
+/* Proofreading Suite Styles */
+/* Inline annotations, tooltips, score displays, and UI components */
+
+/* ============================================================
+   Proofreading Panel
+   ============================================================ */
+
+.proofread-panel {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.proofread-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.proofread-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.proofread-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.proofread-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.proofread-btn-primary {
+    background: #3b82f6;
+    color: white;
+}
+
+.proofread-btn-primary:hover {
+    background: #2563eb;
+}
+
+.proofread-btn-secondary {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+.proofread-btn-secondary:hover {
+    background: #d1d5db;
+}
+
+/* ============================================================
+   Polish Score Display
+   ============================================================ */
+
+.polish-score-container {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    color: white;
+}
+
+.polish-score-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.polish-score-value {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.polish-score-number {
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.polish-score-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.polish-score-grade {
+    font-size: 3rem;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 12px 24px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+}
+
+.polish-score-breakdown {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.polish-score-category {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 12px;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+}
+
+.polish-score-category-name {
+    font-size: 0.85rem;
+    opacity: 0.9;
+    margin-bottom: 4px;
+}
+
+.polish-score-category-value {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* ============================================================
+   Issue List
+   ============================================================ */
+
+.issues-container {
+    margin-top: 24px;
+}
+
+.issues-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: #f9fafb;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+.issues-count {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #374151;
+}
+
+.issues-filter {
+    display: flex;
+    gap: 8px;
+}
+
+.filter-btn {
+    padding: 6px 12px;
+    border: 1px solid #d1d5db;
+    background: white;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+    border-color: #3b82f6;
+    color: #3b82f6;
+}
+
+.filter-btn.active {
+    background: #3b82f6;
+    color: white;
+    border-color: #3b82f6;
+}
+
+.issues-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* ============================================================
+   Issue Card
+   ============================================================ */
+
+.issue-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-left: 4px solid #6b7280;
+    border-radius: 8px;
+    padding: 16px;
+    transition: all 0.2s ease;
+}
+
+.issue-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+}
+
+.issue-card.severity-high {
+    border-left-color: #ef4444;
+}
+
+.issue-card.severity-medium {
+    border-left-color: #f59e0b;
+}
+
+.issue-card.severity-low {
+    border-left-color: #10b981;
+}
+
+.issue-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 12px;
+}
+
+.issue-type {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.issue-type-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.issue-type-badge.grammar {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.issue-type-badge.spelling {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.issue-type-badge.weak_verb {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.issue-type-badge.passive_voice {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.issue-type-badge.cliche {
+    background: #e0e7ff;
+    color: #3730a3;
+}
+
+.issue-type-badge.sentence_length {
+    background: #e0e7ff;
+    color: #3730a3;
+}
+
+.issue-type-badge.tone_inconsistency {
+    background: #fce7f3;
+    color: #831843;
+}
+
+.issue-type-badge.punctuation {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.issue-type-badge.consistency {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.issue-severity {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.issue-severity.high {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.issue-severity.medium {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.issue-severity.low {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.issue-content {
+    margin-bottom: 12px;
+}
+
+.issue-text {
+    background: #f9fafb;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    color: #374151;
+    margin: 8px 0;
+    border-left: 3px solid #d1d5db;
+}
+
+.issue-location {
+    font-size: 0.85rem;
+    color: #6b7280;
+    font-style: italic;
+    margin: 4px 0;
+}
+
+.issue-message {
+    font-size: 0.95rem;
+    color: #1f2937;
+    margin: 8px 0;
+}
+
+.issue-suggestion {
+    background: #ecfdf5;
+    border-left: 3px solid #10b981;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    color: #065f46;
+    margin: 8px 0;
+}
+
+.issue-suggestion-label {
+    font-weight: 600;
+    margin-right: 6px;
+}
+
+.issue-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.issue-action-btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.issue-action-btn.fix {
+    background: #10b981;
+    color: white;
+}
+
+.issue-action-btn.fix:hover {
+    background: #059669;
+}
+
+.issue-action-btn.ignore {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+.issue-action-btn.ignore:hover {
+    background: #d1d5db;
+}
+
+/* ============================================================
+   Inline Annotations
+   ============================================================ */
+
+.annotated-text {
+    position: relative;
+    display: inline;
+}
+
+.annotation-highlight {
+    background: rgba(239, 68, 68, 0.15);
+    border-bottom: 2px wavy #ef4444;
+    cursor: pointer;
+    position: relative;
+}
+
+.annotation-highlight.severity-high {
+    background: rgba(239, 68, 68, 0.15);
+    border-bottom-color: #ef4444;
+}
+
+.annotation-highlight.severity-medium {
+    background: rgba(245, 158, 11, 0.15);
+    border-bottom-color: #f59e0b;
+}
+
+.annotation-highlight.severity-low {
+    background: rgba(59, 130, 246, 0.15);
+    border-bottom-color: #3b82f6;
+}
+
+/* ============================================================
+   Tooltip
+   ============================================================ */
+
+.annotation-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 8px;
+    background: #1f2937;
+    color: white;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+.annotation-highlight:hover .annotation-tooltip {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.annotation-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: #1f2937;
+}
+
+.tooltip-type {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+    opacity: 0.8;
+}
+
+.tooltip-message {
+    margin-bottom: 8px;
+}
+
+.tooltip-action {
+    background: #3b82f6;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: none;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.tooltip-action:hover {
+    background: #2563eb;
+}
+
+/* ============================================================
+   Statistics
+   ============================================================ */
+
+.statistics-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+}
+
+.statistic-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+}
+
+.statistic-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.statistic-label {
+    font-size: 0.85rem;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+}
+
+.statistic-sublabel {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    margin-top: 2px;
+}
+
+/* ============================================================
+   Readability Score
+   ============================================================ */
+
+.readability-score {
+    background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+    color: white;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px 0;
+}
+
+.readability-score-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.readability-score-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.readability-scale {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 12px;
+    font-size: 0.75rem;
+    opacity: 0.8;
+}
+
+/* ============================================================
+   Progress Indicator
+   ============================================================ */
+
+.proofread-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: #e5e7eb;
+    z-index: 9999;
+}
+
+.proofread-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+    transition: width 0.3s ease;
+}
+
+/* ============================================================
+   Empty State
+   ============================================================ */
+
+.proofread-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: #6b7280;
+}
+
+.proofread-empty-icon {
+    font-size: 4rem;
+    margin-bottom: 16px;
+    opacity: 0.5;
+}
+
+.proofread-empty-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 8px;
+}
+
+.proofread-empty-text {
+    font-size: 0.95rem;
+}
+
+/* ============================================================
+   Responsive Design
+   ============================================================ */
+
+@media (max-width: 768px) {
+    .polish-score-main {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .polish-score-breakdown {
+        grid-template-columns: 1fr;
+    }
+
+    .issues-summary {
+        flex-direction: column;
+        gap: 12px;
+        align-items: stretch;
+    }
+
+    .issues-filter {
+        justify-content: center;
+    }
+
+    .annotation-tooltip {
+        white-space: normal;
+        max-width: 250px;
+    }
+}
+
+/* ============================================================
+   Print Styles
+   ============================================================ */
+
+@media print {
+    .proofread-panel,
+    .issues-container,
+    .annotation-tooltip,
+    .proofread-progress {
+        display: none !important;
+    }
+
+    .annotation-highlight {
+        background: none !important;
+        border-bottom: none !important;
+    }
+}

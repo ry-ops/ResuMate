@@ -1,0 +1,758 @@
+/**
+ * Version Management UI Styles
+ * Styling for version list, tree view, comparison, and merge interfaces
+ */
+
+:root {
+    --version-primary: #3b82f6;
+    --version-secondary: #8b5cf6;
+    --version-success: #10b981;
+    --version-warning: #f59e0b;
+    --version-danger: #ef4444;
+    --version-gray: #6b7280;
+    --version-bg-light: #f9fafb;
+    --version-bg-dark: #1f2937;
+    --version-border: #e5e7eb;
+    --version-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Version Container */
+.version-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Version Toolbar */
+.version-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: var(--version-shadow);
+    margin-bottom: 1.5rem;
+}
+
+.version-toolbar-left,
+.version-toolbar-right {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.version-search-box {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--version-bg-light);
+    border: 1px solid var(--version-border);
+    border-radius: 6px;
+    padding: 0.5rem 0.75rem;
+    min-width: 300px;
+}
+
+.version-search-box input {
+    border: none;
+    background: transparent;
+    outline: none;
+    flex: 1;
+    font-size: 0.875rem;
+}
+
+/* Filter Dropdown */
+.version-filter {
+    position: relative;
+}
+
+.version-filter-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--version-border);
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+}
+
+.version-filter-btn:hover {
+    background: var(--version-bg-light);
+}
+
+.version-filter-dropdown {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    background: white;
+    border: 1px solid var(--version-border);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 0.75rem;
+    min-width: 250px;
+    z-index: 100;
+    display: none;
+}
+
+.version-filter-dropdown.active {
+    display: block;
+}
+
+.version-filter-group {
+    margin-bottom: 1rem;
+}
+
+.version-filter-group:last-child {
+    margin-bottom: 0;
+}
+
+.version-filter-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--version-gray);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.version-filter-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.version-filter-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.375rem 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.version-filter-option:hover {
+    background: var(--version-bg-light);
+}
+
+.version-filter-option input[type="checkbox"] {
+    cursor: pointer;
+}
+
+/* Action Buttons */
+.version-btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.version-btn-primary {
+    background: var(--version-primary);
+    color: white;
+}
+
+.version-btn-primary:hover {
+    background: #2563eb;
+}
+
+.version-btn-secondary {
+    background: var(--version-bg-light);
+    color: var(--version-gray);
+    border: 1px solid var(--version-border);
+}
+
+.version-btn-secondary:hover {
+    background: #e5e7eb;
+}
+
+.version-btn-danger {
+    background: var(--version-danger);
+    color: white;
+}
+
+.version-btn-danger:hover {
+    background: #dc2626;
+}
+
+/* Version Tree View */
+.version-tree {
+    background: white;
+    border-radius: 8px;
+    box-shadow: var(--version-shadow);
+    padding: 1.5rem;
+}
+
+.version-tree-empty {
+    text-align: center;
+    padding: 3rem;
+    color: var(--version-gray);
+}
+
+.version-base-group {
+    margin-bottom: 2rem;
+}
+
+.version-base-group:last-child {
+    margin-bottom: 0;
+}
+
+/* Version Card */
+.version-card {
+    border: 2px solid var(--version-border);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    transition: all 0.2s;
+    cursor: pointer;
+    position: relative;
+}
+
+.version-card:hover {
+    border-color: var(--version-primary);
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
+}
+
+.version-card.selected {
+    border-color: var(--version-primary);
+    background: rgba(59, 130, 246, 0.05);
+}
+
+.version-card.base {
+    border-width: 3px;
+    border-color: var(--version-secondary);
+    background: linear-gradient(to right, rgba(139, 92, 246, 0.05), transparent);
+}
+
+.version-card.favorite {
+    border-left: 4px solid var(--version-warning);
+}
+
+.version-card.archived {
+    opacity: 0.6;
+}
+
+/* Version Card Header */
+.version-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+}
+
+.version-card-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.version-card-title h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #111827;
+}
+
+.version-type-badge {
+    padding: 0.125rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.version-type-badge.base {
+    background: rgba(139, 92, 246, 0.15);
+    color: var(--version-secondary);
+}
+
+.version-type-badge.tailored {
+    background: rgba(59, 130, 246, 0.15);
+    color: var(--version-primary);
+}
+
+/* Status Badge */
+.version-status-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.version-status-badge.draft {
+    background: rgba(107, 114, 128, 0.15);
+    color: var(--version-gray);
+}
+
+.version-status-badge.applied {
+    background: rgba(59, 130, 246, 0.15);
+    color: var(--version-primary);
+}
+
+.version-status-badge.interviewing {
+    background: rgba(245, 158, 11, 0.15);
+    color: var(--version-warning);
+}
+
+.version-status-badge.rejected {
+    background: rgba(239, 68, 68, 0.15);
+    color: var(--version-danger);
+}
+
+.version-status-badge.offer {
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--version-success);
+}
+
+.version-status-badge.accepted {
+    background: rgba(16, 185, 129, 0.2);
+    color: #047857;
+    font-weight: 600;
+}
+
+/* Version Card Body */
+.version-card-body {
+    margin-bottom: 0.75rem;
+}
+
+.version-card-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.version-info-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--version-gray);
+}
+
+.version-info-label {
+    font-weight: 500;
+    color: #374151;
+}
+
+/* Version Card Tags */
+.version-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    margin-top: 0.5rem;
+}
+
+.version-tag {
+    padding: 0.125rem 0.5rem;
+    background: var(--version-bg-light);
+    border: 1px solid var(--version-border);
+    border-radius: 12px;
+    font-size: 0.75rem;
+    color: var(--version-gray);
+}
+
+/* Version Card Actions */
+.version-card-actions {
+    display: flex;
+    gap: 0.5rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--version-border);
+}
+
+.version-action-btn {
+    padding: 0.375rem 0.75rem;
+    background: transparent;
+    border: 1px solid var(--version-border);
+    border-radius: 4px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+}
+
+.version-action-btn:hover {
+    background: var(--version-bg-light);
+    border-color: var(--version-primary);
+    color: var(--version-primary);
+}
+
+/* Tailored Versions List */
+.version-tailored-list {
+    margin-left: 2rem;
+    margin-top: 0.75rem;
+    padding-left: 1rem;
+    border-left: 2px solid var(--version-border);
+}
+
+/* Comparison View */
+.version-comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: var(--version-shadow);
+    padding: 1.5rem;
+}
+
+.version-comparison-panel {
+    border: 1px solid var(--version-border);
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.version-comparison-header {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--version-border);
+}
+
+.version-comparison-content {
+    font-size: 0.875rem;
+}
+
+/* Diff Highlighting */
+.diff-added {
+    background: rgba(16, 185, 129, 0.15);
+    color: #047857;
+    padding: 0.125rem 0.25rem;
+    border-radius: 3px;
+}
+
+.diff-removed {
+    background: rgba(239, 68, 68, 0.15);
+    color: #dc2626;
+    text-decoration: line-through;
+    padding: 0.125rem 0.25rem;
+    border-radius: 3px;
+}
+
+.diff-modified {
+    background: rgba(245, 158, 11, 0.15);
+    color: #d97706;
+    padding: 0.125rem 0.25rem;
+    border-radius: 3px;
+}
+
+/* Diff Statistics */
+.diff-statistics {
+    background: var(--version-bg-light);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.diff-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.diff-stat-item {
+    text-align: center;
+}
+
+.diff-stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--version-primary);
+}
+
+.diff-stat-label {
+    font-size: 0.75rem;
+    color: var(--version-gray);
+    text-transform: uppercase;
+}
+
+/* Merge Preview */
+.merge-preview {
+    background: white;
+    border-radius: 8px;
+    box-shadow: var(--version-shadow);
+    padding: 1.5rem;
+}
+
+.merge-section {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--version-border);
+}
+
+.merge-section:last-child {
+    border-bottom: none;
+}
+
+.merge-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.merge-section-title {
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.merge-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.merge-changes {
+    background: var(--version-bg-light);
+    border-radius: 6px;
+    padding: 0.75rem;
+    font-size: 0.875rem;
+}
+
+.merge-change-item {
+    padding: 0.375rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Modal */
+.version-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+
+.version-modal.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.version-modal-content {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.3);
+}
+
+.version-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.version-modal-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.version-modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--version-gray);
+    transition: color 0.2s;
+}
+
+.version-modal-close:hover {
+    color: var(--version-danger);
+}
+
+.version-modal-body {
+    margin-bottom: 1.5rem;
+}
+
+.version-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+}
+
+/* Form Elements */
+.version-form-group {
+    margin-bottom: 1rem;
+}
+
+.version-form-label {
+    display: block;
+    font-weight: 500;
+    font-size: 0.875rem;
+    margin-bottom: 0.375rem;
+    color: #374151;
+}
+
+.version-form-input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--version-border);
+    border-radius: 6px;
+    font-size: 0.875rem;
+    transition: border-color 0.2s;
+}
+
+.version-form-input:focus {
+    outline: none;
+    border-color: var(--version-primary);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.version-form-textarea {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--version-border);
+    border-radius: 6px;
+    font-size: 0.875rem;
+    min-height: 100px;
+    resize: vertical;
+    font-family: inherit;
+    transition: border-color 0.2s;
+}
+
+.version-form-textarea:focus {
+    outline: none;
+    border-color: var(--version-primary);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.version-form-select {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--version-border);
+    border-radius: 6px;
+    font-size: 0.875rem;
+    background: white;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.version-form-select:focus {
+    outline: none;
+    border-color: var(--version-primary);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Stats Dashboard */
+.version-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.version-stat-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: var(--version-shadow);
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.version-stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--version-primary);
+    margin-bottom: 0.25rem;
+}
+
+.version-stat-label {
+    font-size: 0.875rem;
+    color: var(--version-gray);
+    text-transform: uppercase;
+}
+
+/* Loading State */
+.version-loading {
+    text-align: center;
+    padding: 3rem;
+    color: var(--version-gray);
+}
+
+.version-spinner {
+    border: 3px solid var(--version-border);
+    border-top-color: var(--version-primary);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .version-container {
+        padding: 1rem;
+    }
+
+    .version-toolbar {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .version-toolbar-left,
+    .version-toolbar-right {
+        width: 100%;
+    }
+
+    .version-search-box {
+        width: 100%;
+    }
+
+    .version-comparison {
+        grid-template-columns: 1fr;
+    }
+
+    .version-tailored-list {
+        margin-left: 1rem;
+    }
+
+    .version-card-info {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .version-toolbar,
+    .version-card-actions,
+    .version-action-btn {
+        display: none;
+    }
+
+    .version-card {
+        break-inside: avoid;
+    }
+}

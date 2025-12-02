@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ResuMate - AI-Powered Resume Optimization</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/preview.css">
+    <link rel="stylesheet" href="css/export.css">
 </head>
 <body>
     <div class="container">
@@ -14,74 +16,124 @@
         </header>
 
         <main>
-            <!-- Resume Input Section -->
-            <section class="card">
-                <h2>📄 Your Resume</h2>
-                <div class="input-group">
-                    <label for="resume-file" class="file-upload-label">
-                        <span class="upload-icon">📎</span>
-                        Upload Resume (PDF, DOC, DOCX, TXT)
-                        <input type="file" id="resume-file" accept=".pdf,.doc,.docx,.txt" onchange="handleResumeUpload(event)">
-                    </label>
-                    <div class="divider">OR</div>
-                    <textarea
-                        id="resume-text"
-                        placeholder="Paste your resume text here..."
-                        rows="10"
-                        oninput="handleResumeInput()"></textarea>
-                </div>
-            </section>
+            <!-- Preview Layout Container -->
+            <div class="preview-layout split-view">
+                <!-- Editor Panel -->
+                <div class="editor-panel">
+                    <!-- Resume Input Section -->
+                    <section class="card">
+                        <h2>📄 Your Resume</h2>
+                        <div class="input-group">
+                            <label for="resume-file" class="file-upload-label">
+                                <span class="upload-icon">📎</span>
+                                Upload Resume (PDF, DOC, DOCX, TXT)
+                                <input type="file" id="resume-file" accept=".pdf,.doc,.docx,.txt" onchange="handleResumeUpload(event)">
+                            </label>
+                            <div class="divider">OR</div>
+                            <textarea
+                                id="resume-text"
+                                placeholder="Paste your resume text here..."
+                                rows="10"
+                                oninput="handleResumeInput()"></textarea>
+                        </div>
+                    </section>
 
-            <!-- Job Description Input Section -->
-            <section class="card">
-                <h2>💼 Job Description</h2>
-                <div class="input-group">
-                    <label for="job-file" class="file-upload-label">
-                        <span class="upload-icon">📎</span>
-                        Upload Job Description
-                        <input type="file" id="job-file" accept=".pdf,.doc,.docx,.txt" onchange="handleJobUpload(event)">
-                    </label>
-                    <div class="divider">OR</div>
-                    <textarea
-                        id="job-text"
-                        placeholder="Paste the job description here..."
-                        rows="10"
-                        oninput="handleJobInput()"></textarea>
-                </div>
-            </section>
+                    <!-- Job Description Input Section -->
+                    <section class="card">
+                        <h2>💼 Job Description</h2>
+                        <div class="input-group">
+                            <label for="job-file" class="file-upload-label">
+                                <span class="upload-icon">📎</span>
+                                Upload Job Description
+                                <input type="file" id="job-file" accept=".pdf,.doc,.docx,.txt" onchange="handleJobUpload(event)">
+                            </label>
+                            <div class="divider">OR</div>
+                            <textarea
+                                id="job-text"
+                                placeholder="Paste the job description here..."
+                                rows="10"
+                                oninput="handleJobInput()"></textarea>
+                        </div>
+                    </section>
 
-            <!-- API Key Section -->
-            <section class="card">
-                <h2>🔑 Claude AI API Key</h2>
-                <div class="input-group">
-                    <input
-                        type="password"
-                        id="api-key"
-                        placeholder="Enter your Claude API key (sk-ant-...)"
-                        oninput="handleApiKeyInput()">
-                    <small class="help-text">
-                        Get your API key from <a href="https://console.anthropic.com/" target="_blank">Anthropic Console</a>.
-                        Your key is stored locally and never sent to our servers.
-                    </small>
-                </div>
-            </section>
+                    <!-- API Key Section -->
+                    <section class="card">
+                        <h2>🔑 Claude AI API Key</h2>
+                        <div class="input-group">
+                            <input
+                                type="password"
+                                id="api-key"
+                                placeholder="Enter your Claude API key (sk-ant-...)"
+                                oninput="handleApiKeyInput()">
+                            <small class="help-text">
+                                Get your API key from <a href="https://console.anthropic.com/" target="_blank">Anthropic Console</a>.
+                                Your key is stored locally and never sent to our servers.
+                            </small>
+                        </div>
+                    </section>
 
-            <!-- Analyze Button -->
-            <div class="action-section">
-                <button id="analyze-btn" class="btn-primary" onclick="analyzeResume()" disabled>
-                    ✨ Analyze Resume
-                </button>
+                    <!-- Analyze Button -->
+                    <div class="action-section">
+                        <button id="analyze-btn" class="btn-primary" onclick="analyzeResume()" disabled>
+                            ✨ Analyze Resume
+                        </button>
+                    </div>
+
+                    <!-- Results Section -->
+                    <section id="results-section" class="card results-card" style="display: none;">
+                        <h2>📊 Analysis Results</h2>
+                        <div id="loading" class="loading" style="display: none;">
+                            <div class="spinner"></div>
+                            <p>Analyzing with Claude AI...</p>
+                        </div>
+                        <div id="results-content"></div>
+                    </section>
+                </div>
+
+                <!-- Resizer -->
+                <div class="preview-resizer"></div>
+
+                <!-- Preview Panel -->
+                <div class="preview-panel">
+                    <!-- Preview Toolbar -->
+                    <div class="preview-toolbar">
+                        <div class="preview-controls">
+                            <button id="toggle-split-view" class="preview-btn active" title="Split View">
+                                Split View
+                            </button>
+                            <button id="toggle-overlay" class="preview-btn" title="Preview Only">
+                                Preview Only
+                            </button>
+                            <button id="hide-preview" class="preview-btn" title="Editor Only">
+                                Editor Only
+                            </button>
+                            <div style="width: 1px; height: 24px; background: var(--border-color); margin: 0 0.25rem;"></div>
+                            <button id="toggle-print-preview" class="preview-btn" title="Print Preview">
+                                Print Preview
+                            </button>
+                            <div style="width: 1px; height: 24px; background: var(--border-color); margin: 0 0.25rem;"></div>
+                            <button id="page-size-a4" class="preview-btn active" title="A4 Size">
+                                A4
+                            </button>
+                            <button id="page-size-letter" class="preview-btn" title="US Letter">
+                                Letter
+                            </button>
+                            <div style="width: 1px; height: 24px; background: var(--border-color); margin: 0 0.25rem;"></div>
+                            <button id="export-btn" class="preview-btn" title="Export Resume" onclick="openExportModal()">
+                                📥 Export
+                            </button>
+                        </div>
+                        <div class="preview-info">
+                            <span id="page-count">0 pages</span>
+                        </div>
+                    </div>
+
+                    <!-- Preview Content -->
+                    <div id="preview-container">
+                        <!-- Resume preview will be rendered here -->
+                    </div>
+                </div>
             </div>
-
-            <!-- Results Section -->
-            <section id="results-section" class="card results-card" style="display: none;">
-                <h2>📊 Analysis Results</h2>
-                <div id="loading" class="loading" style="display: none;">
-                    <div class="spinner"></div>
-                    <p>Analyzing with Claude AI...</p>
-                </div>
-                <div id="results-content"></div>
-            </section>
         </main>
 
         <footer>
@@ -89,6 +141,60 @@
         </footer>
     </div>
 
+    <!-- Export Libraries (CDN) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+    <!-- Export Modules -->
+    <script src="js/export/pdf-export.js"></script>
+    <script src="js/export/docx-export.js"></script>
+    <script src="js/export/formats.js"></script>
+    <script src="js/export/print.js"></script>
+    <script src="js/export/export-manager.js"></script>
+
+    <!-- Existing Scripts -->
+    <script src="js/editor/renderer.js"></script>
+    <script src="js/editor/preview.js"></script>
     <script src="app.js"></script>
+    <script>
+        // Initialize preview system when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof PreviewController !== 'undefined' && typeof ResumeRenderer !== 'undefined') {
+                window.resumeRenderer = new ResumeRenderer();
+                window.previewController = new PreviewController(window.resumeRenderer);
+                window.previewController.initialize('preview-container');
+                console.log('[ResuMate] Preview system initialized');
+            }
+
+            // Initialize export system
+            if (typeof ExportManager !== 'undefined') {
+                window.exportManager = new ExportManager();
+                window.exportManager.initialize().then(() => {
+                    console.log('[ResuMate] Export system initialized');
+                }).catch(error => {
+                    console.error('[ResuMate] Export system initialization failed:', error);
+                });
+            }
+        });
+
+        // Export modal function
+        function openExportModal() {
+            if (window.exportManager) {
+                window.exportManager.openModal();
+            } else {
+                alert('Export system not initialized. Please refresh the page.');
+            }
+        }
+
+        // Quick print function
+        function quickPrint() {
+            if (window.exportManager && window.exportManager.printManager) {
+                window.exportManager.printManager.print();
+            } else {
+                window.print();
+            }
+        }
+    </script>
 </body>
 </html>

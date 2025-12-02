@@ -1,0 +1,557 @@
+/**
+ * Print Optimization CSS for All Resume Templates
+ * Optimizes page breaks, orphan/widow prevention, and print quality
+ * Supports A4 and US Letter page sizes
+ */
+
+/* Global Print Settings */
+@media print {
+    /* Reset page margins */
+    @page {
+        margin: 0;
+        size: letter;
+    }
+
+    @page :first {
+        margin: 0;
+    }
+
+    /* A4 Page Size Support */
+    @page a4 {
+        size: A4;
+        margin: 0;
+    }
+
+    /* Letter Page Size Support */
+    @page letter {
+        size: letter;
+        margin: 0;
+    }
+
+    /* Global Print Styles */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Hide UI elements */
+    .no-print,
+    .toolbar,
+    .controls,
+    .editor-panel,
+    .sidebar,
+    nav,
+    button,
+    .template-switcher,
+    .export-button {
+        display: none !important;
+    }
+
+    /* Ensure resume takes full page */
+    .resume-preview,
+    .resume-page {
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        box-shadow: none !important;
+        border: none !important;
+    }
+
+    /* Page Break Control */
+    .resume-page {
+        page-break-after: always;
+        page-break-inside: avoid;
+    }
+
+    .resume-page:last-child {
+        page-break-after: auto;
+    }
+
+    /* Section Break Control */
+    .resume-section {
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    .resume-section.allow-break {
+        page-break-inside: auto;
+    }
+
+    /* Item Break Control */
+    .experience-item,
+    .education-item,
+    .project-item,
+    .publication-item,
+    .reference-item {
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    /* Header Protection */
+    .resume-header {
+        page-break-after: avoid;
+        page-break-inside: avoid;
+    }
+
+    /* Orphan and Widow Prevention */
+    p {
+        orphans: 3;
+        widows: 3;
+    }
+
+    li {
+        orphans: 2;
+        widows: 2;
+    }
+
+    h1, h2, h3, h4, h5, h6,
+    .section-title,
+    .job-title,
+    .degree,
+    .project-name {
+        page-break-after: avoid;
+        break-after: avoid;
+        orphans: 4;
+        widows: 4;
+    }
+
+    /* Keep related content together */
+    .experience-header + .job-description,
+    .education-header + .education-details,
+    .project-header + .project-description {
+        page-break-before: avoid;
+    }
+
+    /* List Formatting */
+    ul, ol {
+        page-break-inside: avoid;
+    }
+
+    ul.allow-break,
+    ol.allow-break {
+        page-break-inside: auto;
+    }
+
+    li {
+        page-break-inside: avoid;
+    }
+
+    /* Ensure backgrounds print correctly */
+    .resume-summary,
+    .skill-category,
+    .education-item,
+    .project-item,
+    .reference-item {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    /* Link Formatting for Print */
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    a[href^="http"]:after,
+    a[href^="https"]:after {
+        content: none;
+    }
+
+    /* Email and Phone Number Formatting */
+    a[href^="mailto:"],
+    a[href^="tel:"] {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    /* Font Optimization */
+    * {
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}
+
+/* Template-Specific Print Optimizations */
+
+/* Classic Template Print */
+@media print {
+    .resume-preview.template-classic .resume-page {
+        padding: 0.5in;
+    }
+
+    .resume-preview.template-classic .resume-page.page-a4 {
+        padding: 12.5mm;
+    }
+
+    .resume-preview.template-classic .resume-section {
+        page-break-inside: avoid;
+    }
+
+    .resume-preview.template-classic .job-description ul {
+        page-break-inside: auto;
+    }
+}
+
+/* Modern Template Print */
+@media print {
+    .resume-preview.template-modern .resume-page {
+        padding: 0.5in;
+    }
+
+    .resume-preview.template-modern .resume-page.page-a4 {
+        padding: 12.5mm;
+    }
+
+    .resume-preview.template-modern .resume-header {
+        margin: -0.5in -0.5in 0.3in -0.5in;
+        padding: 0.5in;
+    }
+
+    .resume-preview.template-modern .resume-page.page-a4 .resume-header {
+        margin: -12.5mm -12.5mm 7.5mm -12.5mm;
+        padding: 12.5mm;
+    }
+
+    .resume-preview.template-modern .resume-section {
+        page-break-inside: avoid;
+    }
+
+    /* Ensure colored elements print */
+    .resume-preview.template-modern .resume-header,
+    .resume-preview.template-modern .resume-summary,
+    .resume-preview.template-modern .skill-category,
+    .resume-preview.template-modern .education-item {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}
+
+/* Creative Template Print */
+@media print {
+    .resume-preview.template-creative .resume-page {
+        padding: 0.4in;
+    }
+
+    .resume-preview.template-creative .resume-page.page-a4 {
+        padding: 10mm;
+    }
+
+    .resume-preview.template-creative .resume-section {
+        page-break-inside: avoid;
+    }
+
+    /* Handle two-column layout for print */
+    .resume-preview.template-creative .resume-layout {
+        display: block;
+    }
+
+    .resume-preview.template-creative .main-column,
+    .resume-preview.template-creative .sidebar-column {
+        width: 100%;
+        float: none;
+    }
+
+    /* Ensure sidebar colors print */
+    .resume-preview.template-creative .sidebar-column {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}
+
+/* Executive Template Print */
+@media print {
+    .resume-preview.template-executive .resume-page {
+        padding: 0.7in;
+    }
+
+    .resume-preview.template-executive .resume-page.page-a4 {
+        padding: 17.5mm;
+    }
+
+    .resume-preview.template-executive .resume-section {
+        page-break-inside: avoid;
+    }
+
+    .resume-preview.template-executive .experience-item,
+    .resume-preview.template-executive .education-item,
+    .resume-preview.template-executive .project-item {
+        page-break-inside: avoid;
+    }
+
+    /* Ensure subtle backgrounds print */
+    .resume-preview.template-executive .resume-summary {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    /* Orphan/widow prevention for executive style */
+    .resume-preview.template-executive p,
+    .resume-preview.template-executive li {
+        orphans: 3;
+        widows: 3;
+    }
+}
+
+/* Technical Template Print */
+@media print {
+    .resume-preview.template-technical .resume-page {
+        padding: 0.55in;
+    }
+
+    .resume-preview.template-technical .resume-page.page-a4 {
+        padding: 14mm;
+    }
+
+    .resume-preview.template-technical .resume-section {
+        page-break-inside: avoid;
+    }
+
+    .resume-preview.template-technical .experience-item,
+    .resume-preview.template-technical .education-item,
+    .resume-preview.template-technical .project-item {
+        page-break-inside: avoid;
+    }
+
+    /* Ensure code-style backgrounds print */
+    .resume-preview.template-technical .resume-header,
+    .resume-preview.template-technical .resume-summary,
+    .resume-preview.template-technical .skill-category,
+    .resume-preview.template-technical .experience-item,
+    .resume-preview.template-technical .project-item {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    /* Compact orphan/widow settings for dense layout */
+    .resume-preview.template-technical p,
+    .resume-preview.template-technical li {
+        orphans: 2;
+        widows: 2;
+    }
+}
+
+/* Minimal Template Print */
+@media print {
+    .resume-preview.template-minimal .resume-page {
+        padding: 0.8in;
+    }
+
+    .resume-preview.template-minimal .resume-page.page-a4 {
+        padding: 20mm;
+    }
+
+    .resume-preview.template-minimal .resume-section {
+        page-break-inside: avoid;
+    }
+
+    .resume-preview.template-minimal .experience-item,
+    .resume-preview.template-minimal .education-item,
+    .resume-preview.template-minimal .project-item {
+        page-break-inside: avoid;
+    }
+
+    /* Maximum orphan/widow prevention for clean layout */
+    .resume-preview.template-minimal p,
+    .resume-preview.template-minimal li {
+        orphans: 3;
+        widows: 3;
+    }
+
+    /* Ensure all backgrounds are transparent for ATS */
+    .resume-preview.template-minimal * {
+        background: transparent !important;
+    }
+}
+
+/* Multi-Page Resume Support */
+@media print {
+    /* Page numbering (optional - can be enabled) */
+    .resume-page {
+        counter-increment: page;
+    }
+
+    /* Footer with page numbers (hidden by default, can be enabled) */
+    .resume-page.show-page-numbers::after {
+        content: "Page " counter(page);
+        position: absolute;
+        bottom: 0.3in;
+        right: 0.5in;
+        font-size: 8pt;
+        color: #999;
+    }
+
+    /* First page without number */
+    .resume-page:first-child.show-page-numbers::after {
+        content: none;
+    }
+
+    /* Continuation header for multi-page resumes */
+    .resume-page:not(:first-child) .continuation-header {
+        display: block;
+        font-size: 9pt;
+        color: #666;
+        margin-bottom: 10pt;
+        padding-bottom: 5pt;
+        border-bottom: 0.5pt solid #ddd;
+    }
+
+    .resume-page:first-child .continuation-header {
+        display: none;
+    }
+}
+
+/* Print Quality Optimizations */
+@media print {
+    /* Ensure images are high quality if present */
+    img {
+        max-width: 100%;
+        page-break-inside: avoid;
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+
+    /* Table optimization (if used) */
+    table {
+        page-break-inside: avoid;
+        border-collapse: collapse;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    tr {
+        page-break-inside: avoid;
+    }
+
+    /* Force black text for maximum readability */
+    .force-black-text * {
+        color: #000 !important;
+    }
+
+    /* Remove shadows for cleaner print */
+    * {
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+}
+
+/* Browser-Specific Print Fixes */
+
+/* Chrome/Safari Print Fixes */
+@media print and (-webkit-min-device-pixel-ratio: 0) {
+    * {
+        -webkit-print-color-adjust: exact;
+    }
+}
+
+/* Firefox Print Fixes */
+@media print {
+    @-moz-document url-prefix() {
+        * {
+            print-color-adjust: exact;
+        }
+    }
+}
+
+/* Edge Print Fixes */
+@supports (-ms-ime-align: auto) {
+    @media print {
+        * {
+            color-adjust: exact;
+        }
+    }
+}
+
+/* Print Preview Mode (for testing) */
+.print-preview-mode {
+    background: #f5f5f5;
+}
+
+.print-preview-mode .resume-page {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    background: white;
+}
+
+/* ATS Compatibility Overrides for Print */
+@media print {
+    /* Ensure all text is selectable */
+    * {
+        user-select: text;
+        -webkit-user-select: text;
+        -moz-user-select: text;
+    }
+
+    /* Remove any absolute positioning that might break ATS */
+    .ats-safe * {
+        position: static !important;
+    }
+
+    /* Ensure semantic HTML structure is maintained */
+    header, section, article, aside {
+        display: block;
+    }
+
+    /* Remove decorative elements for ATS mode */
+    .ats-mode .decoration,
+    .ats-mode .icon,
+    .ats-mode .emoji,
+    .ats-mode .graphic {
+        display: none !important;
+    }
+
+    /* Simplify colors for ATS mode */
+    .ats-mode * {
+        color: #000 !important;
+        background: #fff !important;
+        border-color: #000 !important;
+    }
+}
+
+/* Print Quality Settings */
+@media print {
+    /* High quality text rendering */
+    body {
+        text-rendering: optimizeLegibility;
+    }
+
+    /* Prevent content from being cut off */
+    .resume-page {
+        overflow: visible;
+    }
+
+    /* Ensure proper spacing is maintained */
+    * {
+        margin-collapse: separate;
+    }
+}
+
+/* Debug Mode for Print Issues */
+.print-debug {
+    outline: 1px solid red !important;
+}
+
+.print-debug .resume-section {
+    outline: 1px solid blue !important;
+}
+
+.print-debug .experience-item,
+.print-debug .education-item {
+    outline: 1px solid green !important;
+}
+
+/* Media query for print preview in browser */
+@media screen {
+    .print-preview .resume-page {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin: 20px auto;
+    }
+}

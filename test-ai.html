@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Writer Test - ResuMate</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 6px;
+        }
+        .test-section h2 {
+            margin-top: 0;
+            color: #444;
+            font-size: 18px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .result {
+            background: white;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-top: 10px;
+            white-space: pre-wrap;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 13px;
+        }
+        .loading {
+            color: #666;
+            font-style: italic;
+        }
+        .error {
+            color: #dc3545;
+            background: #f8d7da;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+        .success {
+            color: #155724;
+            background: #d4edda;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AI Writer Test Suite</h1>
+        <p class="subtitle">Test the AI-powered resume content generation features</p>
+
+        <!-- API Key -->
+        <div class="test-section">
+            <h2>Setup</h2>
+            <input type="password" id="api-key" placeholder="Enter Claude API Key (sk-ant-...)">
+        </div>
+
+        <!-- Test 1: Generate Summary -->
+        <div class="test-section">
+            <h2>Test 1: Generate Professional Summary</h2>
+            <input type="text" id="job-title" placeholder="Job Title (e.g., Senior Software Engineer)" value="Senior Software Engineer">
+            <input type="text" id="years-exp" placeholder="Years of Experience" value="8">
+            <input type="text" id="skills" placeholder="Skills (comma-separated)" value="Python, JavaScript, React, Node.js, AWS">
+            <input type="text" id="target-role" placeholder="Target Role" value="Tech Lead">
+            <button onclick="testGenerateSummary()">Generate Summary</button>
+            <div id="result-summary"></div>
+        </div>
+
+        <!-- Test 2: Expand Bullet -->
+        <div class="test-section">
+            <h2>Test 2: Expand Bullet Point</h2>
+            <textarea id="bullet-input" rows="2" placeholder="Enter brief bullet point">Led team project</textarea>
+            <button onclick="testExpandBullet()">Expand Bullet</button>
+            <div id="result-bullet"></div>
+        </div>
+
+        <!-- Test 3: Suggest Action Verbs -->
+        <div class="test-section">
+            <h2>Test 3: Suggest Action Verbs</h2>
+            <textarea id="verb-context" rows="2" placeholder="Enter context">Improved system performance</textarea>
+            <button onclick="testSuggestVerbs()">Suggest Verbs</button>
+            <div id="result-verbs"></div>
+        </div>
+
+        <!-- Test 4: Quantify Achievement -->
+        <div class="test-section">
+            <h2>Test 4: Quantify Achievement</h2>
+            <textarea id="achievement-input" rows="2" placeholder="Enter achievement">Improved application performance by optimizing database queries</textarea>
+            <button onclick="testQuantifyAchievement()">Quantify</button>
+            <div id="result-quantify"></div>
+        </div>
+
+        <!-- Test 5: Rewrite for Industry -->
+        <div class="test-section">
+            <h2>Test 5: Rewrite for Industry</h2>
+            <textarea id="industry-content" rows="3" placeholder="Enter content">Led development of customer management system</textarea>
+            <input type="text" id="target-industry" placeholder="Target Industry" value="Healthcare">
+            <button onclick="testRewriteIndustry()">Rewrite</button>
+            <div id="result-industry"></div>
+        </div>
+    </div>
+
+    <script src="js/ai/prompts.js"></script>
+    <script src="js/ai/generator.js"></script>
+    <script src="js/ai/rewriter.js"></script>
+    <script>
+        function showLoading(elementId) {
+            document.getElementById(elementId).innerHTML = '<div class="loading">Generating...</div>';
+        }
+
+        function showResult(elementId, content) {
+            document.getElementById(elementId).innerHTML =
+                '<div class="success">Success!</div><div class="result">' +
+                escapeHtml(content) + '</div>';
+        }
+
+        function showError(elementId, error) {
+            document.getElementById(elementId).innerHTML =
+                '<div class="error">Error: ' + escapeHtml(error) + '</div>';
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function getApiKey() {
+            const apiKey = document.getElementById('api-key').value;
+            if (!apiKey) {
+                throw new Error('Please enter API key');
+            }
+            localStorage.setItem('claude_api_key', apiKey);
+            return apiKey;
+        }
+
+        async function testGenerateSummary() {
+            const resultId = 'result-summary';
+            try {
+                getApiKey();
+                showLoading(resultId);
+
+                const summary = await aiGenerator.generateSummary({
+                    jobTitle: document.getElementById('job-title').value,
+                    yearsExp: document.getElementById('years-exp').value,
+                    skills: document.getElementById('skills').value.split(',').map(s => s.trim()),
+                    targetRole: document.getElementById('target-role').value
+                });
+
+                showResult(resultId, summary);
+            } catch (error) {
+                showError(resultId, error.message);
+            }
+        }
+
+        async function testExpandBullet() {
+            const resultId = 'result-bullet';
+            try {
+                getApiKey();
+                showLoading(resultId);
+
+                const bullets = await aiGenerator.expandBullet({
+                    userInput: document.getElementById('bullet-input').value
+                });
+
+                showResult(resultId, bullets.join('\n\n'));
+            } catch (error) {
+                showError(resultId, error.message);
+            }
+        }
+
+        async function testSuggestVerbs() {
+            const resultId = 'result-verbs';
+            try {
+                getApiKey();
+                showLoading(resultId);
+
+                const verbs = await aiGenerator.suggestActionVerbs({
+                    context: document.getElementById('verb-context').value
+                });
+
+                showResult(resultId, verbs.join(', '));
+            } catch (error) {
+                showError(resultId, error.message);
+            }
+        }
+
+        async function testQuantifyAchievement() {
+            const resultId = 'result-quantify';
+            try {
+                getApiKey();
+                showLoading(resultId);
+
+                const quantified = await aiGenerator.quantifyAchievement({
+                    achievement: document.getElementById('achievement-input').value
+                });
+
+                showResult(resultId, quantified.join('\n\n'));
+            } catch (error) {
+                showError(resultId, error.message);
+            }
+        }
+
+        async function testRewriteIndustry() {
+            const resultId = 'result-industry';
+            try {
+                getApiKey();
+                showLoading(resultId);
+
+                const rewritten = await aiGenerator.rewriteForIndustry({
+                    content: document.getElementById('industry-content').value,
+                    targetIndustry: document.getElementById('target-industry').value
+                });
+
+                showResult(resultId, rewritten);
+            } catch (error) {
+                showError(resultId, error.message);
+            }
+        }
+
+        // Load API key on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedKey = localStorage.getItem('claude_api_key');
+            if (savedKey) {
+                document.getElementById('api-key').value = savedKey;
+            }
+        });
+    </script>
+</body>
+</html>

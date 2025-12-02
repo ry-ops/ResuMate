@@ -1,0 +1,620 @@
+/**
+ * Creative Professional Template
+ * Two-column layout with visual hierarchy
+ * Ideal for creative industries with ATS-aware structure
+ */
+
+/* Template Variables */
+.resume-preview.template-creative {
+    --template-primary-color: #34495e;
+    --template-secondary-color: #e74c3c;
+    --template-accent-color: #f39c12;
+    --template-text-color: #2c3e50;
+    --template-background-color: #ffffff;
+    --template-border-color: #bdc3c7;
+    --template-sidebar-bg: #ecf0f1;
+    --template-sidebar-width: 35%;
+    --template-main-width: 65%;
+
+    --template-heading-font: 'Montserrat', Arial, sans-serif;
+    --template-body-font: 'Open Sans', Arial, sans-serif;
+    --template-base-font-size: 10.5pt;
+
+    --template-section-spacing: 18pt;
+    --template-item-spacing: 9pt;
+    --template-margins: 20mm;
+}
+
+/* Page Container */
+.resume-preview.template-creative .resume-page {
+    font-family: var(--template-body-font);
+    font-size: var(--template-base-font-size);
+    line-height: 1.5;
+    color: var(--template-text-color);
+    background: var(--template-background-color);
+    padding: 0;
+    max-width: 8.5in;
+    min-height: 11in;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* A4 Support */
+@media print {
+    .resume-preview.template-creative .resume-page.page-a4 {
+        width: 210mm;
+        min-height: 297mm;
+    }
+
+    .resume-preview.template-creative .resume-page.page-letter {
+        width: 8.5in;
+        min-height: 11in;
+    }
+}
+
+/* Header Section */
+.resume-preview.template-creative .resume-header {
+    background: linear-gradient(135deg, var(--template-primary-color) 0%, var(--template-secondary-color) 100%);
+    color: #ffffff;
+    padding: 30pt 40pt;
+    position: relative;
+    overflow: hidden;
+}
+
+.resume-preview.template-creative .resume-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 6pt;
+    background: linear-gradient(90deg,
+        var(--template-accent-color) 0%,
+        var(--template-secondary-color) 50%,
+        var(--template-accent-color) 100%);
+}
+
+.resume-preview.template-creative .resume-name {
+    font-family: var(--template-heading-font);
+    font-size: 24pt;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 8pt 0;
+    letter-spacing: 1pt;
+    text-transform: uppercase;
+}
+
+.resume-preview.template-creative .resume-title {
+    font-size: 14pt;
+    color: rgba(255, 255, 255, 0.95);
+    margin: 0;
+    font-weight: 300;
+    letter-spacing: 0.5pt;
+}
+
+/* Two-Column Layout */
+.resume-preview.template-creative .resume-content {
+    display: grid;
+    grid-template-columns: var(--template-sidebar-width) var(--template-main-width);
+    flex: 1;
+}
+
+/* Sidebar */
+.resume-preview.template-creative .resume-sidebar {
+    background: var(--template-sidebar-bg);
+    padding: 24pt 20pt;
+    border-right: 1pt solid var(--template-border-color);
+}
+
+.resume-preview.template-creative .resume-sidebar .resume-section {
+    margin-bottom: var(--template-section-spacing);
+}
+
+.resume-preview.template-creative .resume-sidebar .resume-section:last-child {
+    margin-bottom: 0;
+}
+
+.resume-preview.template-creative .resume-sidebar .section-title {
+    font-family: var(--template-heading-font);
+    font-size: 13pt;
+    font-weight: 700;
+    color: var(--template-secondary-color);
+    text-transform: uppercase;
+    letter-spacing: 0.5pt;
+    margin: 0 0 10pt 0;
+    padding-bottom: 6pt;
+    border-bottom: 2pt solid var(--template-accent-color);
+}
+
+/* Main Content Area */
+.resume-preview.template-creative .resume-main {
+    padding: 24pt 30pt;
+}
+
+.resume-preview.template-creative .resume-main .resume-section {
+    margin-bottom: var(--template-section-spacing);
+    page-break-inside: avoid;
+}
+
+.resume-preview.template-creative .resume-main .resume-section:last-child {
+    margin-bottom: 0;
+}
+
+.resume-preview.template-creative .resume-main .section-title {
+    font-family: var(--template-heading-font);
+    font-size: 16pt;
+    font-weight: 700;
+    color: var(--template-primary-color);
+    text-transform: uppercase;
+    letter-spacing: 0.5pt;
+    margin: 0 0 12pt 0;
+    padding-bottom: 6pt;
+    border-bottom: 3pt solid var(--template-secondary-color);
+    position: relative;
+}
+
+.resume-preview.template-creative .resume-main .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -3pt;
+    left: 0;
+    width: 60pt;
+    height: 3pt;
+    background: var(--template-accent-color);
+}
+
+/* Contact Section (Sidebar) */
+.resume-preview.template-creative .contact-section {
+    margin-bottom: var(--template-section-spacing);
+}
+
+.resume-preview.template-creative .contact-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 8pt;
+    font-size: 9.5pt;
+    line-height: 1.4;
+}
+
+.resume-preview.template-creative .contact-item:last-child {
+    margin-bottom: 0;
+}
+
+.resume-preview.template-creative .contact-icon {
+    color: var(--template-secondary-color);
+    margin-right: 8pt;
+    font-weight: bold;
+    min-width: 12pt;
+}
+
+.resume-preview.template-creative .contact-text {
+    word-break: break-word;
+}
+
+/* Summary Section */
+.resume-preview.template-creative .resume-summary {
+    margin-bottom: var(--template-section-spacing);
+}
+
+.resume-preview.template-creative .summary-text {
+    margin: 0;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+/* Experience Section */
+.resume-preview.template-creative .experience-item {
+    margin-bottom: var(--template-item-spacing);
+    position: relative;
+    padding-left: 20pt;
+    page-break-inside: avoid;
+}
+
+.resume-preview.template-creative .experience-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 4pt;
+    width: 12pt;
+    height: 12pt;
+    background: var(--template-accent-color);
+    border-radius: 50%;
+    border: 3pt solid var(--template-background-color);
+    box-shadow: 0 0 0 1pt var(--template-accent-color);
+}
+
+.resume-preview.template-creative .experience-item:last-child {
+    margin-bottom: 0;
+}
+
+.resume-preview.template-creative .job-title {
+    font-family: var(--template-heading-font);
+    font-size: 13pt;
+    font-weight: 700;
+    color: var(--template-primary-color);
+    margin: 0 0 2pt 0;
+}
+
+.resume-preview.template-creative .company-name {
+    font-size: 11pt;
+    color: var(--template-secondary-color);
+    font-weight: 600;
+    margin: 0 0 3pt 0;
+}
+
+.resume-preview.template-creative .job-meta {
+    font-size: 9.5pt;
+    color: #7f8c8d;
+    margin-bottom: 6pt;
+}
+
+.resume-preview.template-creative .job-location,
+.resume-preview.template-creative .job-dates {
+    display: inline-block;
+    margin-right: 12pt;
+}
+
+.resume-preview.template-creative .job-description {
+    margin: 6pt 0 0 0;
+}
+
+.resume-preview.template-creative .job-description ul {
+    margin: 0;
+    padding-left: 18pt;
+    list-style-type: none;
+}
+
+.resume-preview.template-creative .job-description li {
+    margin-bottom: 4pt;
+    position: relative;
+    padding-left: 12pt;
+}
+
+.resume-preview.template-creative .job-description li::before {
+    content: '●';
+    position: absolute;
+    left: 0;
+    color: var(--template-accent-color);
+    font-size: 8pt;
+}
+
+.resume-preview.template-creative .job-description li:last-child {
+    margin-bottom: 0;
+}
+
+/* Education Section */
+.resume-preview.template-creative .education-item {
+    margin-bottom: var(--template-item-spacing);
+    page-break-inside: avoid;
+}
+
+.resume-preview.template-creative .education-item:last-child {
+    margin-bottom: 0;
+}
+
+.resume-preview.template-creative .degree {
+    font-family: var(--template-heading-font);
+    font-size: 12pt;
+    font-weight: 700;
+    color: var(--template-primary-color);
+    margin: 0 0 2pt 0;
+}
+
+.resume-preview.template-creative .institution {
+    font-size: 11pt;
+    color: var(--template-secondary-color);
+    font-weight: 600;
+    margin: 0 0 3pt 0;
+}
+
+.resume-preview.template-creative .education-meta {
+    font-size: 9.5pt;
+    color: #7f8c8d;
+}
+
+.resume-preview.template-creative .education-gpa {
+    font-size: 10pt;
+    color: var(--template-accent-color);
+    font-weight: 600;
+    margin-top: 4pt;
+}
+
+/* Skills Section (Sidebar) */
+.resume-preview.template-creative .skills-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.resume-preview.template-creative .skill-category {
+    margin-bottom: 12pt;
+}
+
+.resume-preview.template-creative .skill-category:last-child {
+    margin-bottom: 0;
+}
+
+.resume-preview.template-creative .skill-category-name {
+    font-weight: 700;
+    color: var(--template-primary-color);
+    display: block;
+    margin-bottom: 6pt;
+    font-size: 10pt;
+    text-transform: uppercase;
+    letter-spacing: 0.3pt;
+}
+
+.resume-preview.template-creative .skill-items {
+    font-size: 9.5pt;
+    line-height: 1.6;
+    color: var(--template-text-color);
+}
+
+.resume-preview.template-creative .skill-tag {
+    display: inline-block;
+    background: #ffffff;
+    padding: 3pt 8pt;
+    margin: 2pt 3pt 2pt 0;
+    border-radius: 3pt;
+    font-size: 9pt;
+    border: 1pt solid var(--template-border-color);
+}
+
+/* Certifications Section (Sidebar) */
+.resume-preview.template-creative .certification-item {
+    margin-bottom: 8pt;
+    padding-left: 14pt;
+    position: relative;
+    font-size: 9.5pt;
+}
+
+.resume-preview.template-creative .certification-item::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--template-accent-color);
+    font-weight: bold;
+    font-size: 11pt;
+}
+
+.resume-preview.template-creative .certification-item:last-child {
+    margin-bottom: 0;
+}
+
+.resume-preview.template-creative .certification-name {
+    font-weight: 600;
+    color: var(--template-primary-color);
+    display: block;
+}
+
+.resume-preview.template-creative .certification-issuer {
+    color: var(--template-text-color);
+    font-size: 9pt;
+}
+
+.resume-preview.template-creative .certification-date {
+    color: #7f8c8d;
+    font-size: 9pt;
+}
+
+/* Languages Section (Sidebar) */
+.resume-preview.template-creative .language-item {
+    margin-bottom: 8pt;
+    font-size: 9.5pt;
+}
+
+.resume-preview.template-creative .language-item:last-child {
+    margin-bottom: 0;
+}
+
+.resume-preview.template-creative .language-name {
+    font-weight: 700;
+    color: var(--template-primary-color);
+    display: block;
+}
+
+.resume-preview.template-creative .language-proficiency {
+    color: var(--template-accent-color);
+    font-size: 9pt;
+    font-weight: 600;
+}
+
+.resume-preview.template-creative .proficiency-bar {
+    background: #d5d8dc;
+    height: 4pt;
+    border-radius: 2pt;
+    margin-top: 3pt;
+    overflow: hidden;
+}
+
+.resume-preview.template-creative .proficiency-fill {
+    background: linear-gradient(90deg, var(--template-accent-color), var(--template-secondary-color));
+    height: 100%;
+    border-radius: 2pt;
+}
+
+/* Projects Section */
+.resume-preview.template-creative .project-item {
+    margin-bottom: var(--template-item-spacing);
+    padding: 12pt;
+    background: var(--template-sidebar-bg);
+    border-left: 4pt solid var(--template-secondary-color);
+    page-break-inside: avoid;
+}
+
+.resume-preview.template-creative .project-item:last-child {
+    margin-bottom: 0;
+}
+
+.resume-preview.template-creative .project-name {
+    font-family: var(--template-heading-font);
+    font-size: 12pt;
+    font-weight: 700;
+    color: var(--template-primary-color);
+    margin: 0 0 4pt 0;
+}
+
+.resume-preview.template-creative .project-description {
+    margin: 0 0 6pt 0;
+    line-height: 1.5;
+}
+
+.resume-preview.template-creative .project-technologies {
+    font-size: 9pt;
+    color: var(--template-accent-color);
+    font-weight: 600;
+}
+
+/* Awards & Achievements */
+.resume-preview.template-creative .achievement-item {
+    margin-bottom: 6pt;
+    padding-left: 18pt;
+    position: relative;
+}
+
+.resume-preview.template-creative .achievement-item::before {
+    content: '★';
+    position: absolute;
+    left: 0;
+    color: var(--template-accent-color);
+    font-size: 12pt;
+}
+
+.resume-preview.template-creative .achievement-item:last-child {
+    margin-bottom: 0;
+}
+
+.resume-preview.template-creative .achievement-title {
+    font-weight: 600;
+    color: var(--template-primary-color);
+}
+
+.resume-preview.template-creative .achievement-date {
+    color: #7f8c8d;
+    font-size: 9.5pt;
+}
+
+/* Publications Section */
+.resume-preview.template-creative .publication-item {
+    margin-bottom: var(--template-item-spacing);
+}
+
+.resume-preview.template-creative .publication-item:last-child {
+    margin-bottom: 0;
+}
+
+.resume-preview.template-creative .publication-title {
+    font-style: italic;
+    color: var(--template-primary-color);
+    font-weight: 600;
+}
+
+.resume-preview.template-creative .publication-venue {
+    color: var(--template-secondary-color);
+    font-size: 10pt;
+}
+
+.resume-preview.template-creative .publication-date {
+    color: #7f8c8d;
+    font-size: 10pt;
+}
+
+/* References Section */
+.resume-preview.template-creative .reference-item {
+    margin-bottom: 10pt;
+}
+
+.resume-preview.template-creative .reference-item:last-child {
+    margin-bottom: 0;
+}
+
+.resume-preview.template-creative .reference-name {
+    font-weight: 700;
+    color: var(--template-primary-color);
+    font-size: 11pt;
+}
+
+.resume-preview.template-creative .reference-title {
+    color: var(--template-secondary-color);
+    font-size: 10pt;
+}
+
+.resume-preview.template-creative .reference-contact {
+    font-size: 9.5pt;
+    color: #7f8c8d;
+    margin-top: 2pt;
+}
+
+/* Print Optimization */
+@media print {
+    .resume-preview.template-creative .resume-page {
+        page-break-after: always;
+    }
+
+    .resume-preview.template-creative .resume-header {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .resume-preview.template-creative .resume-sidebar {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .resume-preview.template-creative .resume-section {
+        page-break-inside: avoid;
+    }
+
+    .resume-preview.template-creative .experience-item,
+    .resume-preview.template-creative .education-item,
+    .resume-preview.template-creative .project-item {
+        page-break-inside: avoid;
+    }
+
+    /* Ensure all colored elements print correctly */
+    .resume-preview.template-creative .skill-tag,
+    .resume-preview.template-creative .project-item,
+    .resume-preview.template-creative .proficiency-bar {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}
+
+/* Responsive Adjustments for smaller screens */
+@media screen and (max-width: 768px) {
+    .resume-preview.template-creative .resume-content {
+        grid-template-columns: 1fr;
+    }
+
+    .resume-preview.template-creative .resume-sidebar {
+        border-right: none;
+        border-bottom: 1pt solid var(--template-border-color);
+    }
+}
+
+/* Accessibility */
+.resume-preview.template-creative a {
+    color: var(--template-secondary-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.resume-preview.template-creative a:hover {
+    color: var(--template-accent-color);
+    text-decoration: underline;
+}
+
+/* Link styling for contact info */
+.resume-preview.template-creative .contact-text a,
+.resume-preview.template-creative .reference-contact a {
+    color: inherit;
+    font-weight: normal;
+}
+
+.resume-preview.template-creative .contact-text a:hover,
+.resume-preview.template-creative .reference-contact a:hover {
+    color: var(--template-secondary-color);
+}

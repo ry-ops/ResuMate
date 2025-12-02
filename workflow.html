@@ -154,8 +154,8 @@
                                         type="url"
                                         id="job-url"
                                         placeholder="https://linkedin.com/jobs/view/..."
-                                        style="flex: 1;">
-                                    <button type="button" id="import-job-btn" class="btn-secondary">
+                                        style="flex: 1; padding: 0.875rem; font-size: 1rem;">
+                                    <button type="button" id="import-job-btn" class="btn-secondary" style="min-width: 100px;">
                                         Import
                                     </button>
                                 </div>
@@ -638,6 +638,55 @@
             if (resumeFile) {
                 resumeFile.addEventListener('change', () => {
                     setTimeout(checkStep1Complete, 500); // Wait for processing
+                });
+            }
+
+            // Continue button click handler
+            const continueBtn = document.getElementById('step-1-continue');
+            if (continueBtn) {
+                continueBtn.addEventListener('click', async () => {
+                    console.log('[Workflow] Continue button clicked');
+
+                    // Show step 2 (analysis)
+                    const step1 = document.getElementById('step-upload');
+                    const step2 = document.getElementById('step-analyze');
+
+                    if (step1 && step2) {
+                        step1.classList.remove('active');
+                        step1.classList.add('locked');
+                        step1.setAttribute('aria-hidden', 'true');
+
+                        step2.classList.remove('locked');
+                        step2.classList.add('active');
+                        step2.removeAttribute('aria-hidden');
+
+                        // Update progress dots
+                        const dot1 = document.querySelector('[data-step="1"]');
+                        const dot2 = document.querySelector('[data-step="2"]');
+                        if (dot1) {
+                            dot1.classList.remove('active');
+                            dot1.classList.add('completed');
+                        }
+                        if (dot2) {
+                            dot2.classList.remove('locked');
+                            dot2.classList.add('active');
+                            dot2.setAttribute('aria-current', 'step');
+                        }
+
+                        // Scroll to top
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                        // Start analysis if integration is available
+                        if (workflowIntegration) {
+                            try {
+                                console.log('[Workflow] Starting analysis...');
+                                await workflowIntegration.analyzeResume();
+                            } catch (error) {
+                                console.error('[Workflow] Analysis error:', error);
+                                alert('Analysis failed: ' + error.message);
+                            }
+                        }
+                    }
                 });
             }
 

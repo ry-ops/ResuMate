@@ -7,17 +7,17 @@
 :root {
   /* ========== Color Palette ========== */
 
-  /* Primary Colors */
-  --color-primary: #6366f1;
-  --color-primary-dark: #4f46e5;
-  --color-primary-light: #818cf8;
-  --color-primary-lighter: #c7d2fe;
-  --color-primary-bg: rgba(99, 102, 241, 0.1);
+  /* Primary Colors - Professional blue with high contrast (WCAG AA compliant) */
+  --color-primary: #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --color-primary-light: #3b82f6;
+  --color-primary-lighter: #93c5fd;
+  --color-primary-bg: rgba(37, 99, 235, 0.1);
 
-  /* Secondary Colors */
-  --color-secondary: #667eea;
-  --color-secondary-dark: #5568d3;
-  --color-secondary-light: #7c3aed;
+  /* Secondary Colors - Darker, more accessible */
+  --color-secondary: #4f46e5;
+  --color-secondary-dark: #4338ca;
+  --color-secondary-light: #6366f1;
 
   /* Semantic Colors */
   --color-success: #10b981;
@@ -267,7 +267,7 @@
 
 /* Focus Visible Styles (WCAG 2.1 Compliant) */
 :root {
-  --focus-ring-color: var(--color-primary);
+  --focus-ring-color: var(--color-primary-dark);
   --focus-ring-width: 3px;
   --focus-ring-offset: 2px;
   --focus-ring-shadow: 0 0 0 var(--focus-ring-width) var(--focus-ring-color);

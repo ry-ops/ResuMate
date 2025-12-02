@@ -234,8 +234,19 @@ class WorkflowIntegration {
     async fetchJobFromURL(url) {
         console.log('[WorkflowIntegration] Fetching job from URL:', url);
 
+        const statusEl = document.getElementById('job-url-status');
+        const importBtn = document.getElementById('import-job-btn');
+
         try {
-            this.showStepLoading(3, 'Fetching job description...');
+            // Show loading status in Step 1
+            if (statusEl) {
+                statusEl.textContent = '⏳ Fetching job description...';
+                statusEl.style.color = 'var(--color-primary)';
+            }
+            if (importBtn) {
+                importBtn.disabled = true;
+                importBtn.textContent = 'Importing...';
+            }
 
             const response = await fetch('/api/fetch-job', {
                 method: 'POST',
@@ -253,7 +264,7 @@ class WorkflowIntegration {
             const result = await response.json();
             console.log('[WorkflowIntegration] Job fetched:', result);
 
-            if (result.success) {
+            if (result.success && result.content) {
                 this.state.jobDescription = result.content;
 
                 // Update job text area
@@ -270,8 +281,12 @@ class WorkflowIntegration {
                     });
                 }
 
-                this.hideStepLoading(3);
-                this.workflowUI.enableContinueButton(3);
+                // Show success status
+                if (statusEl) {
+                    statusEl.textContent = '✓ Job description imported successfully!';
+                    statusEl.style.color = 'var(--color-success)';
+                }
+
                 return result.content;
             } else {
                 throw new Error(result.error || 'Failed to fetch job');
@@ -279,9 +294,20 @@ class WorkflowIntegration {
 
         } catch (error) {
             console.error('[WorkflowIntegration] Job fetch error:', error);
-            this.hideStepLoading(3);
-            this.showStepError(3, error.message);
+
+            // Show error status
+            if (statusEl) {
+                statusEl.textContent = '✗ ' + (error.message || 'Failed to fetch job description');
+                statusEl.style.color = 'var(--color-danger)';
+            }
+
             throw error;
+        } finally {
+            // Re-enable import button
+            if (importBtn) {
+                importBtn.disabled = false;
+                importBtn.textContent = 'Import';
+            }
         }
     }
 

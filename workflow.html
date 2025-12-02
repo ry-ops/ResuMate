@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResuMate - Resume Builder Workflow</title>
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/navigation.css">
+    <link rel="stylesheet" href="css/workflow.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#workflow-main" class="skip-to-main">Skip to main content</a>
+
+    <!-- Navigation Bar -->
+    <nav class="resumate-navbar" role="navigation" aria-label="Main navigation">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">
+                <span class="navbar-logo">📄</span>
+                <span class="navbar-title">ResuMate</span>
+            </a>
+
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">
+                        <span class="nav-link-icon">🏠</span>
+                        Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="workflow.html" class="nav-link active">
+                        <span class="nav-link-icon">✨</span>
+                        Resume Builder
+                    </a>
+                </li>
+            </ul>
+
+            <div class="navbar-actions">
+                <button class="nav-theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+                    <span class="theme-icon-sun">☀️</span>
+                    <span class="theme-icon-moon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Workflow Container -->
+    <main id="workflow-main" class="workflow-container" tabindex="-1">
+        <!-- Progress Indicator -->
+        <div class="workflow-progress" role="navigation" aria-label="Workflow progress">
+            <div class="progress-dots">
+                <button
+                    class="progress-dot active"
+                    data-step="1"
+                    aria-label="Step 1: Upload Resume"
+                    aria-current="step"
+                    disabled>
+                    <span class="progress-number">1</span>
+                    <span class="progress-label">Upload</span>
+                </button>
+                <div class="progress-connector"></div>
+
+                <button
+                    class="progress-dot locked"
+                    data-step="2"
+                    aria-label="Step 2: Analysis (locked)"
+                    disabled>
+                    <span class="progress-number">2</span>
+                    <span class="progress-label">Analyze</span>
+                </button>
+                <div class="progress-connector"></div>
+
+                <button
+                    class="progress-dot locked"
+                    data-step="3"
+                    aria-label="Step 3: Job Tailoring (locked)"
+                    disabled>
+                    <span class="progress-number">3</span>
+                    <span class="progress-label">Tailor</span>
+                </button>
+                <div class="progress-connector"></div>
+
+                <button
+                    class="progress-dot locked"
+                    data-step="4"
+                    aria-label="Step 4: Edit Resume (locked)"
+                    disabled>
+                    <span class="progress-number">4</span>
+                    <span class="progress-label">Edit</span>
+                </button>
+                <div class="progress-connector"></div>
+
+                <button
+                    class="progress-dot locked"
+                    data-step="5"
+                    aria-label="Step 5: Export (locked)"
+                    disabled>
+                    <span class="progress-number">5</span>
+                    <span class="progress-label">Export</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Workflow Steps Container -->
+        <div class="workflow-steps">
+            <!-- Step 1: Upload Resume -->
+            <section id="step-upload" class="workflow-step active" aria-labelledby="step-upload-title">
+                <div class="step-header">
+                    <h1 id="step-upload-title" class="step-title">
+                        <span class="step-icon">📄</span>
+                        Upload Your Resume
+                    </h1>
+                    <p class="step-description">
+                        Start by uploading your existing resume or paste your resume text below.
+                    </p>
+                </div>
+
+                <div class="step-content">
+                    <div class="card">
+                        <div class="input-group">
+                            <label for="resume-file" class="file-upload-label">
+                                <span class="upload-icon">📎</span>
+                                Upload Resume (PDF, DOC, DOCX, TXT)
+                                <input type="file" id="resume-file" accept=".pdf,.doc,.docx,.txt">
+                            </label>
+
+                            <div class="divider">OR</div>
+
+                            <label for="resume-text" class="sr-only">Paste your resume text</label>
+                            <textarea
+                                id="resume-text"
+                                placeholder="Paste your resume text here..."
+                                rows="12"
+                                aria-describedby="resume-help"></textarea>
+                            <small id="resume-help" class="help-text">
+                                Your resume data is processed securely and never stored permanently.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-actions">
+                    <button
+                        id="step-1-continue"
+                        class="btn-primary btn-continue"
+                        disabled
+                        aria-label="Continue to analysis step">
+                        Continue to Analysis
+                        <span class="btn-icon">→</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Step 2: Analysis -->
+            <section id="step-analyze" class="workflow-step locked" aria-labelledby="step-analyze-title" aria-hidden="true">
+                <div class="step-header">
+                    <h1 id="step-analyze-title" class="step-title">
+                        <span class="step-icon">🔍</span>
+                        Resume Analysis
+                    </h1>
+                    <p class="step-description">
+                        We'll analyze your resume for ATS compatibility, keyword optimization, and overall quality.
+                    </p>
+                </div>
+
+                <div class="step-content">
+                    <!-- Loading State -->
+                    <div id="analyze-loading" class="loading-state" style="display: none;">
+                        <div class="spinner"></div>
+                        <p>Analyzing your resume with Claude AI...</p>
+                    </div>
+
+                    <!-- Analysis Results (populated by JS) -->
+                    <div id="analyze-results" class="analysis-results" style="display: none;">
+                        <!-- Results will be inserted here by workflow-ui.js -->
+                    </div>
+                </div>
+
+                <div class="step-actions">
+                    <button
+                        class="btn-secondary btn-back"
+                        aria-label="Go back to upload step">
+                        <span class="btn-icon">←</span>
+                        Back
+                    </button>
+                    <button
+                        id="step-2-continue"
+                        class="btn-primary btn-continue"
+                        disabled
+                        aria-label="Continue to job tailoring step">
+                        Continue to Tailoring
+                        <span class="btn-icon">→</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Step 3: Job Tailoring -->
+            <section id="step-tailor" class="workflow-step locked" aria-labelledby="step-tailor-title" aria-hidden="true">
+                <div class="step-header">
+                    <h1 id="step-tailor-title" class="step-title">
+                        <span class="step-icon">🎯</span>
+                        Tailor to Job Description
+                    </h1>
+                    <p class="step-description">
+                        Optimize your resume for a specific job by providing the job description.
+                    </p>
+                </div>
+
+                <div class="step-content">
+                    <div class="card">
+                        <div class="input-group">
+                            <div class="job-url-import">
+                                <label for="job-url">
+                                    🔗 Import from URL (LinkedIn, Indeed, etc.)
+                                </label>
+                                <div style="display: flex; gap: 0.5rem;">
+                                    <input
+                                        type="url"
+                                        id="job-url"
+                                        placeholder="https://linkedin.com/jobs/view/..."
+                                        style="flex: 1;">
+                                    <button type="button" class="btn-secondary">
+                                        Import
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="divider">OR</div>
+
+                            <label for="job-text" class="sr-only">Paste job description</label>
+                            <textarea
+                                id="job-text"
+                                placeholder="Paste the job description here..."
+                                rows="10"
+                                aria-describedby="job-help"></textarea>
+                            <small id="job-help" class="help-text">
+                                Include the full job description for best results.
+                            </small>
+                        </div>
+
+                        <div class="tailor-options">
+                            <h3>Tailoring Options</h3>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tailor-keywords" checked>
+                                <span>Optimize keywords for ATS</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tailor-skills" checked>
+                                <span>Match required skills</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="tailor-experience">
+                                <span>Emphasize relevant experience</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-actions">
+                    <button
+                        class="btn-secondary btn-back"
+                        aria-label="Go back to analysis step">
+                        <span class="btn-icon">←</span>
+                        Back
+                    </button>
+                    <button
+                        id="step-3-skip"
+                        class="btn-secondary"
+                        aria-label="Skip job tailoring">
+                        Skip This Step
+                    </button>
+                    <button
+                        id="step-3-continue"
+                        class="btn-primary btn-continue"
+                        disabled
+                        aria-label="Continue to edit resume step">
+                        Tailor Resume
+                        <span class="btn-icon">→</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Step 4: Edit Resume -->
+            <section id="step-edit" class="workflow-step locked" aria-labelledby="step-edit-title" aria-hidden="true">
+                <div class="step-header">
+                    <h1 id="step-edit-title" class="step-title">
+                        <span class="step-icon">✏️</span>
+                        Edit & Preview
+                    </h1>
+                    <p class="step-description">
+                        Make final edits to your resume and preview how it looks.
+                    </p>
+                </div>
+
+                <div class="step-content">
+                    <div class="editor-container">
+                        <!-- Split view: editor on left, preview on right -->
+                        <div class="editor-panel">
+                            <div class="editor-toolbar">
+                                <button class="toolbar-btn" title="Bold">
+                                    <strong>B</strong>
+                                </button>
+                                <button class="toolbar-btn" title="Italic">
+                                    <em>I</em>
+                                </button>
+                                <button class="toolbar-btn" title="Bullet List">
+                                    •
+                                </button>
+                            </div>
+                            <div id="resume-editor" contenteditable="true" class="resume-editor" role="textbox" aria-label="Resume editor">
+                                <!-- Editable resume content -->
+                            </div>
+                        </div>
+
+                        <div class="preview-panel">
+                            <div class="preview-toolbar">
+                                <select id="template-select" aria-label="Select resume template">
+                                    <option value="classic">Classic</option>
+                                    <option value="modern">Modern</option>
+                                    <option value="creative">Creative</option>
+                                </select>
+                            </div>
+                            <div id="resume-preview" class="resume-preview">
+                                <!-- Live preview -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-actions">
+                    <button
+                        class="btn-secondary btn-back"
+                        aria-label="Go back to tailoring step">
+                        <span class="btn-icon">←</span>
+                        Back
+                    </button>
+                    <button
+                        id="step-4-continue"
+                        class="btn-primary btn-continue"
+                        aria-label="Continue to export step">
+                        Continue to Export
+                        <span class="btn-icon">→</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Step 5: Export -->
+            <section id="step-export" class="workflow-step locked" aria-labelledby="step-export-title" aria-hidden="true">
+                <div class="step-header">
+                    <h1 id="step-export-title" class="step-title">
+                        <span class="step-icon">📥</span>
+                        Export Your Resume
+                    </h1>
+                    <p class="step-description">
+                        Download your optimized resume in your preferred format.
+                    </p>
+                </div>
+
+                <div class="step-content">
+                    <div class="export-options">
+                        <div class="export-card" data-format="pdf">
+                            <div class="export-icon">📄</div>
+                            <h3>PDF Document</h3>
+                            <p>Best for job applications</p>
+                            <button class="btn-export" data-format="pdf">
+                                Download PDF
+                            </button>
+                        </div>
+
+                        <div class="export-card" data-format="docx">
+                            <div class="export-icon">📝</div>
+                            <h3>Word Document</h3>
+                            <p>Editable format</p>
+                            <button class="btn-export" data-format="docx">
+                                Download DOCX
+                            </button>
+                        </div>
+
+                        <div class="export-card" data-format="txt">
+                            <div class="export-icon">📋</div>
+                            <h3>Plain Text</h3>
+                            <p>ATS-friendly format</p>
+                            <button class="btn-export" data-format="txt">
+                                Download TXT
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="export-success" id="export-success" style="display: none;">
+                        <div class="success-icon">✅</div>
+                        <h2>Resume Ready!</h2>
+                        <p>Your optimized resume has been downloaded successfully.</p>
+                    </div>
+                </div>
+
+                <div class="step-actions">
+                    <button
+                        class="btn-secondary btn-back"
+                        aria-label="Go back to edit step">
+                        <span class="btn-icon">←</span>
+                        Back
+                    </button>
+                    <button
+                        id="step-5-finish"
+                        class="btn-primary"
+                        aria-label="Start a new resume">
+                        Start New Resume
+                    </button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>Built with ❤️ using Claude AI | <a href="https://github.com/ry-ops/ResuMate" target="_blank">GitHub</a></p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/ui/workflow-ui.js"></script>
+    <script>
+        // Theme Management
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const theme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        }
+
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Initialize theme immediately
+        initTheme();
+
+        // Initialize workflow UI
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof WorkflowUI !== 'undefined') {
+                window.workflowUI = new WorkflowUI();
+                window.workflowUI.initialize();
+                console.log('[Workflow] UI initialized');
+            }
+        });
+    </script>
+</body>
+</html>

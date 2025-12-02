@@ -1,0 +1,754 @@
+/**
+ * ResuMate Workflow Animations
+ * Step transitions, progress animations, and micro-interactions
+ * Respects prefers-reduced-motion for accessibility
+ * Uses design tokens from variables.css
+ */
+
+/* ========== Step Transitions ========== */
+
+/* Fade in/out transitions */
+.workflow-step {
+  animation: fadeInUp var(--transition-base) ease-out;
+}
+
+.workflow-step-exit {
+  animation: fadeOutDown var(--transition-base) ease-in;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOutDown {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+/* Slide transitions for step changes */
+.workflow-step-slide-next {
+  animation: slideInRight var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.workflow-step-slide-prev {
+  animation: slideInLeft var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ========== Progress Bar Animations ========== */
+
+/* Animated progress bar */
+.workflow-progress-bar {
+  position: relative;
+  height: 8px;
+  background: var(--color-gray-200);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.workflow-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
+  border-radius: var(--radius-full);
+  transition: width var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shimmer effect for loading progress */
+.workflow-progress-fill::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  to {
+    left: 100%;
+  }
+}
+
+/* Step indicators */
+.workflow-step-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  margin-bottom: var(--spacing-6);
+}
+
+.workflow-step-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-full);
+  background: var(--color-gray-300);
+  transition: all var(--transition-base);
+  position: relative;
+}
+
+.workflow-step-dot.active {
+  background: var(--color-primary);
+  width: 32px;
+  box-shadow: 0 0 0 4px var(--color-primary-bg);
+}
+
+.workflow-step-dot.completed {
+  background: var(--color-success);
+}
+
+.workflow-step-dot.completed::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 8px;
+  font-weight: bold;
+}
+
+/* ========== Success Celebrations ========== */
+
+/* Confetti animation for export success */
+.workflow-success-confetti {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: var(--z-index-notification);
+}
+
+.confetti-piece {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--color-primary);
+  animation: confettiFall 3s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes confettiFall {
+  0% {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(100vh) rotate(720deg);
+  }
+}
+
+/* Success checkmark animation */
+.workflow-success-check {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-full);
+  background: var(--color-success);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--spacing-6);
+  animation: scaleIn var(--transition-slow) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.workflow-success-check svg {
+  width: 48px;
+  height: 48px;
+  stroke: white;
+  stroke-width: 3;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: drawCheck 0.8s ease-out 0.3s forwards;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes drawCheck {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Success pulse effect */
+.workflow-success-pulse {
+  animation: successPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes successPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 20px rgba(16, 185, 129, 0);
+  }
+}
+
+/* ========== Loading Spinners ========== */
+
+/* Primary spinner */
+.workflow-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--color-gray-200);
+  border-top-color: var(--color-primary);
+  border-radius: var(--radius-full);
+  animation: spin 0.8s linear infinite;
+}
+
+.workflow-spinner-sm {
+  width: 20px;
+  height: 20px;
+  border-width: 2px;
+}
+
+.workflow-spinner-lg {
+  width: 60px;
+  height: 60px;
+  border-width: 6px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Dots spinner */
+.workflow-spinner-dots {
+  display: flex;
+  gap: var(--spacing-2);
+  align-items: center;
+  justify-content: center;
+}
+
+.workflow-spinner-dot {
+  width: 10px;
+  height: 10px;
+  background: var(--color-primary);
+  border-radius: var(--radius-full);
+  animation: dotBounce 1.4s ease-in-out infinite;
+}
+
+.workflow-spinner-dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.workflow-spinner-dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes dotBounce {
+  0%, 80%, 100% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Pulse spinner */
+.workflow-spinner-pulse {
+  width: 40px;
+  height: 40px;
+  background: var(--color-primary);
+  border-radius: var(--radius-full);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* ========== Micro-interactions ========== */
+
+/* Button hover effects */
+.workflow-button {
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.workflow-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width var(--transition-slow), height var(--transition-slow);
+}
+
+.workflow-button:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.workflow-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.workflow-button:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Card hover effects */
+.workflow-card {
+  transition: all var(--transition-base);
+}
+
+.workflow-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Input focus effects */
+.workflow-input,
+.workflow-textarea,
+.workflow-select {
+  transition: all var(--transition-base);
+  position: relative;
+}
+
+.workflow-input:focus,
+.workflow-textarea:focus,
+.workflow-select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-bg);
+  transform: scale(1.01);
+}
+
+/* Checkbox/Radio animations */
+.workflow-checkbox,
+.workflow-radio {
+  transition: all var(--transition-fast);
+}
+
+.workflow-checkbox:checked,
+.workflow-radio:checked {
+  animation: checkBounce var(--transition-base) ease-in-out;
+}
+
+@keyframes checkBounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+/* Toggle switch animation */
+.workflow-toggle {
+  position: relative;
+  width: 48px;
+  height: 24px;
+  background: var(--color-gray-300);
+  border-radius: var(--radius-full);
+  transition: background var(--transition-base);
+  cursor: pointer;
+}
+
+.workflow-toggle::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: var(--radius-full);
+  transition: transform var(--transition-base);
+  box-shadow: var(--shadow-sm);
+}
+
+.workflow-toggle.active {
+  background: var(--color-primary);
+}
+
+.workflow-toggle.active::after {
+  transform: translateX(24px);
+}
+
+/* ========== Tooltip Animations ========== */
+
+.workflow-tooltip {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition: all var(--transition-base);
+  pointer-events: none;
+}
+
+.workflow-tooltip.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Tooltip arrow animation */
+.workflow-tooltip::before {
+  content: '';
+  position: absolute;
+  border: 6px solid transparent;
+  transition: all var(--transition-base);
+}
+
+/* ========== Badge Animations ========== */
+
+.workflow-badge {
+  animation: fadeInScale var(--transition-base) ease-out;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Notification badge pulse */
+.workflow-notification-badge {
+  animation: badgePulse 2s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* ========== Form Validation Animations ========== */
+
+.workflow-error-shake {
+  animation: shake 0.4s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-10px);
+  }
+  75% {
+    transform: translateX(10px);
+  }
+}
+
+.workflow-success-bounce {
+  animation: successBounce 0.6s ease-in-out;
+}
+
+@keyframes successBounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* ========== Page Transitions ========== */
+
+.workflow-page-enter {
+  animation: pageEnter var(--transition-slow) ease-out;
+}
+
+.workflow-page-exit {
+  animation: pageExit var(--transition-slow) ease-in;
+}
+
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pageExit {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.98);
+  }
+}
+
+/* ========== Skeleton Loading ========== */
+
+.workflow-skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-gray-200) 0%,
+    var(--color-gray-100) 50%,
+    var(--color-gray-200) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeletonLoad 1.5s ease-in-out infinite;
+  border-radius: var(--radius-base);
+}
+
+@keyframes skeletonLoad {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ========== Accordion Animations ========== */
+
+.workflow-accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--transition-slow) ease-out;
+}
+
+.workflow-accordion-content.open {
+  max-height: 2000px;
+  transition: max-height var(--transition-slower) ease-in;
+}
+
+.workflow-accordion-icon {
+  transition: transform var(--transition-base);
+}
+
+.workflow-accordion.open .workflow-accordion-icon {
+  transform: rotate(180deg);
+}
+
+/* ========== Drag and Drop Animations ========== */
+
+.workflow-draggable {
+  transition: all var(--transition-base);
+  cursor: move;
+}
+
+.workflow-draggable:hover {
+  transform: scale(1.02);
+}
+
+.workflow-draggable.dragging {
+  opacity: 0.5;
+  transform: scale(1.05);
+  cursor: grabbing;
+}
+
+.workflow-drop-zone {
+  transition: all var(--transition-base);
+}
+
+.workflow-drop-zone.drag-over {
+  background: var(--color-primary-bg);
+  border: 2px dashed var(--color-primary);
+  transform: scale(1.02);
+}
+
+/* ========== Notification Slide In ========== */
+
+.workflow-notification {
+  animation: slideInRight 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.workflow-notification.exit {
+  animation: slideOutRight 0.3s cubic-bezier(0.4, 0, 1, 1);
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+}
+
+/* ========== Reduced Motion Support ========== */
+
+/* Respect user's motion preferences for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Disable shimmer effects */
+  .workflow-progress-fill::before {
+    animation: none;
+  }
+
+  /* Disable confetti */
+  .workflow-success-confetti {
+    display: none;
+  }
+
+  /* Disable spinner animations, show static instead */
+  .workflow-spinner {
+    animation: none;
+    border-top-color: var(--color-gray-400);
+  }
+
+  /* Reduce pulse effects */
+  .workflow-success-pulse {
+    animation: none;
+  }
+}
+
+/* ========== Loading States ========== */
+
+.workflow-loading {
+  position: relative;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.workflow-loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  margin: -12px 0 0 -12px;
+  border: 3px solid var(--color-gray-300);
+  border-top-color: var(--color-primary);
+  border-radius: var(--radius-full);
+  animation: spin 0.8s linear infinite;
+}
+
+/* ========== Focus Indicators ========== */
+
+/* Enhanced focus visible for keyboard navigation */
+.workflow-focusable:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-primary-bg),
+              0 0 0 5px var(--color-primary);
+  position: relative;
+  z-index: 1;
+}
+
+/* ========== Hover Lift Effect ========== */
+
+.workflow-lift {
+  transition: all var(--transition-base);
+}
+
+.workflow-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.workflow-lift:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ========== Stagger Animations ========== */
+
+/* For lists with staggered entry animations */
+.workflow-stagger-item {
+  animation: fadeInUp var(--transition-base) ease-out backwards;
+}
+
+.workflow-stagger-item:nth-child(1) { animation-delay: 0.05s; }
+.workflow-stagger-item:nth-child(2) { animation-delay: 0.1s; }
+.workflow-stagger-item:nth-child(3) { animation-delay: 0.15s; }
+.workflow-stagger-item:nth-child(4) { animation-delay: 0.2s; }
+.workflow-stagger-item:nth-child(5) { animation-delay: 0.25s; }
+.workflow-stagger-item:nth-child(6) { animation-delay: 0.3s; }
+
+/* ========== Print Styles ========== */
+
+@media print {
+  /* Disable all animations for print */
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .workflow-spinner,
+  .workflow-success-confetti,
+  .workflow-notification {
+    display: none !important;
+  }
+}

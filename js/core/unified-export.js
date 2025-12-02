@@ -14,10 +14,48 @@ class UnifiedExport {
         if (!this.zipAvailable) {
             console.warn('[UnifiedExport] JSZip not loaded. ZIP export will not be available.');
         }
+
+        // Reference to DocumentFactory for generation
+        this.documentFactory = null;
+
+        // Progress callbacks for export operations
+        this.progressCallbacks = [];
     }
 
     /**
-     * Export complete application package
+     * Set DocumentFactory reference for workflow integration
+     * @param {DocumentFactory} factory - DocumentFactory instance
+     */
+    setDocumentFactory(factory) {
+        this.documentFactory = factory;
+        console.log('[UnifiedExport] DocumentFactory reference set');
+    }
+
+    /**
+     * Add progress callback
+     * @param {Function} callback - Progress callback function
+     */
+    addProgressCallback(callback) {
+        this.progressCallbacks.push(callback);
+    }
+
+    /**
+     * Notify progress
+     * @param {Object} progress - Progress information
+     * @private
+     */
+    _notifyProgress(progress) {
+        this.progressCallbacks.forEach(callback => {
+            try {
+                callback(progress);
+            } catch (error) {
+                console.error('[UnifiedExport] Progress callback error:', error);
+            }
+        });
+    }
+
+    /**
+     * Export complete application package with workflow integration
      * @param {Object} options - Export options
      * @returns {Promise<Object>} - Export result with download link
      */
@@ -36,11 +74,15 @@ class UnifiedExport {
             formats = ['pdf', 'docx'],
             includeReadme = true,
             includeMetadata = true,
-            namingConvention = 'standard' // 'standard' or 'simple'
+            namingConvention = 'standard', // 'standard' or 'simple'
+            generateMissing = true, // Auto-generate missing documents
+            workflowState = null // Workflow state for generation
         } = options;
 
         try {
             if (typeof logger !== 'undefined') logger.info('[UnifiedExport] Starting application package export...');
+
+            this._notifyProgress({ stage: 'validation', message: 'Validating export options...' });
 
             if (!this.zipAvailable) {
                 throw new Error('JSZip library not loaded. Cannot create ZIP file.');
@@ -52,6 +94,13 @@ class UnifiedExport {
                 throw new Error('At least one document must be selected for export');
             }
 
+            this._notifyProgress({ stage: 'collection', message: 'Collecting documents...', total: selectedDocs.length });
+
+            // Generate missing documents if requested
+            if (generateMissing && this.documentFactory) {
+                await this._generateMissingDocuments(documents, workflowState);
+            }
+
             // Create ZIP file
             const zip = new JSZip();
             const packageFolder = zip.folder('Application_Package');
@@ -60,10 +109,20 @@ class UnifiedExport {
             const documentData = await this._collectDocuments(documents);
 
             // Export each document in requested formats
+            let exportedCount = 0;
+            const totalExports = Object.keys(documentData).filter(k => documentData[k]).length * formats.length;
+
             for (const [docType, data] of Object.entries(documentData)) {
                 if (!data) continue;
 
                 for (const format of formats) {
+                    this._notifyProgress({
+                        stage: 'export',
+                        message: `Exporting ${docType} as ${format}...`,
+                        current: exportedCount,
+                        total: totalExports
+                    });
+
                     const filename = this._generateFilename(docType, {
                         jobTitle,
                         companyName,
@@ -76,6 +135,7 @@ class UnifiedExport {
                     if (blob) {
                         packageFolder.file(filename, blob);
                         if (typeof logger !== 'undefined') logger.info(`[UnifiedExport] Added ${filename}`);
+                        exportedCount++;
                     }
                 }
             }
@@ -107,6 +167,8 @@ class UnifiedExport {
                 packageFolder.file('metadata.json', JSON.stringify(metadata, null, 2));
             }
 
+            this._notifyProgress({ stage: 'zip', message: 'Creating ZIP file...' });
+
             // Generate ZIP blob
             const zipBlob = await zip.generateAsync({
                 type: 'blob',
@@ -129,6 +191,8 @@ class UnifiedExport {
                 timestamp: new Date().toISOString()
             });
 
+            this._notifyProgress({ stage: 'complete', message: 'Export complete!' });
+
             if (typeof logger !== 'undefined') logger.info('[UnifiedExport] Application package created successfully');
 
             return {
@@ -140,7 +204,8 @@ class UnifiedExport {
                     documentsIncluded: selectedDocs.length,
                     formatsPerDocument: formats.length,
                     totalFiles: selectedDocs.length * formats.length + (includeReadme ? 1 : 0) + (includeMetadata ? 1 : 0),
-                    fileSize: this._formatFileSize(zipBlob.size)
+                    fileSize: this._formatFileSize(zipBlob.size),
+                    generatedDocuments: generateMissing ? selectedDocs.map(([type]) => type) : []
                 }
             };
         } catch (error) {
@@ -213,6 +278,81 @@ class UnifiedExport {
     }
 
     /**
+     * Generate missing documents using DocumentFactory
+     * @param {Object} documentSelection - Selected documents
+     * @param {Object} workflowState - Workflow state
+     * @returns {Promise<void>}
+     * @private
+     */
+    async _generateMissingDocuments(documentSelection, workflowState) {
+        if (!this.documentFactory) {
+            console.warn('[UnifiedExport] DocumentFactory not available, skipping generation');
+            return;
+        }
+
+        try {
+            console.log('[UnifiedExport] Checking for missing documents...');
+
+            // Update factory with workflow state
+            if (workflowState) {
+                this.documentFactory.updateWorkflowState(workflowState);
+            }
+
+            const documentsToGenerate = [];
+
+            for (const [type, selected] of Object.entries(documentSelection)) {
+                if (selected && !this.documentFactory.getCached(type)) {
+                    documentsToGenerate.push(type);
+                }
+            }
+
+            if (documentsToGenerate.length === 0) {
+                console.log('[UnifiedExport] All selected documents already generated');
+                return;
+            }
+
+            console.log('[UnifiedExport] Generating missing documents:', documentsToGenerate);
+
+            // Generate only the missing documents
+            const generateOptions = Object.keys(documentSelection).reduce((acc, key) => {
+                acc[key] = documentsToGenerate.includes(key);
+                return acc;
+            }, {});
+
+            this._notifyProgress({
+                stage: 'generation',
+                message: `Generating ${documentsToGenerate.length} missing document(s)...`,
+                total: documentsToGenerate.length
+            });
+
+            const result = await this.documentFactory.generateAll(
+                (progress) => {
+                    this._notifyProgress({
+                        stage: 'generation',
+                        message: `Generating ${progress.documentType}...`,
+                        current: progress.current,
+                        total: progress.total
+                    });
+                },
+                {
+                    documents: generateOptions,
+                    forceRegenerate: false,
+                    parallel: true
+                }
+            );
+
+            if (!result.success) {
+                console.warn('[UnifiedExport] Some documents failed to generate:', result.metadata);
+            } else {
+                console.log('[UnifiedExport] All missing documents generated successfully');
+            }
+        } catch (error) {
+            console.error('[UnifiedExport] Failed to generate missing documents:', error);
+            throw new Error(`Document generation failed: ${error.message}`);
+        }
+    }
+
+    /**
      * Collect all document data from application state
      * @param {Object} documentSelection - Selected documents
      * @returns {Promise<Object>} - Document data
@@ -250,11 +390,17 @@ class UnifiedExport {
     }
 
     /**
-     * Get resume data from state
+     * Get resume data from state or DocumentFactory
      * @returns {Object|null} - Resume data
      * @private
      */
     _getResumeData() {
+        // Try DocumentFactory first
+        if (this.documentFactory) {
+            const cached = this.documentFactory.getCached('resume');
+            if (cached) return cached;
+        }
+
         // Try to get from resumeState or localStorage
         if (typeof resumeState !== 'undefined' && resumeState) {
             return resumeState;
@@ -273,11 +419,17 @@ class UnifiedExport {
     }
 
     /**
-     * Get cover letter data from state
+     * Get cover letter data from state or DocumentFactory
      * @returns {Object|null} - Cover letter data
      * @private
      */
     _getCoverLetterData() {
+        // Try DocumentFactory first
+        if (this.documentFactory) {
+            const cached = this.documentFactory.getCached('coverLetter');
+            if (cached) return cached;
+        }
+
         try {
             const saved = localStorage.getItem('current_cover_letter');
             if (saved) {
@@ -291,11 +443,17 @@ class UnifiedExport {
     }
 
     /**
-     * Get executive bio data from state
+     * Get executive bio data from state or DocumentFactory
      * @returns {Object|null} - Executive bio data
      * @private
      */
     _getExecutiveBioData() {
+        // Try DocumentFactory first
+        if (this.documentFactory) {
+            const cached = this.documentFactory.getCached('executiveBio');
+            if (cached) return cached;
+        }
+
         try {
             const saved = localStorage.getItem('executive_bio');
             if (saved) {
@@ -309,11 +467,17 @@ class UnifiedExport {
     }
 
     /**
-     * Get brand statement data from state
+     * Get brand statement data from state or DocumentFactory
      * @returns {Object|null} - Brand statement data
      * @private
      */
     _getBrandStatementData() {
+        // Try DocumentFactory first
+        if (this.documentFactory) {
+            const cached = this.documentFactory.getCached('brandStatement');
+            if (cached) return cached;
+        }
+
         try {
             const saved = localStorage.getItem('brand_statement');
             if (saved) {
@@ -327,11 +491,17 @@ class UnifiedExport {
     }
 
     /**
-     * Get status inquiry data from state
+     * Get status inquiry data from state or DocumentFactory
      * @returns {Object|null} - Status inquiry data
      * @private
      */
     _getStatusInquiryData() {
+        // Try DocumentFactory first
+        if (this.documentFactory) {
+            const cached = this.documentFactory.getCached('statusInquiry');
+            if (cached) return cached;
+        }
+
         try {
             const saved = localStorage.getItem('status_inquiry');
             if (saved) {

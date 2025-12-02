@@ -143,9 +143,11 @@ class GettingStartedModal {
         position: relative;
         background: white;
         border-radius: 20px;
-        padding: 40px;
-        max-width: 500px;
+        padding: 40px 50px;
+        max-width: 900px;
         width: 90%;
+        max-height: 85vh;
+        overflow-y: auto;
         box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
         transform: scale(0.9);
         transition: transform 0.3s ease;
@@ -208,17 +210,25 @@ class GettingStartedModal {
       }
 
       .getting-started-steps {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-        margin-bottom: 25px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+
+      @media (max-width: 768px) {
+        .getting-started-steps {
+          grid-template-columns: 1fr;
+        }
       }
 
       .step-item {
         display: flex;
+        flex-direction: column;
         align-items: center;
-        gap: 15px;
-        padding: 15px;
+        text-align: center;
+        gap: 12px;
+        padding: 20px 15px;
         background: #f8f9fa;
         border-radius: 12px;
         border: 2px solid transparent;

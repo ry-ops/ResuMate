@@ -237,60 +237,61 @@
                 <div class="step-header">
                     <h1 id="step-tailor-title" class="step-title">
                         <span class="step-icon">🎯</span>
-                        Tailor to Job Description
+                        Tailor Your Resume
                     </h1>
                     <p class="step-description">
-                        Optimize your resume for a specific job by providing the job description.
+                        AI will optimize your resume to match the job description and maximize your chances.
                     </p>
                 </div>
 
                 <div class="step-content">
-                    <div class="card">
-                        <div class="input-group">
-                            <div class="job-url-import">
-                                <label for="job-url">
-                                    🔗 Import from URL (LinkedIn, Indeed, etc.)
-                                </label>
-                                <div style="display: flex; gap: 0.5rem;">
-                                    <input
-                                        type="url"
-                                        id="job-url"
-                                        placeholder="https://linkedin.com/jobs/view/..."
-                                        style="flex: 1;">
-                                    <button type="button" id="import-job-btn" class="btn-secondary">
-                                        Import
-                                    </button>
-                                </div>
-                                <small id="job-url-status" style="margin-top: 0.5rem; display: block;"></small>
-                            </div>
-
-                            <div class="divider">OR</div>
-
-                            <label for="job-text" class="sr-only">Paste job description</label>
-                            <textarea
-                                id="job-text"
-                                placeholder="Paste the job description here..."
-                                rows="10"
-                                aria-describedby="job-help"></textarea>
-                            <small id="job-help" class="help-text">
-                                Include the full job description for best results.
-                            </small>
+                    <!-- Job Summary Card -->
+                    <div class="card" style="background: var(--bg-color); border-left: 4px solid var(--primary-color);">
+                        <h3 style="margin-bottom: 0.75rem; color: var(--text-color);">📋 Targeting This Position:</h3>
+                        <div id="job-summary" style="color: var(--text-color); padding: 1rem; background: var(--card-bg); border-radius: 8px; max-height: 120px; overflow-y: auto;">
+                            <p style="margin: 0; color: var(--text-muted);">Loading job description...</p>
                         </div>
+                    </div>
 
-                        <div class="tailor-options">
-                            <h3>Tailoring Options</h3>
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tailor-keywords" checked>
-                                <span>Optimize keywords for ATS</span>
+                    <!-- Tailoring Options Card -->
+                    <div class="card" style="margin-top: 2rem;">
+                        <h3 style="margin-bottom: 1rem; color: var(--text-color);">⚙️ Tailoring Options</h3>
+                        <div class="tailor-options" style="display: flex; flex-direction: column; gap: 0.75rem;">
+                            <label class="checkbox-label" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem; background: var(--bg-color); border-radius: 8px; cursor: pointer;">
+                                <input type="checkbox" id="tailor-keywords" checked style="width: 20px; height: 20px; cursor: pointer;">
+                                <span style="color: var(--text-color); font-size: 1rem;">
+                                    <strong>Optimize keywords for ATS</strong><br>
+                                    <small style="color: var(--text-muted);">Match job requirements with relevant keywords</small>
+                                </span>
                             </label>
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tailor-skills" checked>
-                                <span>Match required skills</span>
+                            <label class="checkbox-label" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem; background: var(--bg-color); border-radius: 8px; cursor: pointer;">
+                                <input type="checkbox" id="tailor-skills" checked style="width: 20px; height: 20px; cursor: pointer;">
+                                <span style="color: var(--text-color); font-size: 1rem;">
+                                    <strong>Match required skills</strong><br>
+                                    <small style="color: var(--text-muted);">Highlight skills mentioned in the job posting</small>
+                                </span>
                             </label>
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="tailor-experience">
-                                <span>Emphasize relevant experience</span>
+                            <label class="checkbox-label" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem; background: var(--bg-color); border-radius: 8px; cursor: pointer;">
+                                <input type="checkbox" id="tailor-experience" checked style="width: 20px; height: 20px; cursor: pointer;">
+                                <span style="color: var(--text-color); font-size: 1rem;">
+                                    <strong>Emphasize relevant experience</strong><br>
+                                    <small style="color: var(--text-muted);">Prioritize experience that matches the role</small>
+                                </span>
                             </label>
+                        </div>
+                    </div>
+
+                    <!-- Loading State -->
+                    <div id="tailor-loading" class="loading-state" style="display: none; text-align: center; padding: 2rem;">
+                        <div class="spinner" style="margin: 0 auto 1rem;"></div>
+                        <p style="color: var(--text-color);">✨ Tailoring your resume...</p>
+                    </div>
+
+                    <!-- Tailoring Results -->
+                    <div id="tailor-results" class="card" style="display: none; margin-top: 2rem; background: var(--card-bg);">
+                        <h3 style="color: var(--text-color); margin-bottom: 1rem;">💡 Tailoring Suggestions</h3>
+                        <div id="tailor-suggestions-content" style="color: var(--text-color);">
+                            <!-- Results will be inserted here -->
                         </div>
                     </div>
                 </div>
@@ -719,6 +720,161 @@
                             dot3.classList.remove('locked');
                             dot3.classList.add('active');
                             dot3.setAttribute('aria-current', 'step');
+                        }
+
+                        // Scroll to top
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                        // Load job description into Step 3 summary
+                        loadJobSummaryIntoStep3();
+
+                        // Enable Tailor Resume button
+                        const step3ContinueBtn = document.getElementById('step-3-continue');
+                        if (step3ContinueBtn) {
+                            step3ContinueBtn.disabled = false;
+                        }
+                    }
+                });
+            }
+
+            // Step 3: Load job description from Step 1
+            function loadJobSummaryIntoStep3() {
+                const jobSummaryDiv = document.getElementById('job-summary');
+                if (!jobSummaryDiv) return;
+
+                // Get job description from Step 1
+                const jobText = document.getElementById('job-text');
+                const jobUrlInput = document.getElementById('job-url');
+
+                let jobDescription = '';
+
+                // Priority: job text, then URL
+                if (jobText && jobText.value.trim().length > 0) {
+                    jobDescription = jobText.value.trim();
+                } else if (workflowIntegration && workflowIntegration.jobDescription) {
+                    // If job was fetched from URL
+                    jobDescription = workflowIntegration.jobDescription;
+                }
+
+                // Display job summary
+                if (jobDescription && jobDescription.length > 0) {
+                    // Show first 300 characters with ellipsis
+                    const summary = jobDescription.length > 300
+                        ? jobDescription.substring(0, 300) + '...'
+                        : jobDescription;
+
+                    jobSummaryDiv.innerHTML = `
+                        <p style="margin: 0; color: var(--text-color); white-space: pre-wrap; line-height: 1.5;">
+                            ${summary}
+                        </p>
+                    `;
+                    console.log('[Workflow] Job summary loaded into Step 3');
+                } else {
+                    jobSummaryDiv.innerHTML = `
+                        <p style="margin: 0; color: var(--text-muted);">No job description provided.</p>
+                    `;
+                    console.warn('[Workflow] No job description found for Step 3');
+                }
+            }
+
+            // Step 3 Continue button (Tailor Resume)
+            const step3ContinueBtn = document.getElementById('step-3-continue');
+            if (step3ContinueBtn) {
+                step3ContinueBtn.addEventListener('click', async () => {
+                    console.log('[Workflow] Step 3 Continue (Tailor Resume) clicked');
+
+                    // Show loading state
+                    const loadingDiv = document.getElementById('tailor-loading');
+                    const resultsDiv = document.getElementById('tailor-results');
+
+                    if (loadingDiv) loadingDiv.style.display = 'block';
+                    if (resultsDiv) resultsDiv.style.display = 'none';
+
+                    // Start tailoring if integration is available
+                    if (workflowIntegration) {
+                        try {
+                            console.log('[Workflow] Starting tailoring...');
+                            await workflowIntegration.tailorResume();
+
+                            // Hide loading, show results
+                            if (loadingDiv) loadingDiv.style.display = 'none';
+                            if (resultsDiv) resultsDiv.style.display = 'block';
+
+                            // Transition to Step 4 after a brief delay
+                            setTimeout(() => {
+                                const step3 = document.getElementById('step-tailor');
+                                const step4 = document.getElementById('step-edit');
+
+                                if (step3 && step4) {
+                                    step3.classList.remove('active');
+                                    step3.classList.add('locked');
+                                    step3.setAttribute('aria-hidden', 'true');
+
+                                    step4.classList.remove('locked');
+                                    step4.classList.add('active');
+                                    step4.removeAttribute('aria-hidden');
+
+                                    // Update progress dots
+                                    const dot3 = document.querySelector('[data-step="3"]');
+                                    const dot4 = document.querySelector('[data-step="4"]');
+                                    if (dot3) {
+                                        dot3.classList.remove('active');
+                                        dot3.classList.add('completed');
+                                    }
+                                    if (dot4) {
+                                        dot4.classList.remove('locked');
+                                        dot4.classList.add('active');
+                                        dot4.setAttribute('aria-current', 'step');
+                                    }
+
+                                    // Scroll to top
+                                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                                }
+                            }, 1500);
+                        } catch (error) {
+                            console.error('[Workflow] Tailoring error:', error);
+                            alert('Tailoring failed: ' + error.message);
+
+                            // Hide loading on error
+                            if (loadingDiv) loadingDiv.style.display = 'none';
+                        }
+                    } else {
+                        console.warn('[Workflow] WorkflowIntegration not available');
+                        alert('Tailoring system not initialized');
+                        if (loadingDiv) loadingDiv.style.display = 'none';
+                    }
+                });
+            }
+
+            // Step 3 Skip button
+            const step3SkipBtn = document.getElementById('step-3-skip');
+            if (step3SkipBtn) {
+                step3SkipBtn.addEventListener('click', () => {
+                    console.log('[Workflow] Step 3 Skip clicked');
+
+                    const step3 = document.getElementById('step-tailor');
+                    const step4 = document.getElementById('step-edit');
+
+                    if (step3 && step4) {
+                        step3.classList.remove('active');
+                        step3.classList.add('locked');
+                        step3.setAttribute('aria-hidden', 'true');
+
+                        step4.classList.remove('locked');
+                        step4.classList.add('active');
+                        step4.removeAttribute('aria-hidden');
+
+                        // Update progress dots
+                        const dot3 = document.querySelector('[data-step="3"]');
+                        const dot4 = document.querySelector('[data-step="4"]');
+                        if (dot3) {
+                            dot3.classList.remove('active');
+                            dot3.classList.add('completed');
+                        }
+                        if (dot4) {
+                            dot4.classList.remove('locked');
+                            dot4.classList.add('active');
+                            dot4.setAttribute('aria-current', 'step');
                         }
 
                         // Scroll to top

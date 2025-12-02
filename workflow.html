@@ -205,7 +205,7 @@
                     <!-- Loading State -->
                     <div id="analyze-loading" class="loading-state" style="display: none;">
                         <div class="spinner"></div>
-                        <p>Analyzing your resume with Claude AI...</p>
+                        <p>✨ AI is working its magic...</p>
                     </div>
 
                     <!-- Analysis Results (populated by JS) -->
@@ -641,11 +641,11 @@
                 });
             }
 
-            // Continue button click handler
-            const continueBtn = document.getElementById('step-1-continue');
-            if (continueBtn) {
-                continueBtn.addEventListener('click', async () => {
-                    console.log('[Workflow] Continue button clicked');
+            // Step 1 Continue button click handler
+            const step1ContinueBtn = document.getElementById('step-1-continue');
+            if (step1ContinueBtn) {
+                step1ContinueBtn.addEventListener('click', async () => {
+                    console.log('[Workflow] Step 1 Continue clicked');
 
                     // Show step 2 (analysis)
                     const step1 = document.getElementById('step-upload');
@@ -686,6 +686,43 @@
                                 alert('Analysis failed: ' + error.message);
                             }
                         }
+                    }
+                });
+            }
+
+            // Step 2 Continue button click handler
+            const step2ContinueBtn = document.getElementById('step-2-continue');
+            if (step2ContinueBtn) {
+                step2ContinueBtn.addEventListener('click', () => {
+                    console.log('[Workflow] Step 2 Continue clicked');
+
+                    const step2 = document.getElementById('step-analyze');
+                    const step3 = document.getElementById('step-tailor');
+
+                    if (step2 && step3) {
+                        step2.classList.remove('active');
+                        step2.classList.add('locked');
+                        step2.setAttribute('aria-hidden', 'true');
+
+                        step3.classList.remove('locked');
+                        step3.classList.add('active');
+                        step3.removeAttribute('aria-hidden');
+
+                        // Update progress dots
+                        const dot2 = document.querySelector('[data-step="2"]');
+                        const dot3 = document.querySelector('[data-step="3"]');
+                        if (dot2) {
+                            dot2.classList.remove('active');
+                            dot2.classList.add('completed');
+                        }
+                        if (dot3) {
+                            dot3.classList.remove('locked');
+                            dot3.classList.add('active');
+                            dot3.setAttribute('aria-current', 'step');
+                        }
+
+                        // Scroll to top
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
                     }
                 });
             }

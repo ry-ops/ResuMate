@@ -1,499 +1,755 @@
-<img src="https://github.com/ry-ops/ResuMate/blob/main/ResuMate.png" width="100%">
+# ResuMate CLI
 
-# ResuMate
-
-<div align="center">
-
-**Professional AI-Powered Career Management Platform**
-
-*Build, optimize, and track your job search with enterprise-grade tools*
+**AI-Powered Resume Management for Claude Code**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Node.js](https://img.shields.io/badge/Node.js-16+-green.svg)](https://nodejs.org/)
 [![Claude AI](https://img.shields.io/badge/AI-Claude%20Sonnet%204-purple.svg)](https://www.anthropic.com/)
 
-[Features](#features) • [Getting Started](#getting-started) • [Documentation](#documentation)
+---
 
-</div>
+## Overview
+
+ResuMate is a command-line tool and API server designed specifically for Claude Code integration. It provides AI-powered resume optimization, ATS analysis, job tailoring, and intelligent document generation—all accessible programmatically or via CLI commands.
+
+**Key Features:**
+- 🤖 **AI Content Generation** - Claude Sonnet 4 integration for summaries, cover letters, job descriptions
+- 📊 **ATS Analysis** - 30+ compatibility checks with scoring and recommendations
+- 🎯 **Job Tailoring** - One-command resume optimization for specific positions
+- 📄 **Document Parsing** - Extract data from PDF/DOCX resumes
+- 📤 **Multi-Format Export** - PDF, DOCX, TXT, JSON, HTML
+- 📈 **Industry Benchmarking** - Skills gap analysis and career recommendations
+- 🔄 **Version Management** - Track and compare resume versions
 
 ---
 
-## 🚀 Overview
-
-ResuMate is a comprehensive, AI-powered career management platform that helps you create ATS-optimized resumes, generate tailored cover letters, track job applications, and gain data-driven insights into your job search. Built with Claude AI (Sonnet 4), ResuMate rivals commercial solutions like CVCompiler and Enhancv while maintaining complete privacy through client-side processing.
-
-### Why ResuMate?
-
-- ✅ **40+ Professional Features** - Everything you need in one platform
-- ✅ **AI-Powered Intelligence** - Claude Sonnet 4 for content generation and analysis
-- ✅ **Privacy-First** - All data stored locally in your browser
-- ✅ **ATS-Optimized** - 30+ compatibility checks, average score 85-100%
-- ✅ **Production-Ready** - 50,679+ lines of code, 95%+ test coverage
-- ✅ **Free & Open Source** - No subscriptions, no limits
-
----
-
-## ✨ Features
-
-### 📝 Resume Builder (Wave 1)
-- **Visual Drag-and-Drop Editor** - 23 section types including unique Enhancv-style sections
-- **Real-Time Preview** - Split-view, full-page, and print preview modes
-- **6 Professional Templates** - Classic, Modern, Creative, Executive, Technical, Minimal (85-100% ATS scores)
-- **Auto-Save** - 30-second intervals with undo/redo (50+ states)
-- **Smart Sections** - Professional summary, experience, education, skills, projects, certifications, and more
-- **Keyboard Shortcuts** - Cmd+Z (undo), Cmd+Shift+Z (redo), Cmd+S (save)
-
-### 🤖 AI-Powered Content Generation (Waves 1-2)
-- **10 Generation Methods** - Summaries, job descriptions, achievements, skills, cover letters, headlines
-- **Smart Optimization** - Keyword insertion, action verb enhancement, quantification suggestions
-- **Proofreading Suite** - Grammar, spelling, passive voice, weak verbs, clichés (19 patterns)
-- **Tone Analysis** - Professional, creative, technical tone assessment
-- **Consistency Checker** - Tense, dates, formatting, punctuation
-
-### 🎯 Job Tailoring Engine (Wave 2)
-- **One-Click Tailoring** - Analyze job descriptions and suggest specific resume changes
-- **Match Scoring** - Keyword match percentage with weighted categories
-- **Diff Viewer** - Side-by-side before/after comparison
-- **Selective Application** - Apply changes individually or all at once
-- **Version Tracking** - Link tailored versions to job descriptions
-
-### 📊 ATS Scanner (Wave 2)
-- **30+ Comprehensive Checks** - Formatting, structure, and content analysis
-- **5-Category Scoring** - ATS compatibility, keyword match, content quality, formatting, completeness
-- **Letter Grade** - A+ to F with detailed breakdown
-- **Recommendations Engine** - Prioritized action items with estimated impact
-- **Historical Tracking** - Monitor score improvements over time
-
-### 📤 Export Engine (Wave 2)
-- **5 Export Formats** - PDF (high-quality), DOCX (editable), TXT (plain text), JSON (backup), HTML (self-contained)
-- **Template Preservation** - Maintains exact styling in exports
-- **Print Optimization** - Proper page breaks, headers, footers
-- **Selectable Text** - PDFs with searchable, selectable text
-- **Optimized File Sizes** - Embedded fonts, compressed assets
-
-### ✉️ Cover Letter Generator (Wave 3)
-- **4 Generation Modes** - Professional, enthusiastic, technical, creative
-- **12 Customization Options** - Tone, length, focus, opening style, call-to-action, industry language
-- **8 Professional Templates** - Traditional, modern, creative, executive, startup, academic, career change, referral
-- **Variable Substitution** - Dynamic content with {{variable_name}} syntax
-- **AI-Powered** - Claude Sonnet 4 generates compelling, personalized content
-
-### 🔄 Version Management (Wave 3)
-- **Base vs. Tailored** - Track original and customized versions
-- **Side-by-Side Diff** - Visual comparison with highlighted changes
-- **Selective Merge** - Cherry-pick changes between versions
-- **Conflict Resolution** - Smart handling of overlapping edits
-- **Version Linking** - Connect versions to specific job applications
-
-### 🔗 LinkedIn Integration (Wave 3)
-- **Profile Import** - Extract data from LinkedIn PDFs
-- **AI Headline Generator** - SEO-optimized headlines (120 chars)
-- **Profile Optimizer** - Improve completeness and visibility
-- **Completeness Score** - Track profile strength (0-100)
-- **Keyword Alignment** - Match LinkedIn profile to resume
-
-### 📋 Application Tracker (Wave 3)
-- **Kanban Board** - 9 status columns (wishlist → offer/rejected)
-- **Drag-and-Drop** - Update status with simple drag operations
-- **Analytics Dashboard** - Conversion rates, response times, success metrics
-- **Deadline Tracking** - Never miss a follow-up
-- **Export Options** - CSV, JSON, iCal (calendar integration)
-
-### 📈 Analytics Dashboard (Wave 4)
-- **7 Chart Types** - Score progression, application funnel, template usage, keyword trends, success rates, timing, monthly trends
-- **Advanced Metrics** - ROI tracking, A/B testing, keyword effectiveness
-- **Real-Time Updates** - Instant refresh on filter changes
-- **Date Range Filters** - 7d, 30d, 90d, 1yr, all time
-- **Dark Mode** - Full theme support with localStorage persistence
-- **Export Reports** - PDF (print), CSV downloads
-
-### 🎯 Industry Benchmarking (Wave 4)
-- **6 Industry Sectors** - Technology, Finance, Healthcare, Marketing, Manufacturing, Generic
-- **Skills Gap Analysis** - Identify missing critical skills with learning paths
-- **Career Progression** - AI-powered career path suggestions (3+ options)
-- **Salary Insights** - Estimated ranges ($45k - $230k) by role and experience
-- **Competitiveness Score** - 0-100 ranking against industry standards
-- **Percentile Ranking** - See where you stand in your field
-
-### 🎨 Professional Polish (Wave 4)
-- **Unified Design System** - 200+ CSS variables for consistency
-- **Professional Navigation** - Dropdown menus, breadcrumbs, quick access
-- **Notification System** - Toast notifications, alerts, loading states, progress bars
-- **WCAG AA Compliant** - Accessibility standards met
-- **Mobile Responsive** - Works on all devices
-- **Dark Mode Ready** - Full theme support
-
----
-
-## 🏗️ Architecture
-
-### Tech Stack
-
-**Frontend:**
-- HTML5/CSS3/JavaScript (Vanilla - no framework bloat)
-- Chart.js 4.4.0 for visualizations
-- LocalStorage for client-side persistence
-- Responsive design (mobile-first)
-
-**Backend:**
-- Node.js + Express.js
-- Claude AI API (Sonnet 4: claude-sonnet-4-20250514)
-- PDF.js for PDF parsing
-- Mammoth.js for DOCX parsing
-
-**Security:**
-- AES-GCM 256-bit API key encryption
-- CSP headers, XSS prevention
-- Rate limiting (10 req/min)
-- Input sanitization
-- No server-side storage
-
-### Project Structure
-
-```
-ResuMate/
-├── js/
-│   ├── state.js               # Centralized state management
-│   ├── editor/                # Resume builder
-│   │   ├── builder.js         # Main editor controller
-│   │   ├── sections.js        # 23 section types
-│   │   ├── dragdrop.js        # Drag-and-drop system
-│   │   ├── history.js         # Undo/redo (50+ states)
-│   │   └── autosave.js        # 30-second auto-save
-│   ├── templates/             # Template system
-│   │   └── registry.js        # 6 template definitions
-│   ├── ai/                    # AI integration
-│   │   ├── generator.js       # Claude API client (13 methods)
-│   │   └── prompts.js         # AI prompt templates
-│   ├── analyzer/              # ATS & analysis
-│   │   ├── ats-scanner.js     # 30+ ATS checks
-│   │   ├── scorer.js          # 5-category scoring
-│   │   └── checks/            # Formatting, structure, content
-│   ├── export/                # Export & parsing
-│   │   ├── parser.js          # Resume parser (87-90% accuracy)
-│   │   ├── pdf-export.js      # High-quality PDF
-│   │   └── docx-export.js     # Editable DOCX
-│   ├── coverletter/           # Cover letter generator
-│   ├── versions/              # Version management
-│   ├── tracker/               # Application tracking
-│   │   ├── board.js           # Kanban board
-│   │   ├── analytics.js       # Score tracking
-│   │   ├── charts.js          # 7 chart types
-│   │   └── metrics.js         # Advanced metrics
-│   ├── insights/              # Industry benchmarking
-│   │   ├── benchmarking.js    # Industry comparison
-│   │   ├── industry-data.js   # 6 sectors, 10+ roles
-│   │   ├── skills-gap.js      # Skills gap analyzer
-│   │   └── recommendations.js # Career progression
-│   ├── integrations/          # LinkedIn integration
-│   └── utils/                 # Utilities
-│       ├── notifications.js   # Notification system
-│       ├── crypto.js          # API key encryption
-│       └── sanitizer.js       # XSS prevention
-├── css/
-│   ├── variables.css          # 200+ design tokens
-│   ├── navigation.css         # Unified navigation
-│   ├── notifications.css      # Toast, alerts, loading
-│   ├── analytics.css          # Dashboard styles
-│   ├── benchmarking.css       # Visualization styles
-│   └── templates/             # 6 template stylesheets
-├── templates/
-│   └── cover-letters/         # 8 cover letter templates
-├── components/
-│   └── navigation.html        # Reusable navigation
-├── security/
-│   ├── SECURITY.md            # Security documentation
-│   └── csp-config.json        # CSP configuration
-├── server.js                  # Express API server
-├── index.html                 # Main entry point
-└── [16 test pages]            # Feature testing pages
-```
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- **Node.js 16+** - [Download here](https://nodejs.org/)
-- **Claude AI API Key** - [Get free key](https://console.anthropic.com/)
-- **Modern Browser** - Chrome, Firefox, Safari, or Edge
+## Quick Start
 
 ### Installation
 
 ```bash
-# Clone the repository
+# Clone repository
 git clone https://github.com/ry-ops/ResuMate.git
 cd ResuMate
 
 # Install dependencies
 npm install
 
-# Start the server
-npm start
-# Server will run on http://localhost:3101
+# Make CLI executable (Unix/Mac)
+chmod +x cli.js
 ```
 
-### Quick Start
+### Basic Usage
 
-1. **Open ResuMate**
-   ```bash
-   open http://localhost:3101
-   ```
-
-2. **Add Your API Key**
-   - Click "Settings" or enter API key in the prompt
-   - Your key is encrypted (AES-GCM 256-bit) and stored locally
-   - Never sent to any server except Claude API
-
-3. **Choose Your Path**
-   - **Build from Scratch** → `/builder.html` - Visual resume builder
-   - **Import Existing** → `/parser-demo.html` - Upload PDF/DOCX
-   - **Explore Templates** → `/template-test.html` - Browse 6 templates
-   - **Try AI Writer** → `/test-ai.html` - Generate content
-
-4. **Explore Features**
-   - **Job Tailoring** → `/test-job-tailor.html`
-   - **ATS Scanner** → `/test-ats-scanner.html`
-   - **Cover Letters** → `/test-coverletter.html`
-   - **Application Tracker** → `/test-tracker.html`
-   - **Analytics** → `/analytics-dashboard.html`
-   - **Benchmarking** → `/benchmarking.html`
-
-### Configuration
-
-**Environment Variables** (optional):
 ```bash
-# .env file
-PORT=3101                              # Server port (default: 3101)
-ANTHROPIC_API_KEY=sk-ant-...          # Your Claude API key (optional)
-NODE_ENV=development                   # Environment (development/production)
+# Show help
+node cli.js help
+
+# Generate AI content
+node cli.js generate summary --input resume.json --tone professional
+
+# Analyze resume for ATS
+node cli.js analyze resume.pdf --output analysis.json
+
+# Tailor resume to job
+node cli.js tailor resume.json job-description.txt --output tailored.json
+
+# Export to PDF
+node cli.js export resume.json pdf --output resume.pdf
+
+# Industry benchmarking
+node cli.js benchmark resume.json --industry tech
 ```
 
-**API Key Storage:**
-- Keys are stored in browser localStorage
-- Encrypted with AES-GCM 256-bit
-- Can be set via UI or environment variable
-- Never logged or transmitted except to Claude API
+### Start API Server
+
+```bash
+# Start server on port 3000
+npm start
+
+# API available at http://localhost:3000
+```
 
 ---
 
-## 📚 Documentation
+## CLI Commands
 
-### Comprehensive Guides
+### `generate <type> [options]`
 
-- **[Wave 1 Completion Report](WAVE_1_COMPLETION_REPORT.md)** - MVP foundation (6 workers)
-- **[Wave 2 Completion Report](WAVE_2_COMPLETION_REPORT.md)** - Core features (5 workers)
-- **[Wave 3 Completion Report](WAVE_3_COMPLETION_REPORT.md)** - Advanced features (5 workers)
-- **[Wave 4 Completion Report](WAVE_4_COMPLETION_REPORT.md)** - Analytics & insights (4 workers)
+Generate AI-powered content using Claude Sonnet 4.
 
-### Feature Documentation
+**Types:**
+- `summary` - Professional summary/objective
+- `experience` - Job description expansion
+- `skills` - Skills assessment and recommendations
+- `cover-letter` - Tailored cover letter
+- `headline` - LinkedIn-style headline
 
-- **[Feature Demo Guide](FEATURE_DEMO_GUIDE.md)** - Complete walkthrough (2,944 lines)
-- **[Test Results](TEST_RESULTS.md)** - Comprehensive testing report (95%+ coverage)
-- **[Bugs Found](BUGS_FOUND.md)** - Known issues (23 bugs, 0 critical)
-- **[Style Guide](STYLE_GUIDE.md)** - Design system (200+ tokens)
-- **[Integration Map](INTEGRATION_MAP.md)** - System architecture
-- **[Implementation Guide](IMPLEMENTATION_GUIDE.md)** - Developer guide
+**Options:**
+- `--input <file>` - Input resume/data file (JSON)
+- `--output <file>` - Output file path
+- `--tone <type>` - Tone: professional, creative, technical (default: professional)
+- `--length <type>` - Length: brief, standard, detailed (default: standard)
 
-### API Documentation
+**Examples:**
+```bash
+# Generate professional summary
+node cli.js generate summary --input resume.json --output summary.txt
 
-- **[AI Writer README](AI_WRITER_README.md)** - Claude integration (13 methods)
-- **[Parser API](PARSER_API.md)** - PDF/DOCX parsing (87-90% accuracy)
-- **[Analytics README](ANALYTICS_README.md)** - Dashboard & charts
-- **[Benchmarking README](BENCHMARKING_README.md)** - Industry insights
-- **[Export Engine README](EXPORT_ENGINE_README.md)** - Multi-format export
-
-### Security
-
-- **[Security Documentation](security/SECURITY.md)** - Complete security guide
-- **[CSP Configuration](security/csp-config.json)** - Content Security Policy
+# Generate cover letter
+node cli.js generate cover-letter --input resume.json --tone professional
+```
 
 ---
 
-## 🎯 Use Cases
+### `analyze <file> [options]`
 
-### For Job Seekers
-- Build professional resumes with AI assistance
-- Tailor resumes to specific job descriptions (one-click)
-- Generate compelling cover letters (4 modes)
-- Track applications with Kanban board
-- Monitor success rates and optimize strategy
+Run comprehensive ATS (Applicant Tracking System) analysis.
 
-### For Career Changers
-- Use benchmarking to identify skills gaps
-- Get career progression suggestions (3+ paths)
-- Compare competitiveness against new industry
-- Generate targeted resumes for new field
+**Analysis Includes:**
+- 30+ formatting and structure checks
+- Keyword density analysis
+- Readability scoring
+- ATS compatibility rating (A+ to F)
+- Prioritized recommendations
 
-### For Students/New Grads
-- Create first resume with AI guidance
-- Choose optimal template (6 options)
-- Learn what employers look for (30+ ATS checks)
-- Track internship/job applications
+**Options:**
+- `--output <file>` - Output file for results
+- `--format <type>` - Output format: json, text (default: json)
+- `--verbose` - Detailed analysis output
 
-### For Professionals
-- Maintain multiple resume versions
-- Optimize for ATS (85-100% scores)
-- Track ROI on applications
-- Benchmark against industry standards
+**Examples:**
+```bash
+# Analyze resume
+node cli.js analyze resume.pdf --output analysis.json
 
----
+# Get detailed text report
+node cli.js analyze resume.docx --format text --verbose
+```
 
-## 📊 Statistics
-
-### Project Metrics
-- **Total Lines of Code:** 50,679+
-- **Total Files:** 174
-- **JavaScript Modules:** 57
-- **CSS Files:** 23
-- **Templates:** 6 resume + 8 cover letter
-- **Test Pages:** 16
-- **Documentation:** 27 comprehensive guides
-
-### Implementation
-- **Waves Completed:** 4/7 (MVP + enhanced)
-- **Workers Executed:** 20 (parallel)
-- **Features Delivered:** 40+
-- **Test Coverage:** >95%
-- **Pass Rate:** 93.75%
-
-### Quality Metrics
-- **Critical Bugs:** 0
-- **High Priority Bugs:** 3
-- **Security Score:** 85/100
-- **npm Vulnerabilities:** 2 (1 low, 1 high - dev dependencies)
-- **Performance:** <2s load time
-- **Accessibility:** WCAG AA standards defined
-
-### AI Capabilities
-- **Claude Model:** Sonnet 4 (claude-sonnet-4-20250514)
-- **Generation Methods:** 13
-- **Prompt Templates:** 10+
-- **Success Rate:** >90%
-- **Response Time:** 2-5s average
+**Sample Output:**
+```json
+{
+  "overall_score": 87,
+  "letter_grade": "A",
+  "categories": {
+    "ats_compatibility": 90,
+    "keyword_match": 85,
+    "content_quality": 88,
+    "formatting": 92,
+    "completeness": 80
+  },
+  "recommendations": [
+    {"priority": "high", "issue": "Add 3-5 more industry keywords"},
+    {"priority": "medium", "issue": "Quantify achievements with metrics"}
+  ]
+}
+```
 
 ---
 
-## 🔧 Development
+### `parse <file> [options]`
+
+Extract structured data from PDF or DOCX resumes.
+
+**Features:**
+- Automatic section detection (experience, education, skills, etc.)
+- Contact information extraction
+- Date parsing and formatting
+- 87-90% accuracy rate
+
+**Options:**
+- `--output <file>` - Output JSON file
+- `--format <type>` - Output format: json, yaml (default: json)
+
+**Examples:**
+```bash
+# Parse PDF resume
+node cli.js parse resume.pdf --output extracted.json
+
+# Parse DOCX resume
+node cli.js parse resume.docx
+```
+
+**Sample Output:**
+```json
+{
+  "contact": {
+    "name": "John Doe",
+    "email": "john@example.com",
+    "phone": "+1-555-0100"
+  },
+  "experience": [
+    {
+      "company": "Tech Corp",
+      "position": "Senior Engineer",
+      "start_date": "2020-01",
+      "end_date": "present",
+      "achievements": ["Led team of 5", "Reduced latency by 40%"]
+    }
+  ],
+  "skills": ["Python", "AWS", "Docker"]
+}
+```
+
+---
+
+### `tailor <resume> <job> [options]`
+
+Tailor resume to specific job description using AI analysis.
+
+**Process:**
+1. Analyzes job description for keywords and requirements
+2. Scores current resume match (0-100%)
+3. Suggests specific changes to improve match
+4. Generates tailored version
+
+**Options:**
+- `--output <file>` - Output tailored resume
+- `--auto-apply` - Automatically apply all suggestions
+- `--diff` - Show before/after comparison
+
+**Examples:**
+```bash
+# Tailor resume
+node cli.js tailor resume.json job-desc.txt --output tailored.json
+
+# Auto-apply with diff
+node cli.js tailor resume.json job-desc.txt --auto-apply --diff
+```
+
+**Sample Output:**
+```json
+{
+  "match_score": 75,
+  "suggestions": [
+    {
+      "section": "skills",
+      "action": "add",
+      "content": "Kubernetes, Terraform",
+      "impact": "high"
+    },
+    {
+      "section": "experience",
+      "action": "modify",
+      "content": "Highlight cloud infrastructure experience",
+      "impact": "medium"
+    }
+  ],
+  "tailored_resume": { ... }
+}
+```
+
+---
+
+### `export <file> <format> [options]`
+
+Export resume to various formats.
+
+**Supported Formats:**
+- `pdf` - High-quality PDF with selectable text
+- `docx` - Editable Microsoft Word document
+- `txt` - Plain text format
+- `json` - Structured data backup
+- `html` - Self-contained HTML (single file)
+
+**Options:**
+- `--output <file>` - Output file path
+- `--template <name>` - Template style (for PDF/HTML): classic, modern, minimal
+- `--page-size <size>` - Page size: letter, a4 (default: letter)
+
+**Examples:**
+```bash
+# Export to PDF
+node cli.js export resume.json pdf --output resume.pdf --template modern
+
+# Export to DOCX
+node cli.js export resume.json docx --output resume.docx
+
+# Export to HTML
+node cli.js export resume.json html --output resume.html
+```
+
+---
+
+### `benchmark <file> [options]`
+
+Run industry benchmarking and skills gap analysis.
+
+**Analysis:**
+- Compare skills against industry standards
+- Identify missing critical skills
+- Get career progression suggestions
+- Salary range estimates
+- Competitiveness scoring (0-100)
+
+**Options:**
+- `--industry <type>` - Industry: tech, finance, healthcare, marketing, manufacturing
+- `--role <name>` - Target role for comparison
+- `--output <file>` - Output analysis results
+
+**Examples:**
+```bash
+# Benchmark for tech industry
+node cli.js benchmark resume.json --industry tech --output benchmark.json
+
+# Compare to specific role
+node cli.js benchmark resume.json --industry tech --role "Senior Engineer"
+```
+
+**Sample Output:**
+```json
+{
+  "competitiveness_score": 82,
+  "percentile": 78,
+  "skills_gap": {
+    "critical_missing": ["Kubernetes", "Terraform"],
+    "recommended": ["GraphQL", "Redis"],
+    "learning_paths": [...]
+  },
+  "career_progression": [
+    "Senior Software Engineer",
+    "Staff Engineer",
+    "Principal Engineer"
+  ],
+  "salary_estimate": {
+    "min": "$120,000",
+    "max": "$180,000",
+    "median": "$150,000"
+  }
+}
+```
+
+---
+
+### `version list|diff [options]`
+
+Manage resume versions.
+
+**Commands:**
+- `version list` - List all saved versions
+- `version diff <v1> <v2>` - Compare two versions
+
+**Examples:**
+```bash
+# List versions
+node cli.js version list
+
+# Compare versions
+node cli.js version diff base-2024 tailored-tech-company
+```
+
+---
+
+## API Server
+
+Start the API server for programmatic access from Claude Code or other tools.
+
+### Start Server
+
+```bash
+npm start
+# Server runs on http://localhost:3000
+```
+
+### API Endpoints
+
+**Resume Analysis:**
+```bash
+POST /api/analyze
+Content-Type: application/json
+
+{
+  "resume": "resume content or file path",
+  "options": {
+    "verbose": true
+  }
+}
+```
+
+**AI Content Generation:**
+```bash
+POST /api/generate
+Content-Type: application/json
+
+{
+  "type": "summary",
+  "input": { ... resume data ... },
+  "options": {
+    "tone": "professional",
+    "length": "standard"
+  }
+}
+```
+
+**Job Tailoring:**
+```bash
+POST /api/tailor
+Content-Type: application/json
+
+{
+  "resume": { ... resume data ... },
+  "job_description": "job description text",
+  "auto_apply": false
+}
+```
+
+**Document Export:**
+```bash
+POST /api/export
+Content-Type: application/json
+
+{
+  "resume": { ... resume data ... },
+  "format": "pdf",
+  "options": {
+    "template": "modern",
+    "page_size": "letter"
+  }
+}
+```
+
+**Industry Benchmarking:**
+```bash
+POST /api/benchmark
+Content-Type: application/json
+
+{
+  "resume": { ... resume data ... },
+  "industry": "tech",
+  "role": "Senior Engineer"
+}
+```
+
+### API Response Format
+
+All API endpoints return JSON in this format:
+
+```json
+{
+  "success": true,
+  "data": { ... result data ... },
+  "error": null,
+  "timestamp": "2025-12-04T10:00:00Z"
+}
+```
+
+Error responses:
+```json
+{
+  "success": false,
+  "data": null,
+  "error": {
+    "code": "INVALID_INPUT",
+    "message": "Resume file not found"
+  },
+  "timestamp": "2025-12-04T10:00:00Z"
+}
+```
+
+---
+
+## Configuration
+
+### Environment Variables
+
+```bash
+# API Keys
+ANTHROPIC_API_KEY=your_claude_api_key
+
+# Server Configuration
+PORT=3000
+NODE_ENV=production
+
+# Feature Flags
+ENABLE_BENCHMARKING=true
+ENABLE_AI_GENERATION=true
+MAX_FILE_SIZE=10MB
+```
+
+### Resume Data Format
+
+ResuMate uses a standardized JSON format:
+
+```json
+{
+  "version": "3.0.0",
+  "contact": {
+    "name": "John Doe",
+    "email": "john@example.com",
+    "phone": "+1-555-0100",
+    "location": "San Francisco, CA",
+    "linkedin": "linkedin.com/in/johndoe"
+  },
+  "summary": "Experienced software engineer...",
+  "experience": [
+    {
+      "company": "Tech Corp",
+      "position": "Senior Engineer",
+      "start_date": "2020-01",
+      "end_date": "present",
+      "location": "San Francisco, CA",
+      "achievements": [
+        "Led team of 5 engineers",
+        "Reduced API latency by 40%"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "University of Technology",
+      "degree": "B.S. Computer Science",
+      "graduation_date": "2018-05",
+      "gpa": "3.8"
+    }
+  ],
+  "skills": {
+    "programming": ["Python", "JavaScript", "Go"],
+    "cloud": ["AWS", "Docker", "Kubernetes"],
+    "databases": ["PostgreSQL", "MongoDB"]
+  },
+  "certifications": [
+    {
+      "name": "AWS Solutions Architect",
+      "issuer": "Amazon",
+      "date": "2023-06"
+    }
+  ]
+}
+```
+
+---
+
+## Claude Code Integration
+
+ResuMate is designed for seamless integration with Claude Code.
+
+### Example Workflows
+
+**1. Resume Analysis and Optimization:**
+```javascript
+// Claude Code can call CLI commands directly
+const result = await exec('node cli.js analyze resume.pdf --output analysis.json');
+const analysis = JSON.parse(fs.readFileSync('analysis.json'));
+
+// Review recommendations and apply fixes
+for (const rec of analysis.recommendations) {
+  console.log(`Priority ${rec.priority}: ${rec.issue}`);
+}
+```
+
+**2. Job Application Automation:**
+```javascript
+// Tailor resume for specific job
+await exec('node cli.js tailor base-resume.json job-posting.txt --auto-apply --output tailored.json');
+
+// Generate matching cover letter
+await exec('node cli.js generate cover-letter --input tailored.json --output cover-letter.txt');
+
+// Export to PDF
+await exec('node cli.js export tailored.json pdf --output application-resume.pdf');
+```
+
+**3. Batch Processing:**
+```javascript
+// Process multiple job applications
+const jobs = ['job1.txt', 'job2.txt', 'job3.txt'];
+
+for (const job of jobs) {
+  const company = path.basename(job, '.txt');
+  await exec(`node cli.js tailor base-resume.json ${job} --output ${company}-resume.json`);
+  await exec(`node cli.js export ${company}-resume.json pdf --output ${company}-resume.pdf`);
+}
+```
+
+---
+
+## Architecture
+
+### Core Modules
+
+```
+ResuMate/
+├── cli.js                      # CLI entry point
+├── server.js                   # API server
+├── js/
+│   ├── ai/                     # AI integration (Claude)
+│   │   ├── generator.js        # Content generation
+│   │   └── prompts.js          # AI prompt templates
+│   ├── analyzer/               # ATS analysis
+│   │   ├── ats-scanner.js      # 30+ ATS checks
+│   │   ├── scorer.js           # Scoring engine
+│   │   └── checks/             # Individual check modules
+│   ├── export/                 # Document export/parsing
+│   │   ├── parser.js           # Resume parser (PDF/DOCX)
+│   │   ├── pdf-export.js       # PDF generation
+│   │   └── docx-export.js      # DOCX generation
+│   ├── coverletter/            # Cover letter generation
+│   │   ├── generator.js        # Cover letter AI
+│   │   └── templates.js        # Cover letter templates
+│   ├── insights/               # Industry benchmarking
+│   │   ├── benchmarking.js     # Benchmark engine
+│   │   ├── industry-data.js    # Industry standards
+│   │   └── skills-gap.js       # Skills gap analysis
+│   ├── versions/               # Version management
+│   │   └── diff.js             # Version comparison
+│   ├── tracker/                # Application tracking
+│   │   └── analytics.js        # Analytics engine
+│   └── utils/                  # Shared utilities
+│       ├── crypto.js           # Encryption
+│       └── sanitizer.js        # Input validation
+└── package.json
+```
+
+### Technology Stack
+
+- **Runtime:** Node.js 16+
+- **AI:** Claude Sonnet 4 (Anthropic)
+- **Document Parsing:** PDF.js, Mammoth.js
+- **Document Export:** docx, html2pdf
+- **API Server:** Express.js
+- **Storage:** Local filesystem (JSON)
+
+---
+
+## Development
 
 ### Running Tests
 
 ```bash
-# Run all test pages
+# Run all tests
 npm test
 
-# Run specific tests
-open test-ai.html           # AI generation tests
-open test-ats-scanner.html  # ATS scanner tests
-open test-export.html       # Export engine tests
+# Run specific test suite
+npm test -- --testNamePattern="ATS Scanner"
+
+# Watch mode
+npm run test:watch
 ```
 
-### Building
+### Adding New Commands
 
+1. Create handler in appropriate `js/` subdirectory:
+
+```javascript
+// js/analyzer/cli-analyze.js
+module.exports = async function(args) {
+  const file = args[0];
+  // Implementation
+  console.log('Analysis complete');
+};
+```
+
+2. Register command in `cli.js`:
+
+```javascript
+case 'analyze':
+  await require('./js/analyzer/cli-analyze.js')(args.slice(1));
+  break;
+```
+
+3. Add to `package.json` scripts (optional):
+
+```json
+"scripts": {
+  "analyze": "node cli.js analyze"
+}
+```
+
+---
+
+## Security
+
+- **API Key Encryption:** AES-GCM 256-bit encryption for stored API keys
+- **Input Sanitization:** All user input sanitized to prevent injection attacks
+- **Rate Limiting:** API endpoints protected (10 req/min default)
+- **No Server Storage:** All data processed locally, no cloud storage
+- **CSP Headers:** Content Security Policy headers on API server
+
+---
+
+## Performance
+
+- **Resume Parsing:** 87-90% accuracy, ~2-5 seconds per document
+- **ATS Analysis:** 30+ checks, <1 second
+- **AI Generation:** 5-15 seconds depending on content type
+- **PDF Export:** <2 seconds for standard resume
+- **Benchmarking:** <1 second (cached industry data)
+
+---
+
+## Troubleshooting
+
+### Common Issues
+
+**1. API Key Not Found**
 ```bash
-# Install dependencies
-npm install
+# Set environment variable
+export ANTHROPIC_API_KEY=your_key_here
 
-# Start development server
-npm start
-
-# Run on custom port
-PORT=8080 npm start
+# Or create .env file
+echo "ANTHROPIC_API_KEY=your_key_here" > .env
 ```
 
-### Contributing
+**2. PDF Parsing Fails**
+```bash
+# Ensure pdfjs-dist is installed
+npm install pdfjs-dist@latest
 
-ResuMate is built using cortex, an autonomous AI-powered development system with parallel worker execution. See [CORTEX_IMPLEMENTATION_PLAN.md](CORTEX_IMPLEMENTATION_PLAN.md) for architecture details.
+# Try with --verbose for debug output
+node cli.js parse resume.pdf --verbose
+```
 
-**Development Process:**
+**3. Port Already in Use**
+```bash
+# Change port
+PORT=3001 npm start
+
+# Or kill existing process
+lsof -ti:3000 | xargs kill
+```
+
+---
+
+## Contributing
+
 1. Fork the repository
-2. Create feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'feat: Add amazing feature'`)
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit changes (`git commit -m 'Add amazing feature'`)
 4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open Pull Request
-
-**Code Standards:**
-- Vanilla JavaScript (no frameworks)
-- ESLint configuration for consistency
-- Comprehensive comments and documentation
-- 95%+ test coverage for new features
+5. Open a Pull Request
 
 ---
 
-## 🛡️ Security
-
-ResuMate takes security seriously:
-
-- ✅ **API Key Encryption** - AES-GCM 256-bit
-- ✅ **XSS Prevention** - Input sanitization
-- ✅ **CSP Headers** - Content Security Policy
-- ✅ **Rate Limiting** - 10 requests/minute
-- ✅ **No Server Storage** - All data client-side
-- ✅ **HTTPS Recommended** - Secure transmission
-
-**Security Audit:** See [security/SECURITY.md](security/SECURITY.md)
-
----
-
-## 📝 License
+## License
 
 MIT License - see [LICENSE](LICENSE) file for details.
 
 ---
 
-## 🙏 Acknowledgments
+## Author
 
-- **Claude AI** by Anthropic - Powers intelligent content generation
-- **Chart.js** - Beautiful, responsive charts
-- **PDF.js** - PDF parsing capabilities
-- **Mammoth.js** - DOCX parsing
-- **cortex** - Autonomous AI development system
+**Ryan Dahlberg** - [ry-ops](https://github.com/ry-ops)
+
+Built with Claude Code by Anthropic.
 
 ---
 
-## 📞 Support
+## Changelog
 
-- **Issues:** [GitHub Issues](https://github.com/ry-ops/ResuMate/issues)
-- **Documentation:** See `/docs` folder and completion reports
-- **Feature Requests:** Open an issue with `enhancement` label
+### v3.0.0 (2025-12-04)
+- **Breaking Change:** Removed GUI/dashboard interface
+- **New:** CLI interface for Claude Code integration
+- **New:** REST API server for programmatic access
+- **Improved:** Streamlined core functionality
+- **Removed:** Frontend dependencies (Chart.js, html2pdf.js, etc.)
+- **Updated:** Documentation for CLI/API usage
 
----
-
-## 🗺️ Roadmap
-
-### Completed (Waves 1-4) ✅
-- ✅ Visual resume builder with 23 section types
-- ✅ 6 professional templates (ATS-optimized)
-- ✅ AI-powered content generation (13 methods)
-- ✅ Job tailoring engine (one-click)
-- ✅ Advanced ATS scanner (30+ checks)
-- ✅ Multi-format export (5 formats)
-- ✅ Cover letter generator (4 modes, 8 templates)
-- ✅ Version management with diff viewer
-- ✅ LinkedIn integration
-- ✅ Application tracker with Kanban board
-- ✅ Analytics dashboard (7 charts)
-- ✅ Industry benchmarking (6 sectors)
-- ✅ Comprehensive testing & polish
-
-### Future (Waves 5-7) 🔮
-- 🔄 Testing infrastructure & CI/CD
-- 🔄 Performance optimization
-- 🔄 Additional integrations (GitHub, job boards)
-- 🔄 Mobile app (React Native/Flutter)
-- 🔄 Team collaboration features
-- 🔄 Resume templates marketplace
-- 🔄 Interview preparation tools
+### v2.0.0 (Previous)
+- GUI-based resume builder
+- Full dashboard interface
+- 40+ features across 4 waves
 
 ---
 
-<div align="center">
-
-**Built with ❤️ using Claude Code by Anthropic**
-
-*Transform your job search with AI-powered intelligence*
-
-[⬆ Back to Top](#resumate)
-
-</div>
+**Questions or Issues?** Open an issue on [GitHub](https://github.com/ry-ops/ResuMate/issues)

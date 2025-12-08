@@ -1,5 +1,5 @@
 /**
- * WorkflowEngine - State machine for ResuMate's 5-step workflow
+ * WorkflowEngine - State machine for ATSFlow's 5-step workflow
  *
  * Orchestrates the single-page workflow navigation:
  * 1. Upload (resume + job posting)

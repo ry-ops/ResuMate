@@ -1,5 +1,5 @@
 /**
- * ResuMate Interactive Tooltip System
+ * ATSFlow Interactive Tooltip System
  * Provides contextual help and guidance throughout the application
  */
 

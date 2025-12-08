@@ -1,6 +1,6 @@
 /**
  * Jest Setup File
- * Configures the test environment for ResuMate tests
+ * Configures the test environment for ATSFlow tests
  */
 
 // Setup Jest DOM matchers

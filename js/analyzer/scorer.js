@@ -1,5 +1,5 @@
 /**
- * ResuMate - Advanced 5-Category Weighted Scorer
+ * ATSFlow - Advanced 5-Category Weighted Scorer
  * Comprehensive scoring system with letter grades and historical tracking
  */
 

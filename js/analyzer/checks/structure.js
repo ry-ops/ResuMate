@@ -1,5 +1,5 @@
 /**
- * ResuMate - ATS Structure Checks
+ * ATSFlow - ATS Structure Checks
  * 10 comprehensive structure checks for ATS compatibility
  */
 

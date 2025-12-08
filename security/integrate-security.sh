@@ -1,16 +1,16 @@
 #!/bin/bash
 
-# ResuMate Security Integration Script
+# ATSFlow Security Integration Script
 # Automatically applies security updates to app.js and index.html
 
 set -e
 
 echo "=========================================="
-echo "ResuMate Security Integration"
+echo "ATSFlow Security Integration"
 echo "=========================================="
 echo ""
 
-PROJECT_DIR="/Users/ryandahlberg/Projects/cortex/ResuMate"
+PROJECT_DIR="/Users/ryandahlberg/Projects/cortex/ATSFlow"
 BACKUP_DIR="$PROJECT_DIR/security/backups"
 
 # Create backup directory

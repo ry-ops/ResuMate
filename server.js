@@ -1,4 +1,4 @@
-// ResuMate Backend Proxy Server
+// ATSFlow Backend Proxy Server
 // Handles Claude API requests to avoid CORS issues
 
 const express = require('express');
@@ -951,7 +951,7 @@ app.get('/api/config', (req, res) => {
 app.listen(PORT, () => {
     logger.info(`
 ┌─────────────────────────────────────────────────────┐
-│  ResuMate Server                                    │
+│  ATSFlow Server                                     │
 ├─────────────────────────────────────────────────────┤
 │  Server running at: http://localhost:${PORT}       │
 │  Open in browser:   http://localhost:${PORT}       │

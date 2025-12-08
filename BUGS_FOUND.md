@@ -1,4 +1,4 @@
-# ResuMate Bug Tracking Report
+# ATSFlow Bug Tracking Report
 
 **Report Date:** December 1, 2025
 **Testing Worker:** Testing-Demo
@@ -9,7 +9,7 @@
 
 ## Bug Summary
 
-This document tracks all issues identified during comprehensive testing of ResuMate's 16 test pages. Bugs are categorized by severity and priority for resolution.
+This document tracks all issues identified during comprehensive testing of ATSFlow's 16 test pages. Bugs are categorized by severity and priority for resolution.
 
 ### Severity Definitions
 - **Critical:** Prevents core functionality, blocks deployment
@@ -60,8 +60,8 @@ Only 3 out of 6 expected resume templates are implemented. The template test pag
 
 #### Root Cause
 Templates not implemented in:
-- /Users/ryandahlberg/Projects/cortex/ResuMate/js/templates/registry.js
-- /Users/ryandahlberg/Projects/cortex/ResuMate/js/templates/engine.js
+- /Users/ryandahlberg/Projects/cortex/ATSFlow/js/templates/registry.js
+- /Users/ryandahlberg/Projects/cortex/ATSFlow/js/templates/engine.js
 
 #### Suggested Fix
 1. Create template definitions for Executive, Technical, Minimal in registry.js
@@ -100,10 +100,10 @@ Template test page uses hardcoded absolute file paths that will fail in producti
 - Breaks deployment to any environment outside developer's machine
 
 #### Steps to Reproduce
-1. Open /Users/ryandahlberg/Projects/cortex/ResuMate/template-test.html
+1. Open /Users/ryandahlberg/Projects/cortex/ATSFlow/template-test.html
 2. View source code
 3. Examine lines 287-289
-4. Note hardcoded paths: `/Users/ryandahlberg/Projects/cortex/ResuMate/js/templates/...`
+4. Note hardcoded paths: `/Users/ryandahlberg/Projects/cortex/ATSFlow/js/templates/...`
 
 #### Expected Behavior
 Script tags should use relative paths:
@@ -116,9 +116,9 @@ Script tags should use relative paths:
 #### Actual Behavior
 Script tags use absolute paths:
 ```html
-<script src="/Users/ryandahlberg/Projects/cortex/ResuMate/js/templates/registry.js"></script>
-<script src="/Users/ryandahlberg/Projects/cortex/ResuMate/js/templates/engine.js"></script>
-<script src="/Users/ryandahlberg/Projects/cortex/ResuMate/js/templates/customizer.js"></script>
+<script src="/Users/ryandahlberg/Projects/cortex/ATSFlow/js/templates/registry.js"></script>
+<script src="/Users/ryandahlberg/Projects/cortex/ATSFlow/js/templates/engine.js"></script>
+<script src="/Users/ryandahlberg/Projects/cortex/ATSFlow/js/templates/customizer.js"></script>
 ```
 
 #### Root Cause
@@ -128,9 +128,9 @@ Developer used absolute paths during development without converting to relative 
 Replace lines 287-289 in template-test.html:
 ```html
 <!-- OLD (BROKEN) -->
-<script src="/Users/ryandahlberg/Projects/cortex/ResuMate/js/templates/registry.js"></script>
-<script src="/Users/ryandahlberg/Projects/cortex/ResuMate/js/templates/engine.js"></script>
-<script src="/Users/ryandahlberg/Projects/cortex/ResuMate/js/templates/customizer.js"></script>
+<script src="/Users/ryandahlberg/Projects/cortex/ATSFlow/js/templates/registry.js"></script>
+<script src="/Users/ryandahlberg/Projects/cortex/ATSFlow/js/templates/engine.js"></script>
+<script src="/Users/ryandahlberg/Projects/cortex/ATSFlow/js/templates/customizer.js"></script>
 
 <!-- NEW (FIXED) -->
 <script src="js/templates/registry.js"></script>
@@ -679,7 +679,7 @@ Add loading overlay during initialization:
 ```html
 <div id="loading-overlay" class="loading-overlay">
   <div class="spinner"></div>
-  <p>Initializing ResuMate...</p>
+  <p>Initializing ATSFlow...</p>
 </div>
 
 <script>

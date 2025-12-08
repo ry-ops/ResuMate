@@ -1,4 +1,4 @@
-# ResuMate User Journey Visual Map
+# ATSFlow User Journey Visual Map
 
 **Quick Reference Guide**
 **Date:** December 2, 2025

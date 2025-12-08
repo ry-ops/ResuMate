@@ -1,4 +1,4 @@
-# ResuMate Integration Map
+# ATSFlow Integration Map
 
 **Version:** 1.0.0
 **Last Updated:** December 1, 2025
@@ -21,7 +21,7 @@
 
 ## Overview
 
-ResuMate consists of **16 test pages** and **multiple integrated features** across 3 implementation waves. This document maps how all features interconnect, share data, and create cohesive user workflows.
+ATSFlow consists of **16 test pages** and **multiple integrated features** across 3 implementation waves. This document maps how all features interconnect, share data, and create cohesive user workflows.
 
 ### Wave Summary
 
@@ -533,7 +533,7 @@ For larger datasets (resume history, analytics):
 
 ### Event Emitter Pattern
 
-ResuMate uses a global event system for cross-feature communication.
+ATSFlow uses a global event system for cross-feature communication.
 
 ```javascript
 // Global event emitter (in state.js)
@@ -819,6 +819,6 @@ See [Storage Schema](#storage-schema) section for complete data models.
 
 ---
 
-**Maintained by:** ResuMate Development Team
+**Maintained by:** ATSFlow Development Team
 **Last Review:** December 1, 2025
 **Next Review:** Quarterly

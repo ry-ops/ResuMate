@@ -2,7 +2,7 @@
 
 ## 1. Open the Dashboard
 
-Navigate to: `/Users/ryandahlberg/Projects/cortex/ResuMate/analytics-dashboard.html`
+Navigate to: `/Users/ryandahlberg/Projects/cortex/ATSFlow/analytics-dashboard.html`
 
 Or open in browser:
 ```bash
@@ -179,7 +179,7 @@ Once you have data populated:
 
 All analytics files are located in:
 ```
-/Users/ryandahlberg/Projects/cortex/ResuMate/
+/Users/ryandahlberg/Projects/cortex/ATSFlow/
 
 Main Dashboard:
   analytics-dashboard.html
@@ -202,7 +202,7 @@ Documentation:
 
 Open dashboard:
 ```bash
-cd /Users/ryandahlberg/Projects/cortex/ResuMate
+cd /Users/ryandahlberg/Projects/cortex/ATSFlow
 open analytics-dashboard.html
 ```
 

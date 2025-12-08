@@ -1,4 +1,4 @@
-# Version Management System - ResuMate
+# Version Management System - ATSFlow
 
 ## Overview
 
@@ -497,7 +497,7 @@ Potential improvements for future iterations:
 ## File Structure
 
 ```
-ResuMate/
+ATSFlow/
 ├── js/versions/
 │   ├── storage.js    - Data persistence
 │   ├── manager.js    - Business logic
@@ -532,4 +532,4 @@ For issues or questions:
 
 ---
 
-**Built with care for ResuMate Wave 3** 🚀
+**Built with care for ATSFlow Wave 3** 🚀

@@ -1,5 +1,5 @@
 /**
- * ResuMate Workflow Analytics Module
+ * ATSFlow Workflow Analytics Module
  * Tracks performance metrics, user behavior, and identifies drop-off points
  * All data is logged to console (no external services)
  */
@@ -675,7 +675,7 @@ class WorkflowAnalytics {
    * Display analytics dashboard in console
    */
   showDashboard() {
-    console.group('📊 ResuMate Workflow Analytics Dashboard');
+    console.group('📊 ATSFlow Workflow Analytics Dashboard');
 
     const report = this.generatePerformanceReport();
 

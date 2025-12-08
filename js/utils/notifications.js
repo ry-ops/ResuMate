@@ -1,5 +1,5 @@
 /**
- * ResuMate Notification System
+ * ATSFlow Notification System
  * Toast notifications, alerts, and user feedback utilities
  *
  * Features:

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * ResuMate CLI - Command-line interface for Claude Code integration
+ * ATSFlow CLI - Command-line interface for Claude Code integration
  *
  * Usage with Claude Code:
  *   node cli.js <command> [options]
@@ -63,7 +63,7 @@ async function main() {
 
 function showHelp() {
   console.log(`
-ResuMate CLI - AI-Powered Resume Management for Claude Code
+ATSFlow CLI - AI-Powered Resume Optimization for Claude Code
 
 USAGE:
   node cli.js <command> [options]

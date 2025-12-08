@@ -1,4 +1,4 @@
-# ResuMate Security Audit Report
+# ATSFlow Security Audit Report
 
 **Task ID:** resumate-security-audit
 **Date:** 2025-12-01
@@ -9,7 +9,7 @@
 
 ## Executive Summary
 
-Comprehensive security audit completed for ResuMate Wave 1 MVP. All critical security measures have been implemented and tested. The application now has robust defenses against common web vulnerabilities including XSS, CSRF, and file upload attacks.
+Comprehensive security audit completed for ATSFlow Wave 1 MVP. All critical security measures have been implemented and tested. The application now has robust defenses against common web vulnerabilities including XSS, CSRF, and file upload attacks.
 
 **Overall Security Rating:** 🟢 **STRONG** (85/100)
 
@@ -51,7 +51,7 @@ found 0 vulnerabilities
 
 ### Implementation
 
-**File:** `/Users/ryandahlberg/Projects/cortex/ResuMate/js/utils/crypto.js`
+**File:** `/Users/ryandahlberg/Projects/cortex/ATSFlow/js/utils/crypto.js`
 
 **Features Implemented:**
 - ✅ AES-GCM encryption (256-bit keys)
@@ -94,7 +94,7 @@ await cryptoManager.migrateToEncrypted(passphrase);
 
 ### Implementation
 
-**File:** `/Users/ryandahlberg/Projects/cortex/ResuMate/js/utils/sanitizer.js`
+**File:** `/Users/ryandahlberg/Projects/cortex/ATSFlow/js/utils/sanitizer.js`
 
 **Features Implemented:**
 - ✅ HTML entity escaping
@@ -175,7 +175,7 @@ const xssTests = [
 
 ### Implementation
 
-**File:** `/Users/ryandahlberg/Projects/cortex/ResuMate/security/csp-config.json`
+**File:** `/Users/ryandahlberg/Projects/cortex/ATSFlow/security/csp-config.json`
 
 **CSP Directives:**
 
@@ -194,7 +194,7 @@ block-all-mixed-content
 upgrade-insecure-requests
 ```
 
-**Implementation:** `/Users/ryandahlberg/Projects/cortex/ResuMate/server.js` (lines 21-51)
+**Implementation:** `/Users/ryandahlberg/Projects/cortex/ATSFlow/server.js` (lines 21-51)
 
 **Security Analysis:**
 
@@ -228,7 +228,7 @@ upgrade-insecure-requests
 
 ### Implementation
 
-**File:** `/Users/ryandahlberg/Projects/cortex/ResuMate/server.js` (lines 43-48)
+**File:** `/Users/ryandahlberg/Projects/cortex/ATSFlow/server.js` (lines 43-48)
 
 **Headers Implemented:**
 
@@ -248,7 +248,7 @@ upgrade-insecure-requests
 
 ### Implementation
 
-**File:** `/Users/ryandahlberg/Projects/cortex/ResuMate/server.js` (lines 58-89)
+**File:** `/Users/ryandahlberg/Projects/cortex/ATSFlow/server.js` (lines 58-89)
 
 **Configuration:**
 - **Window:** 60 seconds (1 minute)
@@ -284,7 +284,7 @@ upgrade-insecure-requests
 
 ### Implementation
 
-**File:** `/Users/ryandahlberg/Projects/cortex/ResuMate/server.js` (lines 14-34)
+**File:** `/Users/ryandahlberg/Projects/cortex/ATSFlow/server.js` (lines 14-34)
 
 **Multer Configuration:**
 ```javascript
@@ -334,7 +334,7 @@ upgrade-insecure-requests
 
 ### Server-Side Validation
 
-**File:** `/Users/ryandahlberg/Projects/cortex/ResuMate/server.js` (lines 91-144)
+**File:** `/Users/ryandahlberg/Projects/cortex/ATSFlow/server.js` (lines 91-144)
 
 **Validated Fields:**
 
@@ -366,7 +366,7 @@ Client Input → Type Check → Length Check → Format Check → Sanitization �
 
 ### Files Created
 
-1. **`/Users/ryandahlberg/Projects/cortex/ResuMate/security/SECURITY.md`**
+1. **`/Users/ryandahlberg/Projects/cortex/ATSFlow/security/SECURITY.md`**
    - Comprehensive security documentation
    - Security architecture overview
    - Implementation details
@@ -374,12 +374,12 @@ Client Input → Type Check → Length Check → Format Check → Sanitization �
    - Incident response plan
    - Vulnerability reporting process
 
-2. **`/Users/ryandahlberg/Projects/cortex/ResuMate/security/csp-config.json`**
+2. **`/Users/ryandahlberg/Projects/cortex/ATSFlow/security/csp-config.json`**
    - CSP policy configuration
    - Production recommendations
    - Future improvements roadmap
 
-3. **`/Users/ryandahlberg/Projects/cortex/ResuMate/security/SECURITY_AUDIT_REPORT.md`** (this file)
+3. **`/Users/ryandahlberg/Projects/cortex/ATSFlow/security/SECURITY_AUDIT_REPORT.md`** (this file)
    - Audit findings
    - Vulnerability assessments
    - Integration guide
@@ -396,7 +396,7 @@ To fully integrate the security measures, update these files:
 
 #### ✅ Step 1: Load Security Utilities in index.html
 
-**File:** `/Users/ryandahlberg/Projects/cortex/ResuMate/index.html`
+**File:** `/Users/ryandahlberg/Projects/cortex/ATSFlow/index.html`
 
 Add before `<script src="app.js"></script>`:
 
@@ -408,7 +408,7 @@ Add before `<script src="app.js"></script>`:
 
 #### ⚠️ Step 2: Update app.js for Encryption
 
-**File:** `/Users/ryandahlberg/Projects/cortex/ResuMate/app.js`
+**File:** `/Users/ryandahlberg/Projects/cortex/ATSFlow/app.js`
 
 **Change 1: API Key Storage (line 65)**
 
@@ -563,12 +563,12 @@ The server.js file already includes:
 
 ### Automated Testing
 
-**Test Script:** `/Users/ryandahlberg/Projects/cortex/ResuMate/security/test-security.sh`
+**Test Script:** `/Users/ryandahlberg/Projects/cortex/ATSFlow/security/test-security.sh`
 
 ```bash
 #!/bin/bash
 
-echo "=== ResuMate Security Test Suite ==="
+echo "=== ATSFlow Security Test Suite ==="
 echo ""
 
 # Test 1: Check CSP headers
@@ -685,7 +685,7 @@ echo "=== Test Suite Complete ==="
 
 ### Summary
 
-Comprehensive security audit completed for ResuMate Wave 1 MVP. All critical security measures have been successfully implemented:
+Comprehensive security audit completed for ATSFlow Wave 1 MVP. All critical security measures have been successfully implemented:
 
 ✅ **Completed:**
 - API key encryption (AES-GCM 256-bit)

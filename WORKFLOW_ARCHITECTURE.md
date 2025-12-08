@@ -1,8 +1,8 @@
-# ResuMate Workflow Architecture
+# ATSFlow Workflow Architecture
 
 ## Overview
 
-ResuMate's workflow system provides a single-page, step-based navigation experience for the 5-step resume optimization process. The architecture is built on two core modules that work together to manage state and orchestrate navigation.
+ATSFlow's workflow system provides a single-page, step-based navigation experience for the 5-step resume optimization process. The architecture is built on two core modules that work together to manage state and orchestrate navigation.
 
 ## Architecture Components
 

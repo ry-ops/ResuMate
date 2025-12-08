@@ -340,10 +340,10 @@ Refine UI/UX, ensure consistent styling, improve navigation, and create seamless
 3. **Wave 4** can run in parallel with testing
 
 ### Working Directory
-All work in: `/Users/ryandahlberg/Projects/cortex/ResuMate/`
+All work in: `/Users/ryandahlberg/Projects/cortex/ATSFlow/`
 
 ### Server Port
-ResuMate running on port **3101**
+ATSFlow running on port **3101**
 
 ### Success Criteria
 - All 16 test pages functional (100% pass rate on core features)

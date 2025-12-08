@@ -1,22 +1,22 @@
 /**
- * Debug Helpers for ResuMate Workflow
+ * Debug Helpers for ATSFlow Workflow
  * Console utilities for debugging and testing the workflow integration
  *
  * Usage in browser console:
- *   ResuMateDebug.inspectState()
- *   ResuMateDebug.testAPI('/api/analyze', {...})
- *   ResuMateDebug.resetWorkflow()
- *   ResuMateDebug.simulateUpload()
+ *   ATSFlowDebug.inspectState()
+ *   ATSFlowDebug.testAPI('/api/analyze', {...})
+ *   ATSFlowDebug.resetWorkflow()
+ *   ATSFlowDebug.simulateUpload()
  *
  * @version 1.0.0
  */
 
-window.ResuMateDebug = {
+window.ATSFlowDebug = {
     /**
      * Inspect current workflow state
      */
     inspectState() {
-        console.group('📊 ResuMate Workflow State');
+        console.group('📊 ATSFlow Workflow State');
 
         // LocalStorage state
         console.group('💾 LocalStorage Data');
@@ -457,26 +457,26 @@ Responsibilities:
      */
     help() {
         console.log(`
-🔧 ResuMate Debug Helpers
+🔧 ATSFlow Debug Helpers
 
 Available Commands:
-  ResuMateDebug.inspectState()           - View current workflow state
-  ResuMateDebug.testAPI(url, payload)    - Test API endpoint
-  ResuMateDebug.resetWorkflow()          - Reset to initial state
-  ResuMateDebug.simulateUpload()         - Fill forms with test data
-  ResuMateDebug.simulateWorkflow()       - Run complete workflow simulation
-  ResuMateDebug.exportState()            - Export state as JSON
-  ResuMateDebug.importState(state)       - Import state from JSON
-  ResuMateDebug.startAPIMonitoring()     - Monitor all API calls
-  ResuMateDebug.stopAPIMonitoring()      - Stop API monitoring
-  ResuMateDebug.checkHealth()            - Run system health check
-  ResuMateDebug.validateStep(n)          - Validate step requirements
-  ResuMateDebug.help()                   - Show this help message
+  ATSFlowDebug.inspectState()           - View current workflow state
+  ATSFlowDebug.testAPI(url, payload)    - Test API endpoint
+  ATSFlowDebug.resetWorkflow()          - Reset to initial state
+  ATSFlowDebug.simulateUpload()         - Fill forms with test data
+  ATSFlowDebug.simulateWorkflow()       - Run complete workflow simulation
+  ATSFlowDebug.exportState()            - Export state as JSON
+  ATSFlowDebug.importState(state)       - Import state from JSON
+  ATSFlowDebug.startAPIMonitoring()     - Monitor all API calls
+  ATSFlowDebug.stopAPIMonitoring()      - Stop API monitoring
+  ATSFlowDebug.checkHealth()            - Run system health check
+  ATSFlowDebug.validateStep(n)          - Validate step requirements
+  ATSFlowDebug.help()                   - Show this help message
 
 Example Usage:
-  ResuMateDebug.inspectState()
-  ResuMateDebug.simulateUpload()
-  ResuMateDebug.testAPI('/api/analyze', {
+  ATSFlowDebug.inspectState()
+  ATSFlowDebug.simulateUpload()
+  ATSFlowDebug.testAPI('/api/analyze', {
     resumeText: 'My resume...',
     jobText: 'Job description...',
     apiKey: 'sk-ant-...'
@@ -486,4 +486,4 @@ Example Usage:
 };
 
 // Auto-initialize
-console.log('🔧 ResuMate Debug Helpers loaded. Type ResuMateDebug.help() for commands.');
+console.log('🔧 ATSFlow Debug Helpers loaded. Type ATSFlowDebug.help() for commands.');

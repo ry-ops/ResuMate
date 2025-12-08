@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to ResuMate will be documented in this file.
+All notable changes to ATSFlow will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Major Release: Complete Platform Transformation
 
-This is a major release that transforms ResuMate from a simple resume analyzer into a comprehensive AI-powered career document platform with advanced features, integrations, and production-ready quality.
+This is a major release that transforms ATSFlow from a simple resume analyzer into a comprehensive AI-powered career document platform with advanced features, integrations, and production-ready quality.
 
 ---
 
@@ -101,7 +101,7 @@ Generate complete application package with 5 professional documents:
 - **Statistics dashboard** - Success rates, response times, analytics
 
 #### 8. LinkedIn Job Search Integration
-- **Direct job search** - Search LinkedIn jobs without leaving ResuMate
+- **Direct job search** - Search LinkedIn jobs without leaving ATSFlow
 - **Advanced filters**:
   - Keywords and location
   - Date posted
@@ -451,9 +451,9 @@ Special thanks to all contributors:
 
 ## Links
 
-- **Repository**: https://github.com/ry-ops/ResuMate
+- **Repository**: https://github.com/ry-ops/ATSFlow
 - **Documentation**: See repository README.md
-- **Issues**: https://github.com/ry-ops/ResuMate/issues
+- **Issues**: https://github.com/ry-ops/ATSFlow/issues
 - **License**: MIT
 
 ---

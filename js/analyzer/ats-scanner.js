@@ -1,5 +1,5 @@
 /**
- * ResuMate - Enhanced ATS Scanner v2
+ * ATSFlow - Enhanced ATS Scanner v2
  * Comprehensive ATS analysis with 30+ checks, advanced scoring, and recommendations
  */
 

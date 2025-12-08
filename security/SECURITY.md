@@ -1,8 +1,8 @@
-# ResuMate Security Documentation
+# ATSFlow Security Documentation
 
 ## Overview
 
-This document outlines the security measures implemented in ResuMate to protect user data and prevent common web application vulnerabilities.
+This document outlines the security measures implemented in ATSFlow to protect user data and prevent common web application vulnerabilities.
 
 **Last Updated:** 2025-12-01
 **Security Contact:** security@resumate.app
@@ -28,7 +28,7 @@ This document outlines the security measures implemented in ResuMate to protect 
 
 ## Security Architecture
 
-ResuMate implements a defense-in-depth security strategy with multiple layers:
+ATSFlow implements a defense-in-depth security strategy with multiple layers:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐

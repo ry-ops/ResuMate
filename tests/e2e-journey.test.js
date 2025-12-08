@@ -65,7 +65,7 @@ Nice to Have:
 
 const MOCK_API_KEY = 'sk-ant-test-key-12345678901234567890';
 
-describe('ResuMate E2E User Journey', () => {
+describe('ATSFlow E2E User Journey', () => {
 
     beforeEach(() => {
         // Clear localStorage before each test

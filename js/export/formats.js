@@ -289,8 +289,8 @@ class FormatExporter {
             exportedAt: new Date().toISOString(),
             resume: resumeState,
             metadata: {
-                format: 'ResuMate JSON Export',
-                generator: 'ResuMate v0.1.0',
+                format: 'ATSFlow JSON Export',
+                generator: 'ATSFlow v0.1.0',
                 ...options.metadata
             }
         };

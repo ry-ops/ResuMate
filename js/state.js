@@ -1,5 +1,5 @@
 /**
- * ResuMate State Management
+ * ATSFlow State Management
  * Centralized state store for the resume builder application
  */
 

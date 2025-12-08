@@ -1,5 +1,5 @@
 /**
- * WorkflowState - Unified state management for ResuMate workflow
+ * WorkflowState - Unified state management for ATSFlow workflow
  *
  * Manages the complete application state for the 5-step workflow:
  * 1. Upload (resume + job posting)

@@ -1,4 +1,4 @@
-# ResuMate Quick Reference Guide
+# ATSFlow Quick Reference Guide
 
 **Generated**: 2025-12-02
 **Version**: 0.1.0
@@ -21,7 +21,7 @@
 ## Directory Quick Map
 
 ```
-ResuMate/
+ATSFlow/
 ├── index.html              # Landing page & analyzer
 ├── server.js               # Express backend (931 lines)
 ├── app.js                  # Main app logic (471 lines)
@@ -515,8 +515,8 @@ http://localhost:3101/api/config
 
 ## Support & Resources
 
-- **GitHub**: https://github.com/ry-ops/ResuMate
-- **Issues**: https://github.com/ry-ops/ResuMate/issues
+- **GitHub**: https://github.com/ry-ops/ATSFlow
+- **Issues**: https://github.com/ry-ops/ATSFlow/issues
 - **Claude AI**: https://console.anthropic.com/
 - **Documentation**: See `/docs` folder
 

@@ -1,5 +1,5 @@
 /**
- * ResuMate Workflow End-to-End Tests
+ * ATSFlow Workflow End-to-End Tests
  * Comprehensive testing of the complete workflow from upload to export
  *
  * Test Coverage:

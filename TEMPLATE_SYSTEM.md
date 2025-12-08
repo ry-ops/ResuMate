@@ -1,8 +1,8 @@
-# ResuMate Template System Documentation
+# ATSFlow Template System Documentation
 
 ## Overview
 
-The ResuMate template system provides a flexible, ATS-compatible resume templating engine with three professional templates and extensive customization options.
+The ATSFlow template system provides a flexible, ATS-compatible resume templating engine with three professional templates and extensive customization options.
 
 ## Architecture
 
@@ -331,9 +331,9 @@ const config = window.TemplateEngine.exportConfiguration();
 await window.TemplateEngine.importConfiguration(config);
 ```
 
-## Integration with ResuMate
+## Integration with ATSFlow
 
-The template system integrates with other ResuMate components:
+The template system integrates with other ATSFlow components:
 
 ### With Preview Engine
 
@@ -394,7 +394,7 @@ All templates include print-specific CSS:
 ## File Structure
 
 ```
-ResuMate/
+ATSFlow/
 ├── js/
 │   └── templates/
 │       ├── engine.js       (5.2 KB)
@@ -462,8 +462,8 @@ Potential additions for Wave 2+:
 
 ## License
 
-Part of the ResuMate project.
+Part of the ATSFlow project.
 
 ## Support
 
-For issues or questions about the template system, see the main ResuMate documentation.
+For issues or questions about the template system, see the main ATSFlow documentation.

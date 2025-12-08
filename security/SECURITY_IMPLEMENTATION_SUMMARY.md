@@ -1,4 +1,4 @@
-# ResuMate Security Implementation Summary
+# ATSFlow Security Implementation Summary
 
 **Task ID:** resumate-security-audit
 **Priority:** HIGH (Wave 1 MVP)
@@ -10,7 +10,7 @@
 
 ## Executive Summary
 
-Comprehensive security audit and implementation completed for ResuMate Wave 1 MVP. All acceptance criteria met. Application now has enterprise-grade security measures protecting against XSS, CSRF, file upload attacks, and API key theft.
+Comprehensive security audit and implementation completed for ATSFlow Wave 1 MVP. All acceptance criteria met. Application now has enterprise-grade security measures protecting against XSS, CSRF, file upload attacks, and API key theft.
 
 **Security Rating:** 🟢 **85/100** (STRONG)
 
@@ -38,7 +38,7 @@ Comprehensive security audit and implementation completed for ResuMate Wave 1 MV
    - PBKDF2 key derivation (100,000 iterations)
    - Random salt and IV generation
    - API key migration utilities
-   - **Location:** `/Users/ryandahlberg/Projects/cortex/ResuMate/js/utils/crypto.js`
+   - **Location:** `/Users/ryandahlberg/Projects/cortex/ATSFlow/js/utils/crypto.js`
 
 2. **sanitizer.js** (442 lines)
    - HTML escaping and sanitization
@@ -46,7 +46,7 @@ Comprehensive security audit and implementation completed for ResuMate Wave 1 MV
    - File upload validation
    - Rate limiting helpers
    - URL and JSON sanitization
-   - **Location:** `/Users/ryandahlberg/Projects/cortex/ResuMate/js/utils/sanitizer.js`
+   - **Location:** `/Users/ryandahlberg/Projects/cortex/ATSFlow/js/utils/sanitizer.js`
 
 ### Security Configuration (security/)
 
@@ -54,7 +54,7 @@ Comprehensive security audit and implementation completed for ResuMate Wave 1 MV
    - Content Security Policy directives
    - Production recommendations
    - Future improvements roadmap
-   - **Location:** `/Users/ryandahlberg/Projects/cortex/ResuMate/security/csp-config.json`
+   - **Location:** `/Users/ryandahlberg/Projects/cortex/ATSFlow/security/csp-config.json`
 
 ### Documentation (security/)
 
@@ -65,7 +65,7 @@ Comprehensive security audit and implementation completed for ResuMate Wave 1 MV
    - Vulnerability reporting process
    - Incident response plan
    - Compliance roadmap
-   - **Location:** `/Users/ryandahlberg/Projects/cortex/ResuMate/security/SECURITY.md`
+   - **Location:** `/Users/ryandahlberg/Projects/cortex/ATSFlow/security/SECURITY.md`
 
 5. **SECURITY_AUDIT_REPORT.md** (812 lines)
    - Complete audit findings
@@ -74,13 +74,13 @@ Comprehensive security audit and implementation completed for ResuMate Wave 1 MV
    - Testing procedures
    - Security scoring
    - Recommendations
-   - **Location:** `/Users/ryandahlberg/Projects/cortex/ResuMate/security/SECURITY_AUDIT_REPORT.md`
+   - **Location:** `/Users/ryandahlberg/Projects/cortex/ATSFlow/security/SECURITY_AUDIT_REPORT.md`
 
 6. **integrate-security.sh** (executable)
    - Automated integration verification
    - Backup creation
    - Status checking
-   - **Location:** `/Users/ryandahlberg/Projects/cortex/ResuMate/security/integrate-security.sh`
+   - **Location:** `/Users/ryandahlberg/Projects/cortex/ATSFlow/security/integrate-security.sh`
 
 ### Modified Files
 
@@ -90,7 +90,7 @@ Comprehensive security audit and implementation completed for ResuMate Wave 1 MV
    - Rate limiting middleware (lines 58-89)
    - Input validation middleware (lines 91-144)
    - Multer file upload security (lines 14-34)
-   - **Location:** `/Users/ryandahlberg/Projects/cortex/ResuMate/server.js`
+   - **Location:** `/Users/ryandahlberg/Projects/cortex/ATSFlow/server.js`
 
 ---
 
@@ -283,7 +283,7 @@ Run the integration script:
 
 ## 📚 Documentation Index
 
-All security documentation is located in `/Users/ryandahlberg/Projects/cortex/ResuMate/security/`
+All security documentation is located in `/Users/ryandahlberg/Projects/cortex/ATSFlow/security/`
 
 1. **SECURITY.md** - Main security documentation
    - Security architecture

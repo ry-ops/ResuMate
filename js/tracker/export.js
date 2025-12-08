@@ -277,7 +277,7 @@ class TrackerExport {
     const icalContent = [
       'BEGIN:VCALENDAR',
       'VERSION:2.0',
-      'PRODID:-//ResuMate//Application Tracker//EN',
+      'PRODID:-//ATSFlow//Application Tracker//EN',
       'CALSCALE:GREGORIAN',
       'METHOD:PUBLISH',
       ...icalEvents,

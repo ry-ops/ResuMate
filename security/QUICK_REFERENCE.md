@@ -1,4 +1,4 @@
-# ResuMate Security - Quick Reference Card
+# ATSFlow Security - Quick Reference Card
 
 **Last Updated:** 2025-12-01 | **Status:** ✅ READY FOR INTEGRATION
 
@@ -7,7 +7,7 @@
 ## Files Created (7 files)
 
 ```
-/Users/ryandahlberg/Projects/cortex/ResuMate/
+/Users/ryandahlberg/Projects/cortex/ATSFlow/
 
 js/utils/
 ├── crypto.js                      (257 lines) - API key encryption
@@ -186,9 +186,9 @@ resultsContent.innerHTML = inputSanitizer.sanitizeHtml(html);
 
 ## Documentation Links
 
-**Main Docs:** `/Users/ryandahlberg/Projects/cortex/ResuMate/security/SECURITY.md`
-**Audit Report:** `/Users/ryandahlberg/Projects/cortex/ResuMate/security/SECURITY_AUDIT_REPORT.md`
-**Summary:** `/Users/ryandahlberg/Projects/cortex/ResuMate/security/SECURITY_IMPLEMENTATION_SUMMARY.md`
+**Main Docs:** `/Users/ryandahlberg/Projects/cortex/ATSFlow/security/SECURITY.md`
+**Audit Report:** `/Users/ryandahlberg/Projects/cortex/ATSFlow/security/SECURITY_AUDIT_REPORT.md`
+**Summary:** `/Users/ryandahlberg/Projects/cortex/ATSFlow/security/SECURITY_IMPLEMENTATION_SUMMARY.md`
 
 ---
 

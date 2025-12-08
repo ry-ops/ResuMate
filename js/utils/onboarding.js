@@ -1,5 +1,5 @@
 /**
- * ResuMate Onboarding & Progress System
+ * ATSFlow Onboarding & Progress System
  * Guides users through the app and shows progress
  */
 
@@ -682,7 +682,7 @@ class OnboardingManager {
         if (existing) existing.remove();
 
         const page = this.detectPage();
-        const pageTitle = page === 'careerdocs' ? 'Career Documents' : 'ResuMate';
+        const pageTitle = page === 'careerdocs' ? 'Career Documents' : 'ATSFlow';
         const pageDesc = page === 'careerdocs'
             ? 'Create executive bios, status inquiries, and brand statements tailored to your career goals.'
             : 'Create ATS-optimized resumes that get noticed by recruiters and hiring managers.';

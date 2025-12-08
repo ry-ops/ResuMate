@@ -1,43 +1,43 @@
-# ResuMate Workflow Polish & Testing - File Index
+# ATSFlow Workflow Polish & Testing - File Index
 
 All files created for the workflow polish and testing implementation.
 
 ## Core Files
 
 ### 1. CSS Animations
-**Path**: `/Users/ryandahlberg/Projects/cortex/ResuMate/css/workflow-animations.css`
+**Path**: `/Users/ryandahlberg/Projects/cortex/ATSFlow/css/workflow-animations.css`
 **Size**: 14KB
 **Purpose**: Step transitions, progress animations, success celebrations, loading spinners, micro-interactions
 
 ### 2. Workflow Polish JavaScript
-**Path**: `/Users/ryandahlberg/Projects/cortex/ResuMate/js/ui/workflow-polish.js`
+**Path**: `/Users/ryandahlberg/Projects/cortex/ATSFlow/js/ui/workflow-polish.js`
 **Size**: 23KB
 **Purpose**: Smooth scrolling, keyboard shortcuts, focus management, tooltips, onboarding
 
 ### 3. E2E Tests
-**Path**: `/Users/ryandahlberg/Projects/cortex/ResuMate/tests/workflow-e2e.test.js`
+**Path**: `/Users/ryandahlberg/Projects/cortex/ATSFlow/tests/workflow-e2e.test.js`
 **Size**: 25KB
 **Purpose**: Comprehensive workflow testing (40 test cases)
 
 ### 4. Analytics Module
-**Path**: `/Users/ryandahlberg/Projects/cortex/ResuMate/js/utils/workflow-analytics.js`
+**Path**: `/Users/ryandahlberg/Projects/cortex/ATSFlow/js/utils/workflow-analytics.js`
 **Size**: 19KB
 **Purpose**: Performance tracking, error logging, user behavior analytics
 
 ### 5. User Guide
-**Path**: `/Users/ryandahlberg/Projects/cortex/ResuMate/WORKFLOW_USER_GUIDE.md`
+**Path**: `/Users/ryandahlberg/Projects/cortex/ATSFlow/WORKFLOW_USER_GUIDE.md`
 **Size**: 19KB
 **Purpose**: Complete user documentation with troubleshooting and FAQ
 
 ### 6. Summary Report
-**Path**: `/Users/ryandahlberg/Projects/cortex/ResuMate/WORKFLOW_POLISH_TESTING_SUMMARY.md`
+**Path**: `/Users/ryandahlberg/Projects/cortex/ATSFlow/WORKFLOW_POLISH_TESTING_SUMMARY.md`
 **Size**: ~18KB
 **Purpose**: Implementation summary, test results, integration guide
 
 ## File Structure
 
 ```
-ResuMate/
+ATSFlow/
 ├── css/
 │   └── workflow-animations.css         (NEW - 14KB)
 ├── js/
@@ -109,9 +109,9 @@ Open `WORKFLOW_USER_GUIDE.md` for complete usage instructions.
 ---
 
 **All files absolute paths for easy access**:
-- `/Users/ryandahlberg/Projects/cortex/ResuMate/css/workflow-animations.css`
-- `/Users/ryandahlberg/Projects/cortex/ResuMate/js/ui/workflow-polish.js`
-- `/Users/ryandahlberg/Projects/cortex/ResuMate/js/utils/workflow-analytics.js`
-- `/Users/ryandahlberg/Projects/cortex/ResuMate/tests/workflow-e2e.test.js`
-- `/Users/ryandahlberg/Projects/cortex/ResuMate/WORKFLOW_USER_GUIDE.md`
-- `/Users/ryandahlberg/Projects/cortex/ResuMate/WORKFLOW_POLISH_TESTING_SUMMARY.md`
+- `/Users/ryandahlberg/Projects/cortex/ATSFlow/css/workflow-animations.css`
+- `/Users/ryandahlberg/Projects/cortex/ATSFlow/js/ui/workflow-polish.js`
+- `/Users/ryandahlberg/Projects/cortex/ATSFlow/js/utils/workflow-analytics.js`
+- `/Users/ryandahlberg/Projects/cortex/ATSFlow/tests/workflow-e2e.test.js`
+- `/Users/ryandahlberg/Projects/cortex/ATSFlow/WORKFLOW_USER_GUIDE.md`
+- `/Users/ryandahlberg/Projects/cortex/ATSFlow/WORKFLOW_POLISH_TESTING_SUMMARY.md`

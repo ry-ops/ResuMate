@@ -10,7 +10,7 @@
 
 ### Step 2: Open LinkedIn Integration
 - Navigate to: `linkedin-integration.html`
-- Or access from ResuMate dashboard
+- Or access from ATSFlow dashboard
 
 ### Step 3: Start Optimizing!
 - Upload your PDF
@@ -140,7 +140,7 @@ A: 5-7 options with different styles and focuses.
 A: 2,000 characters (LinkedIn's limit).
 
 **Q: Do I need an API key?**
-A: Yes, you need a Claude API key set in ResuMate.
+A: Yes, you need a Claude API key set in ATSFlow.
 
 **Q: Can I edit the generated content?**
 A: Yes! All generated content can be copied and edited manually.
@@ -216,7 +216,7 @@ A: No, all processing is client-side or via secure API. Nothing is permanently s
 **Resources:**
 - Full documentation: `docs/LINKEDIN_INTEGRATION.md`
 - Implementation details: `LINKEDIN_IMPLEMENTATION_SUMMARY.md`
-- ResuMate support: [Your support channel]
+- ATSFlow support: [Your support channel]
 
 ## Feature Checklist
 

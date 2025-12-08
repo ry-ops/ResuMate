@@ -1,5 +1,5 @@
 /**
- * ResuMate - ATS Content Checks
+ * ATSFlow - ATS Content Checks
  * 10 comprehensive content checks for ATS optimization
  */
 

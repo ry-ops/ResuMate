@@ -1,5 +1,5 @@
 /**
- * ResuMate Input Sanitization Utility
+ * ATSFlow Input Sanitization Utility
  * Prevents XSS (Cross-Site Scripting) attacks and ensures safe data handling
  *
  * Security features:

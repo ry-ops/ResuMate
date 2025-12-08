@@ -151,7 +151,7 @@ class ResumeGenerator {
             // Parse JSON response containing structured resume data
             const resumeData = this._parseJSON(content);
 
-            // Convert to ResuMate state format
+            // Convert to ATSFlow state format
             const resumeState = this._convertToResumeState(resumeData, profileData, template);
 
             // Record generation
@@ -227,7 +227,7 @@ class ResumeGenerator {
             // Parse JSON response
             const resumeData = this._parseJSON(content);
 
-            // Convert to ResuMate state format
+            // Convert to ATSFlow state format
             const resumeState = this._convertToResumeState(resumeData, {}, existingResume.template || 'modern');
 
             // Record generation
@@ -320,7 +320,7 @@ class ResumeGenerator {
             // Parse JSON response
             const resumeData = this._parseJSON(content);
 
-            // Convert to ResuMate state format
+            // Convert to ATSFlow state format
             const resumeState = this._convertToResumeState(resumeData, {}, resume.template || 'modern');
 
             // Record generation
@@ -664,7 +664,7 @@ Return as JSON: { "technical": [], "soft": [], "tools": [] }`
     }
 
     /**
-     * Convert API response to ResuMate state format
+     * Convert API response to ATSFlow state format
      * @param {Object} resumeData - Parsed resume data from API
      * @param {Object} profileData - Original profile data
      * @param {string} template - Template name
@@ -780,7 +780,7 @@ Return as JSON: { "technical": [], "soft": [], "tools": [] }`
             metadata: {
                 createdAt: new Date().toISOString(),
                 lastModified: new Date().toISOString(),
-                generatedBy: 'ResuMate AI'
+                generatedBy: 'ATSFlow AI'
             }
         };
     }

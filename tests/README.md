@@ -1,10 +1,10 @@
-# ResuMate Test Suite
+# ATSFlow Test Suite
 
-Comprehensive Jest test suite for the ResuMate resume optimization platform.
+Comprehensive Jest test suite for the ATSFlow resume optimization platform.
 
 ## Overview
 
-This test suite provides unit and integration tests for all core ResuMate modules, ensuring code quality, reliability, and maintainability.
+This test suite provides unit and integration tests for all core ATSFlow modules, ensuring code quality, reliability, and maintainability.
 
 ## Directory Structure
 

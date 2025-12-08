@@ -1,6 +1,6 @@
 # Document Generation System
 
-A unified document generation system for ResuMate's export workflow step. This system provides a cohesive interface for generating, previewing, and exporting all 5 career document types.
+A unified document generation system for ATSFlow's export workflow step. This system provides a cohesive interface for generating, previewing, and exporting all 5 career document types.
 
 ## Overview
 
@@ -615,7 +615,7 @@ preview.initialize();
 
 ## License
 
-Part of ResuMate - AI-Powered Resume Optimization Platform
+Part of ATSFlow - AI-Powered Resume Optimization Platform
 
 ## Support
 
@@ -629,4 +629,4 @@ For issues or questions:
 
 **Version**: 1.0.0
 **Last Updated**: 2025-12-02
-**Maintainer**: ResuMate Development Team
+**Maintainer**: ATSFlow Development Team

@@ -2,7 +2,7 @@
 
 ## Logger Utility Implementation
 
-**File:** `/Users/ryandahlberg/Projects/ResuMate/js/utils/logger.js`
+**File:** `/Users/ryandahlberg/Projects/ATSFlow/js/utils/logger.js`
 
 ```javascript
 class Logger {
@@ -265,7 +265,7 @@ Add logger before other scripts in your HTML files:
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ResuMate</title>
+    <title>ATSFlow</title>
 </head>
 <body>
     <!-- Load logger first -->
@@ -283,7 +283,7 @@ Add logger before other scripts in your HTML files:
         }
         
         // App initialization
-        logger.info('ResuMate application loaded');
+        logger.info('ATSFlow application loaded');
     </script>
 </body>
 </html>
@@ -294,7 +294,7 @@ Add logger before other scripts in your HTML files:
 When logger is enabled with timestamps and colors:
 
 ```
-[12:34:56.789] [INFO] ResuMate application loaded
+[12:34:56.789] [INFO] ATSFlow application loaded
 [12:34:56.890] [INFO] [JobParser] Parsing job description...
 [12:34:57.123] [INFO] [JobParser] Job description parsed successfully
 [12:34:57.456] [WARN] API key missing, using cached data

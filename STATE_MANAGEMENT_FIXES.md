@@ -13,7 +13,7 @@ Fixed critical state management issues between old localStorage and new workflow
 - **Local Storage** (persists across sessions): API key only
 
 **Files Modified**:
-- `/Users/ryandahlberg/Projects/cortex/ResuMate/js/core/workflow-state.js`
+- `/Users/ryandahlberg/Projects/cortex/ATSFlow/js/core/workflow-state.js`
   - Changed from single `STORAGE_KEY` to separate `SESSION_KEY` and `PERSISTENT_KEY`
   - Updated `persist()` method to save session data to `sessionStorage` and API key to `localStorage`
   - Updated `hydrate()` method to load from both storage types
@@ -39,7 +39,7 @@ sessionStorage.clear() // Automatic by browser
 **Solution**: Wired onboarding.js to listen to workflow state changes in real-time.
 
 **Files Modified**:
-- `/Users/ryandahlberg/Projects/cortex/ResuMate/js/utils/onboarding.js`
+- `/Users/ryandahlberg/Projects/cortex/ATSFlow/js/utils/onboarding.js`
   - Added `handleWorkflowStateChange()` method to react to state changes
   - Added `syncWithWorkflowState()` method to sync on initialization
   - Updated `attachProgressListeners()` to subscribe to workflow state events
@@ -61,7 +61,7 @@ handleJobInput()
 **Solution**: Wired preview component to workflow state and DataBridge changes.
 
 **Files Modified**:
-- `/Users/ryandahlberg/Projects/cortex/ResuMate/js/editor/preview.js`
+- `/Users/ryandahlberg/Projects/cortex/ATSFlow/js/editor/preview.js`
   - Added `setupStateListener()` method to subscribe to state changes
   - Added `handleStateChange()` method to react to workflow state changes
   - Added `handleDataBridgeChange()` method for backward compatibility
@@ -80,7 +80,7 @@ handleResumeUpload()
 
 ## New Files Created
 
-### `/Users/ryandahlberg/Projects/cortex/ResuMate/js/utils/state-migration.js`
+### `/Users/ryandahlberg/Projects/cortex/ATSFlow/js/utils/state-migration.js`
 **Purpose**: Migrate old localStorage data to new workflow state system.
 
 **Features**:
@@ -165,16 +165,16 @@ workflowState.set('inputs.resume.text', text)
 ## Testing Checklist
 
 ### Test 1: Session Reset on Browser Restart
-1. Open ResuMate in browser
+1. Open ATSFlow in browser
 2. Enter API key
 3. Upload resume
 4. Add job description
 5. Close browser completely
-6. Reopen ResuMate
+6. Reopen ATSFlow
 7. **Expected**: API key still present, resume and job cleared ✅
 
 ### Test 2: Getting Started Indicators Update
-1. Open ResuMate
+1. Open ATSFlow
 2. Watch "Getting Started" progress bar
 3. Paste resume text (>50 chars)
 4. **Expected**: "Resume Added" indicator turns green immediately ✅
@@ -184,7 +184,7 @@ workflowState.set('inputs.resume.text', text)
 8. **Expected**: "API Key Configured" indicator turns green immediately ✅
 
 ### Test 3: Resume Preview Updates
-1. Open ResuMate
+1. Open ATSFlow
 2. Paste resume text in textarea
 3. **Expected**: Preview panel shows resume content immediately ✅
 4. Continue typing in resume textarea
@@ -211,12 +211,12 @@ All changes maintain backward compatibility with existing code:
 ## Files Modified Summary
 
 ### Core Files
-1. `/Users/ryandahlberg/Projects/cortex/ResuMate/js/core/workflow-state.js` - Session/persistent split
-2. `/Users/ryandahlberg/Projects/cortex/ResuMate/js/utils/state-migration.js` - Migration utility (NEW)
-3. `/Users/ryandahlberg/Projects/cortex/ResuMate/js/utils/onboarding.js` - State change listeners
-4. `/Users/ryandahlberg/Projects/cortex/ResuMate/js/editor/preview.js` - Preview state listeners
-5. `/Users/ryandahlberg/Projects/cortex/ResuMate/app.js` - WorkflowState integration
-6. `/Users/ryandahlberg/Projects/cortex/ResuMate/index.html` - Script loading order
+1. `/Users/ryandahlberg/Projects/cortex/ATSFlow/js/core/workflow-state.js` - Session/persistent split
+2. `/Users/ryandahlberg/Projects/cortex/ATSFlow/js/utils/state-migration.js` - Migration utility (NEW)
+3. `/Users/ryandahlberg/Projects/cortex/ATSFlow/js/utils/onboarding.js` - State change listeners
+4. `/Users/ryandahlberg/Projects/cortex/ATSFlow/js/editor/preview.js` - Preview state listeners
+5. `/Users/ryandahlberg/Projects/cortex/ATSFlow/app.js` - WorkflowState integration
+6. `/Users/ryandahlberg/Projects/cortex/ATSFlow/index.html` - Script loading order
 
 ### Total Changes
 - **6 files modified**

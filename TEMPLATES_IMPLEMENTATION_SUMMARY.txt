@@ -194,7 +194,7 @@
 │ TESTING                                                                       │
 └───────────────────────────────────────────────────────────────────────────────┘
 
-  Test Page: /Users/ryandahlberg/Projects/cortex/ResuMate/test-templates.html
+  Test Page: /Users/ryandahlberg/Projects/cortex/ATSFlow/test-templates.html
   
   Test Scenarios:
   1. Select each of 8 templates ✓
@@ -210,7 +210,7 @@
 │ FILE STRUCTURE                                                                │
 └───────────────────────────────────────────────────────────────────────────────┘
 
-  ResuMate/
+  ATSFlow/
   ├── js/coverletter/
   │   └── templates.js (45KB) - Existing with all 8 templates
   ├── templates/cover-letters/
@@ -235,7 +235,7 @@
   • Cover Letter Generator (test-coverletter.html)
   • Export Engine (js/export/) for PDF/DOCX
   • State Management (js/state.js) for saving
-  • Main ResuMate interface
+  • Main ATSFlow interface
 
 ┌───────────────────────────────────────────────────────────────────────────────┐
 │ PERFORMANCE                                                                   │
@@ -260,7 +260,7 @@
 
   Status: READY FOR PRODUCTION
   Quality: Exceeds requirements
-  Next: Integration with main ResuMate UI
+  Next: Integration with main ATSFlow UI
 
 ═══════════════════════════════════════════════════════════════════════════════
                            END OF IMPLEMENTATION SUMMARY

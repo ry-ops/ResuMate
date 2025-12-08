@@ -1,8 +1,8 @@
-# ResuMate Architecture Catalog
+# ATSFlow Architecture Catalog
 
 **Generated**: 2025-12-02
 **Version**: 0.1.0
-**Purpose**: Comprehensive catalog of ResuMate's architecture, pages, and components
+**Purpose**: Comprehensive catalog of ATSFlow's architecture, pages, and components
 
 ---
 
@@ -24,7 +24,7 @@
 
 ## System Overview
 
-ResuMate is a **client-side AI-powered career management platform** with a Node.js/Express backend proxy for Claude API access. The application follows a modular architecture with clear separation of concerns:
+ATSFlow is a **client-side AI-powered career management platform** with a Node.js/Express backend proxy for Claude API access. The application follows a modular architecture with clear separation of concerns:
 
 - **Frontend**: Vanilla JavaScript (no frameworks)
 - **Backend**: Express.js API proxy
@@ -1191,7 +1191,7 @@ All responses include:
 ### Page Hierarchy & Relationships
 
 ```
-ResuMate Application
+ATSFlow Application
 │
 ├── Home (index.html)
 │   └── Quick Actions →
@@ -1649,7 +1649,7 @@ Tracker Module Dependencies
 
 ## Summary
 
-ResuMate is a **comprehensive, modular, AI-powered career management platform** with:
+ATSFlow is a **comprehensive, modular, AI-powered career management platform** with:
 
 ### Architecture Highlights
 
@@ -1683,7 +1683,7 @@ ResuMate is a **comprehensive, modular, AI-powered career management platform** 
 - **Batch Processing**: Support for multiple resumes/applications
 - **Modular Architecture**: Easy to add new features/templates
 
-This catalog provides a complete reference for understanding, extending, and maintaining the ResuMate codebase.
+This catalog provides a complete reference for understanding, extending, and maintaining the ATSFlow codebase.
 
 ---
 

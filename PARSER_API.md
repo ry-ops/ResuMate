@@ -1,8 +1,8 @@
-# ResuMate Parser API Documentation
+# ATSFlow Parser API Documentation
 
 ## Overview
 
-The ResuMate parser system provides comprehensive resume parsing capabilities with support for PDF, DOCX, and TXT formats. It includes both basic text extraction and AI-powered structured data extraction using Claude API.
+The ATSFlow parser system provides comprehensive resume parsing capabilities with support for PDF, DOCX, and TXT formats. It includes both basic text extraction and AI-powered structured data extraction using Claude API.
 
 ## Features
 
@@ -563,8 +563,8 @@ parseResumeFile('./resumes/john-doe.pdf', process.env.CLAUDE_API_KEY);
 ## Support
 
 For issues, feature requests, or questions:
-- GitHub Issues: https://github.com/ry-ops/ResuMate/issues
-- Documentation: https://github.com/ry-ops/ResuMate#readme
+- GitHub Issues: https://github.com/ry-ops/ATSFlow/issues
+- Documentation: https://github.com/ry-ops/ATSFlow#readme
 
 ## License
 

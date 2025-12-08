@@ -1,5 +1,5 @@
 /**
- * ResuMate Progress Tracker
+ * ATSFlow Progress Tracker
  * Tracks user's journey through the 5-step resume optimization process
  * Provides visual progress indicators and completion state management
  * Version: 1.0.0

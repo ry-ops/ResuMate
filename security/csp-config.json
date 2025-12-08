@@ -1,5 +1,5 @@
 {
-  "description": "Content Security Policy configuration for ResuMate",
+  "description": "Content Security Policy configuration for ATSFlow",
   "policy": {
     "default-src": ["'self'"],
     "script-src": [

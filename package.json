@@ -1,10 +1,10 @@
 {
-  "name": "resumate",
+  "name": "atsflow",
   "version": "3.0.0",
-  "description": "AI-powered resume management CLI for Claude Code - ATS optimization, job tailoring, and intelligent document generation",
+  "description": "AI-powered resume optimization CLI for Claude Code - ATS optimization, job tailoring, and intelligent document generation",
   "main": "server.js",
   "bin": {
-    "resumate": "./cli.js"
+    "atsflow": "./cli.js"
   },
   "scripts": {
     "start": "node server.js",
@@ -29,7 +29,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ry-ops/ResuMate.git"
+    "url": "git+https://github.com/ry-ops/ATSFlow.git"
   },
   "keywords": [
     "resume",
@@ -41,7 +41,7 @@
   "author": "ry-ops",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ry-ops/ResuMate/issues"
+    "url": "https://github.com/ry-ops/ATSFlow/issues"
   },
-  "homepage": "https://github.com/ry-ops/ResuMate#readme"
+  "homepage": "https://github.com/ry-ops/ATSFlow#readme"
 }

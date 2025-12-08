@@ -533,11 +533,11 @@ async function example10_realTimeUpdates() {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ResuMate - Document Generation</title>
+    <title>ATSFlow - Document Generation</title>
     <!-- Load dependencies -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
-    <!-- Load ResuMate modules -->
+    <!-- Load ATSFlow modules -->
     <script src="js/ai/resume-generator.js"></script>
     <script src="js/careerdocs/bio-generator.js"></script>
     <script src="js/careerdocs/brand-generator.js"></script>

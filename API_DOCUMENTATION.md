@@ -1,6 +1,6 @@
-# ResuMate API Documentation
+# ATSFlow API Documentation
 
-Complete API reference for the ResuMate backend server.
+Complete API reference for the ATSFlow backend server.
 
 ## Table of Contents
 
@@ -17,7 +17,7 @@ Complete API reference for the ResuMate backend server.
 
 ## Overview
 
-The ResuMate API provides endpoints for:
+The ATSFlow API provides endpoints for:
 - Resume parsing and analysis
 - Job description extraction
 - AI-powered content generation
@@ -50,7 +50,7 @@ https://your-domain.com
 
 ### API Key Configuration
 
-ResuMate supports two authentication methods:
+ATSFlow supports two authentication methods:
 
 **1. Client-Side API Key** (User Provided)
 ```javascript
@@ -1234,8 +1234,8 @@ See [CHANGELOG.md](CHANGELOG.md) for API version history and breaking changes.
 
 ## Support
 
-**Issues:** https://github.com/ry-ops/ResuMate/issues
+**Issues:** https://github.com/ry-ops/ATSFlow/issues
 
-**Documentation:** https://github.com/ry-ops/ResuMate
+**Documentation:** https://github.com/ry-ops/ATSFlow
 
 **License:** MIT

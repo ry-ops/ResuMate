@@ -25,7 +25,7 @@ npm test -- --testNamePattern="should validate"
 ## Project Structure
 
 ```
-ResuMate/
+ATSFlow/
 ├── jest.config.js              # Jest configuration
 ├── package.json                # Updated with test scripts
 ├── tests/

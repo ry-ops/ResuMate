@@ -1,4 +1,4 @@
-ResuMate Template System - File Structure
+ATSFlow Template System - File Structure
 =========================================
 
 Task: resumate-templates-core (COMPLETED)
@@ -7,7 +7,7 @@ Date: 2025-12-01
 Directory Structure:
 -------------------
 
-ResuMate/
+ATSFlow/
 │
 ├── js/
 │   └── templates/                    [NEW DIRECTORY]

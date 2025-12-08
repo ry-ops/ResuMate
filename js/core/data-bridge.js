@@ -1,5 +1,5 @@
 /**
- * DataBridge - Centralized localStorage manager for ResuMate
+ * DataBridge - Centralized localStorage manager for ATSFlow
  *
  * Eliminates data re-entry by managing all user data in a single location
  * with automatic cross-page synchronization via storage events.

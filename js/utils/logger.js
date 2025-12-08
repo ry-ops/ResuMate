@@ -1,5 +1,5 @@
 /**
- * ResuMate Logger
+ * ATSFlow Logger
  * Centralized logging utility with configurable levels and formatting
  */
 

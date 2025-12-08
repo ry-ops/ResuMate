@@ -1,4 +1,4 @@
-# ResuMate UI Components - Quick Reference
+# ATSFlow UI Components - Quick Reference
 
 ## Component Overview
 

@@ -1,6 +1,6 @@
-# ResuMate CLI
+# ATSFlow
 
-**AI-Powered Resume Management for Claude Code**
+**AI-Powered Resume Optimization for Claude Code**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Node.js](https://img.shields.io/badge/Node.js-16+-green.svg)](https://nodejs.org/)
@@ -10,7 +10,7 @@
 
 ## Overview
 
-ResuMate is a command-line tool and API server designed specifically for Claude Code integration. It provides AI-powered resume optimization, ATS analysis, job tailoring, and intelligent document generation—all accessible programmatically or via CLI commands.
+ATSFlow is a command-line tool and API server designed specifically for Claude Code integration. It provides AI-powered resume optimization, ATS analysis, job tailoring, and intelligent document generation—all accessible programmatically or via CLI commands.
 
 **Key Features:**
 - 🤖 **AI Content Generation** - Claude Sonnet 4 integration for summaries, cover letters, job descriptions
@@ -29,8 +29,8 @@ ResuMate is a command-line tool and API server designed specifically for Claude 
 
 ```bash
 # Clone repository
-git clone https://github.com/ry-ops/ResuMate.git
-cd ResuMate
+git clone https://github.com/ry-ops/ATSFlow.git
+cd ATSFlow
 
 # Install dependencies
 npm install
@@ -469,7 +469,7 @@ MAX_FILE_SIZE=10MB
 
 ### Resume Data Format
 
-ResuMate uses a standardized JSON format:
+ATSFlow uses a standardized JSON format:
 
 ```json
 {
@@ -522,7 +522,7 @@ ResuMate uses a standardized JSON format:
 
 ## Claude Code Integration
 
-ResuMate is designed for seamless integration with Claude Code.
+ATSFlow is designed for seamless integration with Claude Code.
 
 ### Example Workflows
 
@@ -569,7 +569,7 @@ for (const job of jobs) {
 ### Core Modules
 
 ```
-ResuMate/
+ATSFlow/
 ├── cli.js                      # CLI entry point
 ├── server.js                   # API server
 ├── js/
@@ -752,4 +752,4 @@ Built with Claude Code by Anthropic.
 
 ---
 
-**Questions or Issues?** Open an issue on [GitHub](https://github.com/ry-ops/ResuMate/issues)
+**Questions or Issues?** Open an issue on [GitHub](https://github.com/ry-ops/ATSFlow/issues)

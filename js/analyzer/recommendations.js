@@ -1,5 +1,5 @@
 /**
- * ResuMate - Recommendations Engine
+ * ATSFlow - Recommendations Engine
  * Generates prioritized, actionable recommendations based on ATS analysis
  */
 

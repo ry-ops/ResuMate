@@ -1,5 +1,5 @@
 /**
- * ResuMate - ATS Formatting Checks
+ * ATSFlow - ATS Formatting Checks
  * 10 comprehensive formatting checks for ATS compatibility
  */
 

@@ -1,5 +1,5 @@
 /**
- * ResuMate Smart Navigation
+ * ATSFlow Smart Navigation
  * Intelligent routing and navigation based on user progress
  * Provides context-aware navigation and "continue where you left off" features
  * Version: 1.0.0

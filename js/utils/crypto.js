@@ -1,5 +1,5 @@
 /**
- * ResuMate Cryptography Utility
+ * ATSFlow Cryptography Utility
  * Handles secure encryption/decryption of sensitive data (API keys) using Web Crypto API
  *
  * Security features:
